@@ -17,7 +17,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Petter',
-      theme: theme.light(),
+      theme: ThemeData(
+        primaryColor: const Color(0xFFC16438),
+        scaffoldBackgroundColor: const Color(0xFFF7EED3),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFC16438),
+          primary: const Color(0xFFC16438),
+          surface: Colors.white, // Dùng cho các Card
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            color: Color(0xFF7D4024),
+            fontWeight: FontWeight.bold,
+          ),
+          bodyMedium: TextStyle(color: Color(0xFF5D5C56)),
+        ),
+      ),
       routerConfig: routerConfig,
     );
   }

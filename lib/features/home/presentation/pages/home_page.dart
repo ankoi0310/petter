@@ -1,7 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/home/presentation/widgets/home_carousel_slider.dart';
 
@@ -34,6 +34,11 @@ class HomePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: context.colors.primary,
                   borderRadius: .circular(32),
+                  border: Border.all(color: context.colors.primary),
+                  image: DecorationImage(
+                    image: Assets.images.banner.provider(),
+                    fit: .cover,
+                  ),
                 ),
                 child: Center(
                   child: Text(
