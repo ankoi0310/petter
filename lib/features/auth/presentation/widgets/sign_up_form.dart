@@ -1,27 +1,33 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _usernameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _nameFocusNode.dispose();
+    _usernameFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
@@ -37,6 +43,18 @@ class _SignInFormState extends State<SignInForm> {
         spacing: 20,
         children: [
           AppTextFormField(
+            controller: _nameController,
+            focusNode: _nameFocusNode,
+            title: 'Your name or organization',
+            hintText: 'What should we call you?',
+          ),
+          AppTextFormField(
+            controller: _usernameController,
+            focusNode: _usernameFocusNode,
+            title: 'Username',
+            hintText: 'Enter your username',
+          ),
+          AppTextFormField(
             controller: _emailController,
             focusNode: _emailFocusNode,
             title: 'Email',
@@ -46,19 +64,8 @@ class _SignInFormState extends State<SignInForm> {
             controller: _passwordController,
             focusNode: _passwordFocusNode,
           ),
-          Text.rich(
-            TextSpan(
-              text: 'Forgot you password?',
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  showSnackBar(context, content: 'Forgot password');
-                },
-            ),
-            style: TextStyle(color: context.colors.error),
-            textAlign: .right,
-          ),
           Padding(
-            padding: const .only(top: 16),
+            padding: const .only(top: 32),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 textStyle: context.textTheme.titleLarge,

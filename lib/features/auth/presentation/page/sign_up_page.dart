@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
-import 'package:petter/features/auth/presentation/widgets/sign_in_form.dart';
+import 'package:petter/features/auth/presentation/widgets/sign_up_form.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +28,17 @@ class SignInPage extends StatelessWidget {
                         Column(
                           spacing: 24,
                           children: [
-                            Column(
-                              spacing: 8,
-                              children: [
-                                Text(
-                                  'Sign In',
-                                  style:
-                                      context.textTheme.displayMedium,
-                                ),
-                                Text(
-                                  'Welcome back, your pets are missing you!',
-                                  style: context
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(
-                                        color: context.colors.outline,
-                                      ),
-                                ),
-                              ],
+                            Text(
+                              'Create Account',
+                              style: context.textTheme.displaySmall
+                                  ?.copyWith(
+                                    color: context
+                                        .colors
+                                        .primary, // Màu #C16438
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
-                            const SignInForm(),
+                            const SignUpForm(),
                           ],
                         ),
                         const Spacer(),
@@ -57,15 +48,13 @@ class SignInPage extends StatelessWidget {
                             mainAxisAlignment:
                                 MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Wanna see your paw longer? ',
-                              ),
+                              const Text('Already have an account? '),
                               GestureDetector(
                                 onTap: () => context.goNamed(
-                                  AppRoutes.signUp.name,
+                                  AppRoutes.signIn.name,
                                 ),
                                 child: Text(
-                                  'Sign up now',
+                                  'Sign in',
                                   style: TextStyle(
                                     color: context.colors.primary,
                                     fontWeight: FontWeight.bold,
@@ -84,7 +73,6 @@ class SignInPage extends StatelessWidget {
           },
         ),
       ),
-      resizeToAvoidBottomInset: true,
     );
   }
 }
