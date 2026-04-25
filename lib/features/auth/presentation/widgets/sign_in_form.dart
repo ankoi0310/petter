@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 
@@ -78,7 +80,7 @@ class _SignInFormState extends State<SignInForm> {
                   horizontal: 16,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => context.goNamed(AppRoutes.home.name),
               child: const Text('Sign In'),
             ),
           ),
