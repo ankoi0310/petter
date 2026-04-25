@@ -1,3 +1,5 @@
+import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/gen/assets.gen.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +21,18 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   // Số lượng dữ liệu thực tế (ví dụ bạn có 10 câu triết lý)
   final int _realCount = 10;
 
+  final List<AssetGenImage> pets = Assets.images.pets.values.toList();
+
   @override
   void initState() {
     super.initState();
-    int middle = _virtualCount ~/ 2;
-    int initialPage = middle - (middle % _realCount);
+    final middle = _virtualCount ~/ 2;
+    final initialPage = middle - (middle % _realCount);
 
     _pageOffset = initialPage.toDouble();
     _pageController =
         PageController(
-          viewportFraction: 0.4,
+          viewportFraction: 0.6,
           initialPage: initialPage,
         )..addListener(() {
           setState(() {
@@ -49,14 +53,14 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
       controller: _pageController,
       itemCount: _virtualCount,
       itemBuilder: (context, index) {
-        int actualIndex = index % _realCount;
-        double diff = index - _pageOffset;
+        final actualIndex = index % _realCount;
+        final diff = index - _pageOffset;
 
         // Animation values
-        double radian = diff * 0.25; // Độ xoay
-        double ty = diff.abs() * 40; // Độ rơi xuống tạo vòng cung
-        double scale = 1 - (diff.abs() * 0.15); // Độ phóng to/thu nhỏ
-        double opacity = (1 - diff.abs()).clamp(
+        final radian = diff * 0.25; // Độ xoay
+        final ty = diff.abs() * 30; // Độ rơi xuống tạo vòng cung
+        final scale = 1 - (diff.abs() * 0.15); // Độ phóng to/thu nhỏ
+        final opacity = (1 - diff.abs()).clamp(
           0.3,
           1.0,
         ); // Làm mờ các mục ở xa
@@ -79,15 +83,19 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
 
   Widget _buildCard(int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 50,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: context.colors.primary.withValues(alpha: .5),
+          width: 2,
+        ),
+        image: DecorationImage(
+          image: pets[index].provider(),
+          fit: .cover,
+        ),
       ),
-      child: Center(child: Text("Quote #$index")),
     );
   }
 }

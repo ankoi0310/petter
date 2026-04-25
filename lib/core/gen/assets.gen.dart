@@ -20,6 +20,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/banner.jpg
   AssetGenImage get banner => const AssetGenImage('assets/images/banner.jpg');
 
+  /// Directory path: assets/images/categories
+  $AssetsImagesCategoriesGen get categories =>
+      const $AssetsImagesCategoriesGen();
+
+  /// Directory path: assets/images/pets
+  $AssetsImagesPetsGen get pets => const $AssetsImagesPetsGen();
+
   /// File path: assets/images/welcome_1.svg
   SvgGenImage get welcome1 => const SvgGenImage('assets/images/welcome_1.svg');
 
@@ -31,6 +38,87 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [banner, welcome1, welcome2, welcome3];
+}
+
+class $AssetsImagesCategoriesGen {
+  const $AssetsImagesCategoriesGen();
+
+  /// File path: assets/images/categories/bird.jpg
+  AssetGenImage get bird =>
+      const AssetGenImage('assets/images/categories/bird.jpg');
+
+  /// File path: assets/images/categories/cat.jpg
+  AssetGenImage get cat =>
+      const AssetGenImage('assets/images/categories/cat.jpg');
+
+  /// File path: assets/images/categories/dog.jpg
+  AssetGenImage get dog =>
+      const AssetGenImage('assets/images/categories/dog.jpg');
+
+  /// File path: assets/images/categories/rabbit.jpg
+  AssetGenImage get rabbit =>
+      const AssetGenImage('assets/images/categories/rabbit.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [bird, cat, dog, rabbit];
+}
+
+class $AssetsImagesPetsGen {
+  const $AssetsImagesPetsGen();
+
+  /// File path: assets/images/pets/pet_0.jpg
+  AssetGenImage get pet0 => const AssetGenImage('assets/images/pets/pet_0.jpg');
+
+  /// File path: assets/images/pets/pet_1.jpg
+  AssetGenImage get pet1 => const AssetGenImage('assets/images/pets/pet_1.jpg');
+
+  /// File path: assets/images/pets/pet_10.jpg
+  AssetGenImage get pet10 =>
+      const AssetGenImage('assets/images/pets/pet_10.jpg');
+
+  /// File path: assets/images/pets/pet_11.jpg
+  AssetGenImage get pet11 =>
+      const AssetGenImage('assets/images/pets/pet_11.jpg');
+
+  /// File path: assets/images/pets/pet_2.jpg
+  AssetGenImage get pet2 => const AssetGenImage('assets/images/pets/pet_2.jpg');
+
+  /// File path: assets/images/pets/pet_3.jpg
+  AssetGenImage get pet3 => const AssetGenImage('assets/images/pets/pet_3.jpg');
+
+  /// File path: assets/images/pets/pet_4.jpg
+  AssetGenImage get pet4 => const AssetGenImage('assets/images/pets/pet_4.jpg');
+
+  /// File path: assets/images/pets/pet_5.jpg
+  AssetGenImage get pet5 => const AssetGenImage('assets/images/pets/pet_5.jpg');
+
+  /// File path: assets/images/pets/pet_6.jpg
+  AssetGenImage get pet6 => const AssetGenImage('assets/images/pets/pet_6.jpg');
+
+  /// File path: assets/images/pets/pet_7.jpg
+  AssetGenImage get pet7 => const AssetGenImage('assets/images/pets/pet_7.jpg');
+
+  /// File path: assets/images/pets/pet_8.jpg
+  AssetGenImage get pet8 => const AssetGenImage('assets/images/pets/pet_8.jpg');
+
+  /// File path: assets/images/pets/pet_9.jpg
+  AssetGenImage get pet9 => const AssetGenImage('assets/images/pets/pet_9.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    pet0,
+    pet1,
+    pet10,
+    pet11,
+    pet2,
+    pet3,
+    pet4,
+    pet5,
+    pet6,
+    pet7,
+    pet8,
+    pet9,
+  ];
 }
 
 class Assets {
