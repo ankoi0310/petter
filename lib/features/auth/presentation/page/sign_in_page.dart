@@ -29,12 +29,16 @@ class SignInPage extends StatelessWidget {
                           spacing: 24,
                           children: [
                             Column(
-                              spacing: 8,
                               children: [
                                 Text(
                                   'Sign In',
-                                  style:
-                                      context.textTheme.displayMedium,
+                                  style: context
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        color: context.colors.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 Text(
                                   'Welcome back, your pets are missing you!',

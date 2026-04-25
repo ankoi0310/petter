@@ -32,9 +32,7 @@ class SignUpPage extends StatelessWidget {
                               'Create Account',
                               style: context.textTheme.displaySmall
                                   ?.copyWith(
-                                    color: context
-                                        .colors
-                                        .primary, // Màu #C16438
+                                    color: context.colors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
