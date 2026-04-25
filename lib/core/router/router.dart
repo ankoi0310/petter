@@ -3,23 +3,29 @@ import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: AppRoutes.home,
+  initialLocation: AppRoutes.home.path,
   routes: [
     GoRoute(
-      path: AppRoutes.home,
+      path: AppRoutes.home.path,
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      path: AppRoutes.pet,
+      name: AppRoutes.pet.name,
+      path: AppRoutes.pet.path,
       builder: (context, state) {
-        final id = state.pathParameters['id']! as int;
+        final id = int.parse(state.pathParameters['id']!);
         return PetDetailPage(id: id);
       },
     ),
   ],
 );
 
-class AppRoutes {
-  static const String home = '/home';
-  static const String pet = '/pet/:id';
+enum AppRoutes {
+  home(name: 'home', path: '/home'),
+  pet(name: 'pet', path: '/pet/:id');
+
+  const AppRoutes({required this.name, required this.path});
+
+  final String name;
+  final String path;
 }

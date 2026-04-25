@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 
 class HomeCarouselSlider extends StatefulWidget {
   const HomeCarouselSlider({super.key});
@@ -18,6 +19,7 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
 
   // Tổng số item ảo để tạo cảm giác vô hạn
   final int _virtualCount = 10000;
+
   // Số lượng dữ liệu thực tế (ví dụ bạn có 10 câu triết lý)
   final int _realCount = 10;
 
@@ -82,18 +84,27 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   }
 
   Widget _buildCard(int index) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: context.colors.primary.withValues(alpha: .5),
-          width: 2,
+    return GestureDetector(
+      onTap: () => context.pushNamed(
+        AppRoutes.pet.name,
+        pathParameters: {'id': '$index'},
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 32,
         ),
-        image: DecorationImage(
-          image: pets[index].provider(),
-          fit: .cover,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: context.colors.primary.withValues(alpha: .5),
+            width: 2,
+          ),
+          image: DecorationImage(
+            image: pets[index].provider(),
+            fit: .cover,
+          ),
         ),
       ),
     );
