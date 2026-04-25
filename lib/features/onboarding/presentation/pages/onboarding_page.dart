@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -127,21 +129,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ),
                       icon: Iconsax.arrow_left_2_copy,
                     ),
-                  if (_currentIndex == 2) ...[
-                    Expanded(
-                      child: AppTextButton.outline(
-                        context,
-                        onTap: () {},
-                        text: 'Sign Up',
-                      ),
-                    ),
+                  if (_currentIndex == 2)
                     Expanded(
                       child: AppTextButton(
-                        onTap: () {},
-                        text: 'Sign In',
+                        onTap: () =>
+                            context.pushNamed(AppRoutes.home.name),
+                        text: "Let's start",
                       ),
-                    ),
-                  ] else
+                    )
+                  else
                     AppIconButton(
                       onTap: () => _controller.nextPage(
                         duration: const Duration(milliseconds: 500),

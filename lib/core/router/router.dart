@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
+import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
@@ -7,10 +9,22 @@ final routerConfig = GoRouter(
   initialLocation: AppRoutes.onboarding.path,
   routes: [
     GoRoute(
+      name: AppRoutes.onboarding.name,
       path: AppRoutes.onboarding.path,
       builder: (context, state) => const OnboardingPage(),
     ),
     GoRoute(
+      name: AppRoutes.signUp.name,
+      path: AppRoutes.signUp.path,
+      builder: (context, state) => const SignUpPage(),
+    ),
+    GoRoute(
+      name: AppRoutes.signIn.name,
+      path: AppRoutes.signIn.path,
+      builder: (context, state) => const SignInPage(),
+    ),
+    GoRoute(
+      name: AppRoutes.home.name,
       path: AppRoutes.home.path,
       builder: (context, state) => const HomePage(),
     ),
@@ -27,6 +41,8 @@ final routerConfig = GoRouter(
 
 enum AppRoutes {
   onboarding(name: 'onboarding', path: '/onboarding'),
+  signUp(name: 'signUp', path: '/sign-up'),
+  signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
   pet(name: 'pet', path: '/pet/:id');
 
