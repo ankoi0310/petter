@@ -131,13 +131,17 @@ class AppTextButton extends StatelessWidget {
               boxShadow ??
               [
                 BoxShadow(
-                  color: context.colors.primary.withValues(alpha: .8),
+                  color: context.colors.shadow.withValues(alpha: .8),
                   blurStyle: BlurStyle.solid,
-                  offset: const Offset(0, 1.5),
+                  offset: const Offset(2, 2),
                 ),
               ],
         ),
-        child: Text(text, style: textStyle ?? const TextStyle()),
+        child: Text(
+          text,
+          textAlign: .center,
+          style: textStyle ?? context.textTheme.bodyLarge,
+        ),
       ),
     );
   }
