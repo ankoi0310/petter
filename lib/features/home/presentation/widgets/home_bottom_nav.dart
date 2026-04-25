@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
-class BottomNav extends StatelessWidget {
-  const BottomNav({super.key});
+class HomeBottomNav extends StatelessWidget {
+  const HomeBottomNav({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class BottomNav extends StatelessWidget {
         mainAxisAlignment: .spaceAround,
         children: [
           Icon(Iconsax.home_2_copy),
-          Icon(Iconsax.message_copy),
-          Icon(Iconsax.add_square_copy),
-          Icon(Iconsax.heart_copy),
+          Icon(Iconsax.search_normal_copy),
           Icon(Iconsax.pet_copy),
+          Icon(Iconsax.heart_copy),
+          Icon(Iconsax.user_copy),
         ],
       ),
     );

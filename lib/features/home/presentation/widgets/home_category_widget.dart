@@ -12,13 +12,13 @@ class HomeCategoryWidget extends StatelessWidget {
       padding: const .symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: .stretch,
-        spacing: 12,
+        spacing: 16,
         children: [
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
               Text('Categories', style: context.textTheme.titleLarge),
-              const Icon(Iconsax.arrow_right_copy),
+              const Icon(Iconsax.arrow_right_2_copy),
             ],
           ),
           IntrinsicHeight(
