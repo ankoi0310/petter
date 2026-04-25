@@ -52,7 +52,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
               Align(
                 alignment: .centerRight,
                 child: TextButton(
-                  onPressed: () => context.push('/login'),
+                  onPressed: () => _controller.animateToPage(
+                    2,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeIn,
+                  ),
                   child: Text(
                     'Skip',
                     style: TextStyle(
@@ -114,6 +118,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 mainAxisAlignment: _currentIndex == 0
                     ? .end
                     : .spaceBetween,
+                spacing: 16,
                 children: [
                   if (_currentIndex > 0)
                     AppIconButton(
@@ -123,14 +128,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ),
                       icon: Iconsax.arrow_left_2_copy,
                     ),
-                  if (_currentIndex == 2)
-                    AppTextButton(
-                      onTap: () {},
-                      text: "Let's start",
-                      backgroundColor:
-                          context.colors.primaryContainer,
-                    )
-                  else
+                  if (_currentIndex == 2) ...[
+                    Expanded(
+                      child: AppTextButton.outline(
+                        context,
+                        onTap: () {},
+                        text: 'Sign Up',
+                      ),
+                    ),
+                    Expanded(
+                      child: AppTextButton(
+                        onTap: () {},
+                        text: 'Sign In',
+                      ),
+                    ),
+                  ] else
                     AppIconButton(
                       onTap: () => _controller.nextPage(
                         duration: const Duration(milliseconds: 500),

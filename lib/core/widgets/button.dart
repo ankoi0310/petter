@@ -108,6 +108,32 @@ class AppTextButton extends StatelessWidget {
     super.key,
   });
 
+  factory AppTextButton.outline(
+    BuildContext context, {
+    required String text,
+    void Function()? onTap,
+    List<BoxShadow>? boxShadow,
+  }) {
+    return AppTextButton(
+      text: text,
+      onTap: onTap,
+      backgroundColor: context.colors.surface,
+      border: Border.all(color: context.colors.primary),
+      textStyle: context.textTheme.bodyLarge!.copyWith(
+        color: context.colors.primary,
+      ),
+      boxShadow:
+          boxShadow ??
+          [
+            BoxShadow(
+              color: context.colors.primary.withValues(alpha: .8),
+              blurStyle: BlurStyle.solid,
+              offset: const Offset(1.5, 1.5),
+            ),
+          ],
+    );
+  }
+
   final void Function()? onTap;
   final String text;
   final TextStyle? textStyle;
@@ -124,7 +150,7 @@ class AppTextButton extends StatelessWidget {
       child: Container(
         padding: padding ?? const .all(8),
         decoration: BoxDecoration(
-          color: backgroundColor ?? context.colors.surface,
+          color: backgroundColor ?? context.colors.primary,
           border: border ?? Border.all(),
           borderRadius: borderRadius ?? .circular(12),
           boxShadow:
@@ -133,14 +159,18 @@ class AppTextButton extends StatelessWidget {
                 BoxShadow(
                   color: context.colors.shadow.withValues(alpha: .8),
                   blurStyle: BlurStyle.solid,
-                  offset: const Offset(2, 2),
+                  offset: const Offset(1.5, 1.5),
                 ),
               ],
         ),
         child: Text(
           text,
           textAlign: .center,
-          style: textStyle ?? context.textTheme.bodyLarge,
+          style:
+              textStyle ??
+              context.textTheme.bodyLarge?.copyWith(
+                color: context.colors.onPrimary,
+              ),
         ),
       ),
     );
