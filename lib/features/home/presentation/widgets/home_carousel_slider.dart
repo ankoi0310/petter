@@ -90,7 +90,7 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         GestureDetector(
           excludeFromSemantics: true,
           onTap: () => context.pushNamed(
-            AppRoutes.pet.name,
+            AppRoutes.petInfo.name,
             pathParameters: {'id': '$index'},
           ),
           child: Container(

@@ -7,14 +7,18 @@ class AppTextFormField extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     required this.title,
+    this.required = true,
     this.hintText,
+    this.maxLines,
     super.key,
   });
 
+  final bool required;
   final TextEditingController controller;
   final FocusNode focusNode;
   final String title;
   final String? hintText;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,18 @@ class AppTextFormField extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Text(title, style: context.textTheme.bodyLarge),
+        Row(
+          children: [
+            Text(title, style: context.textTheme.bodyLarge),
+            if (required)
+              Text(
+                '*',
+                style: context.textTheme.bodyLarge?.copyWith(
+                  color: context.colors.error,
+                ),
+              ),
+          ],
+        ),
         Container(
           decoration: BoxDecoration(
             borderRadius: .circular(16),
@@ -38,6 +53,7 @@ class AppTextFormField extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             focusNode: focusNode,
+            maxLines: maxLines ?? 1,
             decoration: InputDecoration(
               hintText: hintText,
               filled: true,

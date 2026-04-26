@@ -4,6 +4,7 @@ import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 
 final routerConfig = GoRouter(
@@ -30,8 +31,15 @@ final routerConfig = GoRouter(
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      name: AppRoutes.pet.name,
-      path: AppRoutes.pet.path,
+      name: AppRoutes.petAdd.name,
+      path: AppRoutes.petAdd.path,
+      builder: (context, state) {
+        return const PetCreatePage();
+      },
+    ),
+    GoRoute(
+      name: AppRoutes.petInfo.name,
+      path: AppRoutes.petInfo.path,
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
         return PetDetailPage(id: id);
@@ -62,7 +70,9 @@ enum AppRoutes {
   signUp(name: 'signUp', path: '/sign-up'),
   signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
-  pet(name: 'pet', path: '/pet/:id'),
+  search(name: 'search', path: '/search'),
+  petInfo(name: 'petInfo', path: '/pet/:id'),
+  petAdd(name: 'petAdd', path: '/pet/add'),
   account(name: 'account', path: '/account'),
   accountInfo(name: 'accountInfo', path: '/info'),
   accountChangePassword(
