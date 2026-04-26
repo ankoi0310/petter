@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:petter/features/account/presentation/pages/account_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
@@ -6,7 +7,7 @@ import 'package:petter/features/onboarding/presentation/pages/onboarding_page.da
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: AppRoutes.onboarding.path,
+  initialLocation: AppRoutes.signIn.path,
   routes: [
     GoRoute(
       name: AppRoutes.onboarding.name,
@@ -36,6 +37,23 @@ final routerConfig = GoRouter(
         return PetDetailPage(id: id);
       },
     ),
+    GoRoute(
+      name: AppRoutes.account.name,
+      path: AppRoutes.account.path,
+      builder: (context, state) => const AccountPage(),
+      routes: [
+        GoRoute(
+          name: AppRoutes.accountInfo.name,
+          path: AppRoutes.accountInfo.path,
+          builder: (context, state) => const AccountPage(),
+        ),
+        GoRoute(
+          name: AppRoutes.accountChangePassword.name,
+          path: AppRoutes.accountChangePassword.path,
+          builder: (context, state) => const AccountPage(),
+        ),
+      ],
+    ),
   ],
 );
 
@@ -44,7 +62,13 @@ enum AppRoutes {
   signUp(name: 'signUp', path: '/sign-up'),
   signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
-  pet(name: 'pet', path: '/pet/:id');
+  pet(name: 'pet', path: '/pet/:id'),
+  account(name: 'account', path: '/account'),
+  accountInfo(name: 'accountInfo', path: '/info'),
+  accountChangePassword(
+    name: 'accountChangePassword',
+    path: '/change-password',
+  );
 
   const AppRoutes({required this.name, required this.path});
 
