@@ -3,6 +3,7 @@ import 'package:petter/features/account/presentation/pages/account_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
+import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
@@ -29,6 +30,11 @@ final routerConfig = GoRouter(
       name: AppRoutes.home.name,
       path: AppRoutes.home.path,
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      name: AppRoutes.notification.name,
+      path: AppRoutes.notification.path,
+      builder: (context, state) => const NotificationPage(),
     ),
     GoRoute(
       name: AppRoutes.petAdd.name,
@@ -70,6 +76,7 @@ enum AppRoutes {
   signUp(name: 'signUp', path: '/sign-up'),
   signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
+  notification(name: 'notification', path: '/notification'),
   search(name: 'search', path: '/search'),
   petInfo(name: 'petInfo', path: '/pet/:id'),
   petAdd(name: 'petAdd', path: '/pet/add'),

@@ -40,6 +40,14 @@ class $AssetsImagesGen {
   $AssetsImagesCategoriesGen get categories =>
       const $AssetsImagesCategoriesGen();
 
+  /// File path: assets/images/empty_message.svg
+  SvgGenImage get emptyMessage =>
+      const SvgGenImage('assets/images/empty_message.svg');
+
+  /// File path: assets/images/empty_notification.svg
+  SvgGenImage get emptyNotification =>
+      const SvgGenImage('assets/images/empty_notification.svg');
+
   /// Directory path: assets/images/pets
   $AssetsImagesPetsGen get pets => const $AssetsImagesPetsGen();
 
@@ -53,7 +61,14 @@ class $AssetsImagesGen {
   SvgGenImage get welcome3 => const SvgGenImage('assets/images/welcome_3.svg');
 
   /// List of all assets
-  List<dynamic> get values => [banner, welcome1, welcome2, welcome3];
+  List<dynamic> get values => [
+    banner,
+    emptyMessage,
+    emptyNotification,
+    welcome1,
+    welcome2,
+    welcome3,
+  ];
 }
 
 class $AssetsImagesCategoriesGen {
