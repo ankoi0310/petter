@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:petter/features/account/presentation/pages/account_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
+import 'package:petter/features/chat/presentation/pages/chat_page.dart';
+import 'package:petter/features/chat/presentation/pages/conversation_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -35,6 +37,21 @@ final routerConfig = GoRouter(
       name: AppRoutes.notification.name,
       path: AppRoutes.notification.path,
       builder: (context, state) => const NotificationPage(),
+    ),
+    GoRoute(
+      name: AppRoutes.conversation.name,
+      path: AppRoutes.conversation.path,
+      builder: (context, state) => const ConversationPage(),
+      routes: [
+        GoRoute(
+          name: AppRoutes.chat.name,
+          path: AppRoutes.chat.path,
+          builder: (context, state) {
+            final id = int.parse(state.pathParameters['id']!);
+            return ChatPage(id: id);
+          },
+        ),
+      ],
     ),
     GoRoute(
       name: AppRoutes.petAdd.name,
@@ -77,6 +94,8 @@ enum AppRoutes {
   signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
   notification(name: 'notification', path: '/notification'),
+  conversation(name: 'conversation', path: '/conversation'),
+  chat(name: 'chat', path: '/:id'),
   search(name: 'search', path: '/search'),
   petInfo(name: 'petInfo', path: '/pet/:id'),
   petAdd(name: 'petAdd', path: '/pet/add'),
