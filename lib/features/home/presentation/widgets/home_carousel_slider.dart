@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/widgets/button.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class HomeCarouselSlider extends StatefulWidget {
@@ -84,29 +85,39 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   }
 
   Widget _buildCard(int index) {
-    return GestureDetector(
-      onTap: () => context.pushNamed(
-        AppRoutes.pet.name,
-        pathParameters: {'id': '$index'},
-      ),
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 32,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: context.colors.primary.withValues(alpha: .5),
-            width: 2,
+    return Stack(
+      children: [
+        GestureDetector(
+          excludeFromSemantics: true,
+          onTap: () => context.pushNamed(
+            AppRoutes.pet.name,
+            pathParameters: {'id': '$index'},
           ),
-          image: DecorationImage(
-            image: pets[index].provider(),
-            fit: .cover,
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 32,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: context.colors.primary.withValues(alpha: .5),
+                width: 2,
+              ),
+              image: DecorationImage(
+                image: pets[index].provider(),
+                fit: .cover,
+              ),
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 40,
+          left: 16,
+          child: LikeButton(onTap: () {}),
+        ),
+      ],
     );
   }
 }

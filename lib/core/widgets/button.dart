@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
 class AppButton extends StatelessWidget {
@@ -171,6 +172,90 @@ class AppTextButton extends StatelessWidget {
               context.textTheme.bodyLarge?.copyWith(
                 color: context.colors.onPrimary,
               ),
+        ),
+      ),
+    );
+  }
+}
+
+class LikeButton extends StatefulWidget {
+  const LikeButton({required this.onTap, super.key});
+
+  final VoidCallback onTap;
+
+  @override
+  State<LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<LikeButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scale;
+
+  bool _liked = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+
+    _scale =
+        TweenSequence<double>([
+          TweenSequenceItem(
+            tween: Tween(begin: 1, end: 1.4),
+            weight: 40,
+          ),
+          TweenSequenceItem(
+            tween: Tween(begin: 1.4, end: 0.88),
+            weight: 30,
+          ),
+          TweenSequenceItem(
+            tween: Tween(begin: 0.88, end: 1),
+            weight: 30,
+          ),
+        ]).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+        );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _toggle() async {
+    setState(() {
+      _liked = !_liked;
+    });
+
+    await _controller.forward(from: 0);
+
+    widget.onTap();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _toggle,
+      behavior: .opaque,
+      child: ScaleTransition(
+        scale: _scale,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 150),
+          child: AppIconButton(
+            key: ValueKey(_liked),
+            icon: _liked ? Iconsax.heart : Iconsax.heart_copy,
+            iconColor: _liked
+                ? context.colors.error
+                : context.colors.onSurface,
+
+            borderRadius: .circular(16),
+          ),
         ),
       ),
     );
