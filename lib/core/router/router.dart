@@ -11,7 +11,10 @@ import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
+import 'package:petter/features/splash/presentation/pages/splash_page.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
+import 'package:petter/features/user/presentation/pages/user_profile_page.dart';
 
 final authNotifier = AuthNotifier(sl<AuthRepository>());
 
@@ -21,7 +24,7 @@ final List<String> publicRoutes = [
 ];
 
 final routerConfig = GoRouter(
-  initialLocation: AppRoutes.signIn.path,
+  initialLocation: AppRoutes.splash.path,
   refreshListenable: authNotifier,
   redirect: (context, state) {
     final isAuth = authNotifier.isAuthenticated;
@@ -38,6 +41,11 @@ final routerConfig = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      name: AppRoutes.splash.name,
+      path: AppRoutes.splash.path,
+      builder: (context, state) => const SplashPage(),
+    ),
     GoRoute(
       name: AppRoutes.onboarding.name,
       path: AppRoutes.onboarding.path,
@@ -99,9 +107,12 @@ final routerConfig = GoRouter(
       builder: (context, state) => const AccountPage(),
       routes: [
         GoRoute(
-          name: AppRoutes.accountInfo.name,
-          path: AppRoutes.accountInfo.path,
-          builder: (context, state) => const AccountPage(),
+          name: AppRoutes.userProfile.name,
+          path: AppRoutes.userProfile.path,
+          builder: (context, state) {
+            final user = state.extra! as User;
+            return UserProfilePage(user: user);
+          },
         ),
         GoRoute(
           name: AppRoutes.accountChangePassword.name,
@@ -114,6 +125,7 @@ final routerConfig = GoRouter(
 );
 
 enum AppRoutes {
+  splash(name: 'splash', path: '/splash'),
   onboarding(name: 'onboarding', path: '/onboarding'),
   signUp(name: 'signUp', path: '/sign-up'),
   signIn(name: 'signIn', path: '/sign-in'),
@@ -125,7 +137,7 @@ enum AppRoutes {
   petInfo(name: 'petInfo', path: '/pet/:id'),
   petAdd(name: 'petAdd', path: '/pet/add'),
   account(name: 'account', path: '/account'),
-  accountInfo(name: 'accountInfo', path: '/info'),
+  userProfile(name: 'userProfile', path: '/profile'),
   accountChangePassword(
     name: 'accountChangePassword',
     path: '/change-password',

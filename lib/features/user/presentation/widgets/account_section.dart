@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:petter/features/user/presentation/models/nav_item.dart';
 
 class AccountSection extends StatelessWidget {
@@ -9,6 +13,8 @@ class AccountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authState = context.watch<AuthBloc>().state;
+    final userState = context.watch<UserBloc>().state;
     return Column(
       crossAxisAlignment: .start,
       spacing: 8,
@@ -34,7 +40,29 @@ class AccountSection extends StatelessWidget {
               final navItem = accountNavItems[index];
               return ListTile(
                 contentPadding: .zero,
-                onTap: () => context.pushNamed(navItem.routeName),
+                onTap: () async {
+                  if (navItem.routeName ==
+                      AppRoutes.userProfile.name) {
+                    var user = authState.maybeWhen(
+                      authenticated: (user) => user,
+                      orElse: () => false,
+                    );
+
+                    user = userState.maybeWhen(
+                      loaded: (user) => user,
+                      updating: () => user,
+                      updateSuccess: (user) => user,
+                      orElse: () => user,
+                    );
+
+                    await context.pushNamed(
+                      navItem.routeName,
+                      extra: user,
+                    );
+                    return;
+                  }
+                  await context.pushNamed(navItem.routeName);
+                },
                 leading: Icon(navItem.icon),
                 title: Text(
                   navItem.title,

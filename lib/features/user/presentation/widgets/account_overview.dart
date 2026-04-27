@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
@@ -81,7 +83,10 @@ class AccountOverview extends StatelessWidget {
           ),
           Skeleton.keep(
             child: AppIconButton(
-              onTap: () {},
+              onTap: () => context.pushNamed(
+                AppRoutes.userProfile.name,
+                extra: user,
+              ),
               icon: Iconsax.edit_2_copy,
             ),
           ),

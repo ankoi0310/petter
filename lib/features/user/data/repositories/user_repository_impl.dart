@@ -6,6 +6,7 @@ import 'package:petter/features/user/data/datasources/user_remote_data_source.da
 import 'package:petter/features/user/data/mapper/user_mapper.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/domain/repositories/user_repository.dart';
+import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
 
 class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl(this._remoteDataSource);
@@ -16,6 +17,16 @@ class UserRepositoryImpl implements UserRepository {
   ResultFuture<User> getProfile(String uid) async {
     try {
       final user = await _remoteDataSource.getProfile(uid);
+      return right(user.toEntity());
+    } on ServerException catch (e) {
+      return left(ServerFailure(e.message));
+    }
+  }
+
+  @override
+  ResultFuture<User> updateProfile(UpdateProfileParams params) async {
+    try {
+      final user = await _remoteDataSource.updateProfile(params);
       return right(user.toEntity());
     } on ServerException catch (e) {
       return left(ServerFailure(e.message));

@@ -7,6 +7,7 @@ class AppTextFormField extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     required this.title,
+    this.enabled = true,
     this.required = true,
     this.hintText,
     this.maxLines,
@@ -15,6 +16,7 @@ class AppTextFormField extends StatelessWidget {
     super.key,
   });
 
+  final bool enabled;
   final bool required;
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -55,6 +57,7 @@ class AppTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            enabled: enabled,
             controller: controller,
             focusNode: focusNode,
             maxLines: maxLines ?? 1,

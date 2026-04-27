@@ -14,6 +14,7 @@ import 'package:petter/features/user/data/datasources/user_remote_data_source.da
 import 'package:petter/features/user/data/repositories/user_repository_impl.dart';
 import 'package:petter/features/user/domain/repositories/user_repository.dart';
 import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 
 final GetIt sl = GetIt.instance;
@@ -57,11 +58,14 @@ void _initAuth(GetIt sl) {
 void _initUser(GetIt sl) {
   sl
     ..registerLazySingleton<UserRemoteDataSource>(
-      () => UserRemoteDataSourceImpl(sl()),
+      () => UserRemoteDataSourceImpl(sl(), sl()),
     )
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(sl()),
     )
     ..registerLazySingleton(() => GetProfileUseCase(sl()))
-    ..registerFactory(() => UserBloc(getProfile: sl()));
+    ..registerLazySingleton(() => UpdateProfileUseCase(sl()))
+    ..registerFactory(
+      () => UserBloc(getProfile: sl(), updateProfile: sl()),
+    );
 }

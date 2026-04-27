@@ -14,61 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserEvent {
 
- String get uid;
-/// Create a copy of UserEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$UserEventCopyWith<UserEvent> get copyWith => _$UserEventCopyWithImpl<UserEvent>(this as UserEvent, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEvent&&(identical(other.uid, uid) || other.uid == uid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEvent);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uid);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'UserEvent(uid: $uid)';
+  return 'UserEvent()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $UserEventCopyWith<$Res>  {
-  factory $UserEventCopyWith(UserEvent value, $Res Function(UserEvent) _then) = _$UserEventCopyWithImpl;
-@useResult
-$Res call({
- String uid
-});
-
-
-
-
-}
-/// @nodoc
-class _$UserEventCopyWithImpl<$Res>
-    implements $UserEventCopyWith<$Res> {
-  _$UserEventCopyWithImpl(this._self, this._then);
-
-  final UserEvent _self;
-  final $Res Function(UserEvent) _then;
-
-/// Create a copy of UserEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,}) {
-  return _then(_self.copyWith(
-uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
+class $UserEventCopyWith<$Res>  {
+$UserEventCopyWith(UserEvent _, $Res Function(UserEvent) __);
 }
 
 
@@ -86,11 +55,12 @@ extension UserEventPatterns on UserEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetProfile value)?  getProfile,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetProfile value)?  getProfile,TResult Function( _UpdateProfile value)?  updateProfile,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _GetProfile() when getProfile != null:
-return getProfile(_that);case _:
+return getProfile(_that);case _UpdateProfile() when updateProfile != null:
+return updateProfile(_that);case _:
   return orElse();
 
 }
@@ -108,11 +78,12 @@ return getProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetProfile value)  getProfile,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetProfile value)  getProfile,required TResult Function( _UpdateProfile value)  updateProfile,}){
 final _that = this;
 switch (_that) {
 case _GetProfile():
-return getProfile(_that);case _:
+return getProfile(_that);case _UpdateProfile():
+return updateProfile(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -129,11 +100,12 @@ return getProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetProfile value)?  getProfile,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetProfile value)?  getProfile,TResult? Function( _UpdateProfile value)?  updateProfile,}){
 final _that = this;
 switch (_that) {
 case _GetProfile() when getProfile != null:
-return getProfile(_that);case _:
+return getProfile(_that);case _UpdateProfile() when updateProfile != null:
+return updateProfile(_that);case _:
   return null;
 
 }
@@ -150,10 +122,11 @@ return getProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid)?  getProfile,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid)?  getProfile,TResult Function( UpdateProfileParams params)?  updateProfile,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GetProfile() when getProfile != null:
-return getProfile(_that.uid);case _:
+return getProfile(_that.uid);case _UpdateProfile() when updateProfile != null:
+return updateProfile(_that.params);case _:
   return orElse();
 
 }
@@ -171,10 +144,11 @@ return getProfile(_that.uid);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid)  getProfile,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid)  getProfile,required TResult Function( UpdateProfileParams params)  updateProfile,}) {final _that = this;
 switch (_that) {
 case _GetProfile():
-return getProfile(_that.uid);case _:
+return getProfile(_that.uid);case _UpdateProfile():
+return updateProfile(_that.params);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +165,11 @@ return getProfile(_that.uid);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid)?  getProfile,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid)?  getProfile,TResult? Function( UpdateProfileParams params)?  updateProfile,}) {final _that = this;
 switch (_that) {
 case _GetProfile() when getProfile != null:
-return getProfile(_that.uid);case _:
+return getProfile(_that.uid);case _UpdateProfile() when updateProfile != null:
+return updateProfile(_that.params);case _:
   return null;
 
 }
@@ -209,11 +184,11 @@ class _GetProfile implements UserEvent {
   const _GetProfile(this.uid);
   
 
-@override final  String uid;
+ final  String uid;
 
 /// Create a copy of UserEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$GetProfileCopyWith<_GetProfile> get copyWith => __$GetProfileCopyWithImpl<_GetProfile>(this, _$identity);
 
@@ -239,7 +214,7 @@ String toString() {
 /// @nodoc
 abstract mixin class _$GetProfileCopyWith<$Res> implements $UserEventCopyWith<$Res> {
   factory _$GetProfileCopyWith(_GetProfile value, $Res Function(_GetProfile) _then) = __$GetProfileCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  String uid
 });
@@ -258,10 +233,76 @@ class __$GetProfileCopyWithImpl<$Res>
 
 /// Create a copy of UserEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? uid = null,}) {
   return _then(_GetProfile(
 null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _UpdateProfile implements UserEvent {
+  const _UpdateProfile(this.params);
+  
+
+ final  UpdateProfileParams params;
+
+/// Create a copy of UserEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateProfileCopyWith<_UpdateProfile> get copyWith => __$UpdateProfileCopyWithImpl<_UpdateProfile>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateProfile&&(identical(other.params, params) || other.params == params));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,params);
+
+@override
+String toString() {
+  return 'UserEvent.updateProfile(params: $params)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateProfileCopyWith<$Res> implements $UserEventCopyWith<$Res> {
+  factory _$UpdateProfileCopyWith(_UpdateProfile value, $Res Function(_UpdateProfile) _then) = __$UpdateProfileCopyWithImpl;
+@useResult
+$Res call({
+ UpdateProfileParams params
+});
+
+
+
+
+}
+/// @nodoc
+class __$UpdateProfileCopyWithImpl<$Res>
+    implements _$UpdateProfileCopyWith<$Res> {
+  __$UpdateProfileCopyWithImpl(this._self, this._then);
+
+  final _UpdateProfile _self;
+  final $Res Function(_UpdateProfile) _then;
+
+/// Create a copy of UserEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? params = null,}) {
+  return _then(_UpdateProfile(
+null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
+as UpdateProfileParams,
   ));
 }
 
@@ -312,13 +353,15 @@ extension UserStatePatterns on UserState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Updating value)?  updating,TResult Function( _UpdateSuccess value)?  updateSuccess,TResult Function( _Error value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+return loaded(_that);case _Updating() when updating != null:
+return updating(_that);case _UpdateSuccess() when updateSuccess != null:
+return updateSuccess(_that);case _Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -337,13 +380,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Updating value)  updating,required TResult Function( _UpdateSuccess value)  updateSuccess,required TResult Function( _Error value)  error,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case _Loading():
 return loading(_that);case _Loaded():
-return loaded(_that);case _Error():
+return loaded(_that);case _Updating():
+return updating(_that);case _UpdateSuccess():
+return updateSuccess(_that);case _Error():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -361,13 +406,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Updating value)?  updating,TResult? Function( _UpdateSuccess value)?  updateSuccess,TResult? Function( _Error value)?  error,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+return loaded(_that);case _Updating() when updating != null:
+return updating(_that);case _UpdateSuccess() when updateSuccess != null:
+return updateSuccess(_that);case _Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -385,12 +432,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( User user)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( User user)?  loaded,TResult Function()?  updating,TResult Function( User user)?  updateSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.user);case _Error() when error != null:
+return loaded(_that.user);case _Updating() when updating != null:
+return updating();case _UpdateSuccess() when updateSuccess != null:
+return updateSuccess(_that.user);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -409,12 +458,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( User user)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( User user)  loaded,required TResult Function()  updating,required TResult Function( User user)  updateSuccess,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.user);case _Error():
+return loaded(_that.user);case _Updating():
+return updating();case _UpdateSuccess():
+return updateSuccess(_that.user);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -432,12 +483,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( User user)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( User user)?  loaded,TResult? Function()?  updating,TResult? Function( User user)?  updateSuccess,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.user);case _Error() when error != null:
+return loaded(_that.user);case _Updating() when updating != null:
+return updating();case _UpdateSuccess() when updateSuccess != null:
+return updateSuccess(_that.user);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -568,6 +621,113 @@ class __$LoadedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
   return _then(_Loaded(
+null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User,
+  ));
+}
+
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res> get user {
+  
+  return $UserCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class _Updating implements UserState {
+  const _Updating();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Updating);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'UserState.updating()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _UpdateSuccess implements UserState {
+  const _UpdateSuccess(this.user);
+  
+
+ final  User user;
+
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateSuccessCopyWith<_UpdateSuccess> get copyWith => __$UpdateSuccessCopyWithImpl<_UpdateSuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateSuccess&&(identical(other.user, user) || other.user == user));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,user);
+
+@override
+String toString() {
+  return 'UserState.updateSuccess(user: $user)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateSuccessCopyWith<$Res> implements $UserStateCopyWith<$Res> {
+  factory _$UpdateSuccessCopyWith(_UpdateSuccess value, $Res Function(_UpdateSuccess) _then) = __$UpdateSuccessCopyWithImpl;
+@useResult
+$Res call({
+ User user
+});
+
+
+$UserCopyWith<$Res> get user;
+
+}
+/// @nodoc
+class __$UpdateSuccessCopyWithImpl<$Res>
+    implements _$UpdateSuccessCopyWith<$Res> {
+  __$UpdateSuccessCopyWithImpl(this._self, this._then);
+
+  final _UpdateSuccess _self;
+  final $Res Function(_UpdateSuccess) _then;
+
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+  return _then(_UpdateSuccess(
 null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,
   ));

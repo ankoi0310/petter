@@ -18,12 +18,12 @@ final List<NavItem> accountNavItems = [
   NavItem(
     icon: Iconsax.user_copy,
     title: 'Account Information',
-    routeName: AppRoutes.accountInfo.name,
+    routeName: AppRoutes.userProfile.name,
   ),
   NavItem(
     icon: Iconsax.key_copy,
     title: 'Change Password',
-    routeName: AppRoutes.accountInfo.name,
+    routeName: AppRoutes.accountChangePassword.name,
   ),
   NavItem(
     icon: Iconsax.mobile_copy,
