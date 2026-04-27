@@ -5,7 +5,7 @@ import 'package:petter/features/auth/data/models/user_model.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<void> signUpWithEmail(SignUpParams params);
+  Future<UserModel> signUpWithEmail(SignUpParams params);
 
   Future<UserModel> signInWithEmail({
     required String email,
@@ -14,7 +14,7 @@ abstract class AuthRemoteDataSource {
 
   Future<void> signOut();
 
-  Stream<User?> get authStateChange;
+  Stream<UserModel?> get authStateChange;
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -32,7 +32,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
 
   @override
-  Future<void> signUpWithEmail(SignUpParams params) async {
+  Future<UserModel> signUpWithEmail(SignUpParams params) async {
     final credential = await _auth.createUserWithEmailAndPassword(
       email: params.email,
       password: params.password,
@@ -58,6 +58,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     try {
       await _usersCollection.doc(user.uid).set(newUser);
+      return newUser;
     } on Exception catch (error) {
       await credential.user?.delete();
       throw _mapError(error);
@@ -90,7 +91,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<void> signOut() => _auth.signOut();
 
   @override
-  Stream<User?> get authStateChange => _auth.authStateChanges();
+  Stream<UserModel?> get authStateChange {
+    return _auth.authStateChanges().asyncMap((user) async {
+      if (user == null) return null;
+
+      final doc = await _usersCollection.doc(user.uid).get();
+      return doc.data() ?? UserModel.fromFirebaseUser(user);
+    });
+  }
 
   Exception _mapError(Object error) {
     if (error is FirebaseAuthException) {

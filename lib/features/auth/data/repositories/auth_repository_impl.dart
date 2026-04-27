@@ -1,8 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:fpdart/fpdart.dart';
 import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:petter/features/auth/data/mapper/user_mapper.dart';
+import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 
@@ -12,22 +14,26 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
 
   @override
-  VoidFuture signUp(SignUpParams params) => TaskEither.tryCatch(
-    () => _remoteDataSource.signUpWithEmail(params),
-    (error, _) => _mapError(error),
-  ).map((_) => unit).run();
+  ResultFuture<User> signUp(SignUpParams params) {
+    return TaskEither.tryCatch(
+      () => _remoteDataSource.signUpWithEmail(params),
+      (error, _) => _mapError(error),
+    ).map((user) => user.toEntity()).run();
+  }
 
   @override
-  VoidFuture signIn({
+  ResultFuture<User> signIn({
     required String email,
     required String password,
-  }) => TaskEither.tryCatch(
-    () => _remoteDataSource.signInWithEmail(
-      email: email,
-      password: password,
-    ),
-    (error, _) => _mapError(error),
-  ).map((_) => unit).run();
+  }) {
+    return TaskEither.tryCatch(
+      () => _remoteDataSource.signInWithEmail(
+        email: email,
+        password: password,
+      ),
+      (error, _) => _mapError(error),
+    ).map((user) => user.toEntity()).run();
+  }
 
   @override
   VoidFuture signOut() => TaskEither.tryCatch(
@@ -36,8 +42,9 @@ class AuthRepositoryImpl implements AuthRepository {
   ).map((_) => unit).run();
 
   @override
-  Stream<bool> get isAuthenticated =>
-      _remoteDataSource.authStateChange.map((user) => user != null);
+  Stream<User?> get user => _remoteDataSource.authStateChange.map(
+    (user) => user?.toEntity(),
+  );
 
   Failure _mapError(Object error) {
     if (error is FirebaseAuthException) {

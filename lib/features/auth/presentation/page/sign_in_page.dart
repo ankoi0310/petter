@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/loading_screen.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/auth/presentation/widgets/sign_in_form.dart';
 
 class SignInPage extends StatelessWidget {
@@ -10,7 +12,7 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isLoading = false;
+    final state = context.watch<AuthBloc>().state;
     return Stack(
       children: [
         Scaffold(
@@ -99,8 +101,10 @@ class SignInPage extends StatelessWidget {
           ),
           resizeToAvoidBottomInset: true,
         ),
-        if (isLoading)
-          const LoadingScreen(loadingLabel: 'Verifing...'),
+        ?state.whenOrNull(
+          loading: () =>
+              const LoadingScreen(loadingLabel: 'Verifing...'),
+        ),
       ],
     );
   }

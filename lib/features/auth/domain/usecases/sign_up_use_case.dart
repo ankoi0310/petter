@@ -1,5 +1,6 @@
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
+import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 
 class SignUpParams {
@@ -16,21 +17,17 @@ class SignUpParams {
   final String password;
 
   JsonData toJson() {
-    return {
-      'name': name,
-      'phone': phone,
-      'email': email,
-    };
+    return {'name': name, 'phone': phone, 'email': email};
   }
 }
 
-class SignUpUseCase implements UseCase<void, SignUpParams> {
+class SignUpUseCase implements UseCase<User, SignUpParams> {
   const SignUpUseCase(this._repository);
 
   final AuthRepository _repository;
 
   @override
-  VoidFuture call(SignUpParams params) {
+  ResultFuture<User> call(SignUpParams params) {
     return _repository.signUp(params);
   }
 }

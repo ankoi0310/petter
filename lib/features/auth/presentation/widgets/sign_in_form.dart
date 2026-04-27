@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/extensions/string_extension.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
@@ -55,10 +56,31 @@ class _SignInFormState extends State<SignInForm> {
             focusNode: _emailFocusNode,
             title: 'Email',
             hintText: 'Enter your email',
+            validator: (value) {
+              if (value == null) {
+                return 'Email must not empty';
+              }
+
+              if (!value.isEmail) {
+                return 'Email is invalid';
+              }
+
+              return null;
+            },
+            onFieldSubmitted: (value) =>
+                _passwordFocusNode.requestFocus(),
           ),
           AppPasswordFormField(
             controller: _passwordController,
             focusNode: _passwordFocusNode,
+            validator: (value) {
+              if (value == null) {
+                return 'Password must not empty';
+              }
+
+              return null;
+            },
+            onFieldSubmitted: (value) => _signIn(),
           ),
           Text.rich(
             TextSpan(

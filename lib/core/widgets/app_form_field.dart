@@ -77,12 +77,14 @@ class AppPasswordFormField extends StatefulWidget {
   const AppPasswordFormField({
     required this.controller,
     required this.focusNode,
+    this.validator,
     this.onFieldSubmitted,
     super.key,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
+  final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
 
   @override
@@ -142,6 +144,7 @@ class _AppPasswordFormFieldState extends State<AppPasswordFormField> {
                 ),
               ),
             ),
+            validator: widget.validator,
             onFieldSubmitted: widget.onFieldSubmitted,
           ),
         ),

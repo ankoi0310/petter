@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/error_util.dart';
+import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
@@ -31,9 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_SignIn>(_onSignIn);
     on<_SignOut>(_onSignOut);
 
-    _subscription = _watchAuthState(NoParams()).listen((
-      isAuthenticated,
-    ) {
+    _subscription = _watchAuthState(NoParams()).listen((user) {
       add(const AuthEvent.started());
     });
   }
@@ -42,16 +41,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInUseCase _signIn;
   final SignOutUseCase _signOut;
   final WatchAuthStateUseCase _watchAuthState;
-  StreamSubscription<bool>? _subscription;
+  StreamSubscription<User?>? _subscription;
 
   Future<void> _onStarted(
     _Started event,
     Emitter<AuthState> emit,
   ) async {
-    final isAuth = await _watchAuthState(NoParams()).first;
+    final user = await _watchAuthState(NoParams()).first;
     emit(
-      isAuth
-          ? const AuthState.authenticated()
+      user != null
+          ? AuthState.authenticated(user)
           : const AuthState.unauthenticated(),
     );
   }
@@ -73,7 +72,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold(
       (failure) => emit(AuthState.error(mapFailureMessage(failure))),
-      (_) => emit(const AuthState.authenticated()),
+      (user) => emit(AuthState.authenticated(user)),
     );
   }
 
@@ -89,7 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold(
       (failure) => emit(AuthState.error(mapFailureMessage(failure))),
-      (_) => emit(const AuthState.authenticated()),
+      (user) => emit(AuthState.authenticated(user)),
     );
   }
 

@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthNotifier extends ChangeNotifier {
   AuthNotifier(this._repository) {
-    _subscription = _repository.isAuthenticated.listen((isAuth) {
-      if (_isAuthenticated != isAuth) {
-        _isAuthenticated = isAuth;
+    _subscription = _repository.user.listen((user) {
+      if (_user != user) {
+        _user = user;
         notifyListeners();
       }
     });
   }
 
   final AuthRepository _repository;
-  StreamSubscription<bool>? _subscription;
+  StreamSubscription<User?>? _subscription;
 
-  bool _isAuthenticated = false;
-  bool get isAuthenticated => _isAuthenticated;
+  User? _user;
+
+  bool get isAuthenticated => _user != null;
 
   @override
   Future<void> dispose() async {

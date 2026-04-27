@@ -33,10 +33,12 @@ abstract class UserModel with _$UserModel {
     return UserModel(
       id: data['id'] as String,
       email: data['email'] as String,
-      name: data['name'] as String,
-      phone: data['phoneNumber'] as String,
-      avatar: data['avatar'] as String,
-      createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
+      name: data['name'] as String?,
+      phone: data['phone'] as String?,
+      avatar: data['avatar'] as String?,
+      createdAt: data['createdAt'] == null
+          ? null
+          : DateTime.parse(data['createdAt'] as String),
     );
   }
 

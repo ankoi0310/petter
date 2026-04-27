@@ -114,8 +114,14 @@ class _SignUpFormState extends State<SignUpForm> {
           AppPasswordFormField(
             controller: _passwordController,
             focusNode: _passwordFocusNode,
+            validator: (value) {
+              if (value == null) {
+                return 'Password must not empty';
+              }
+
+              return null;
+            },
             onFieldSubmitted: (value) {
-              FocusScope.of(context).unfocus();
               _signUp();
             },
           ),
