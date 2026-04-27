@@ -9,8 +9,10 @@ import 'package:petter/features/chat/presentation/pages/conversation_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
+import 'package:petter/features/pet/presentation/pages/pet_update_page.dart';
 import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
@@ -87,19 +89,44 @@ final routerConfig = GoRouter(
       ],
     ),
     GoRoute(
-      name: AppRoutes.petAdd.name,
-      path: AppRoutes.petAdd.path,
-      builder: (context, state) {
-        return const PetCreatePage();
-      },
-    ),
-    GoRoute(
       name: AppRoutes.petInfo.name,
       path: AppRoutes.petInfo.path,
       builder: (context, state) {
-        final id = int.parse(state.pathParameters['id']!);
+        final id = state.pathParameters['id']!;
         return PetDetailPage(id: id);
       },
+    ),
+    GoRoute(
+      name: AppRoutes.myPet.name,
+      path: AppRoutes.myPet.path,
+      builder: (context, state) {
+        return const MyPetPage();
+      },
+      routes: [
+        GoRoute(
+          name: AppRoutes.myPetAdd.name,
+          path: AppRoutes.myPetAdd.path,
+          builder: (context, state) {
+            return const PetCreatePage();
+          },
+        ),
+        GoRoute(
+          name: AppRoutes.myPetInfo.name,
+          path: AppRoutes.myPetInfo.path,
+          builder: (context, state) {
+            final id = state.pathParameters['id']!;
+            return PetDetailPage(id: id);
+          },
+        ),
+        GoRoute(
+          name: AppRoutes.myPetUpdate.name,
+          path: AppRoutes.myPetUpdate.path,
+          builder: (context, state) {
+            final id = state.pathParameters['id']!;
+            return PetUpdatePage(id: id);
+          },
+        ),
+      ],
     ),
     GoRoute(
       name: AppRoutes.account.name,
@@ -135,7 +162,10 @@ enum AppRoutes {
   chat(name: 'chat', path: '/:id'),
   search(name: 'search', path: '/search'),
   petInfo(name: 'petInfo', path: '/pet/:id'),
-  petAdd(name: 'petAdd', path: '/pet/add'),
+  myPet(name: 'myPet', path: '/my-pet'),
+  myPetAdd(name: 'myPetAdd', path: '/add'),
+  myPetInfo(name: 'myPetInfo', path: '/:id'),
+  myPetUpdate(name: 'myPetUpdate', path: '/:id/update'),
   account(name: 'account', path: '/account'),
   userProfile(name: 'userProfile', path: '/profile'),
   accountChangePassword(

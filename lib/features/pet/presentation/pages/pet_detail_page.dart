@@ -7,7 +7,7 @@ import 'package:petter/features/pet/presentation/widgets/pet_overview_widget.dar
 class PetDetailPage extends StatelessWidget {
   const PetDetailPage({required this.id, super.key});
 
-  final int id;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class PetDetailPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const .symmetric(horizontal: 16, vertical: 12),
+            padding: .symmetric(horizontal: 16, vertical: 12),
             child: Column(
               spacing: 32,
               children: [

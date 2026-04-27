@@ -52,6 +52,7 @@ class AppIconButton extends StatelessWidget {
   const AppIconButton({
     required this.icon,
     this.onTap,
+    this.iconSize,
     this.iconColor,
     this.backgroundColor,
     this.padding,
@@ -63,6 +64,7 @@ class AppIconButton extends StatelessWidget {
 
   final void Function()? onTap;
   final IconData icon;
+  final double? iconSize;
   final Color? iconColor;
   final Color? backgroundColor;
   final EdgeInsets? padding;
@@ -90,7 +92,7 @@ class AppIconButton extends StatelessWidget {
                 ),
               ],
         ),
-        child: Icon(icon, color: iconColor),
+        child: Icon(icon, size: iconSize, color: iconColor),
       ),
     );
   }
@@ -179,9 +181,18 @@ class AppTextButton extends StatelessWidget {
 }
 
 class LikeButton extends StatefulWidget {
-  const LikeButton({required this.onTap, super.key});
+  const LikeButton({
+    required this.onTap,
+    this.iconSize,
+    this.padding,
+    this.borderRadius,
+    super.key,
+  });
 
   final VoidCallback onTap;
+  final double? iconSize;
+  final EdgeInsets? padding;
+  final BorderRadius? borderRadius;
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -250,11 +261,12 @@ class _LikeButtonState extends State<LikeButton>
           child: AppIconButton(
             key: ValueKey(_liked),
             icon: _liked ? Iconsax.heart : Iconsax.heart_copy,
+            iconSize: widget.iconSize,
             iconColor: _liked
                 ? context.colors.error
                 : context.colors.onSurface,
-
-            borderRadius: .circular(16),
+            padding: widget.padding,
+            borderRadius: widget.borderRadius ?? .circular(16),
           ),
         ),
       ),

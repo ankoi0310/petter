@@ -30,7 +30,7 @@ class HomeBottomNav extends StatelessWidget {
           const Icon(Iconsax.home_2_copy),
           const Icon(Iconsax.search_normal_copy),
           GestureDetector(
-            onTap: () => context.pushNamed(AppRoutes.petAdd.name),
+            onTap: () => context.pushNamed(AppRoutes.myPet.name),
             child: const Icon(Iconsax.pet_copy),
           ),
           const Icon(Iconsax.heart_copy),

@@ -114,7 +114,7 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         ),
         Positioned(
           top: 40,
-          left: 16,
+          right: 16,
           child: LikeButton(onTap: () {}),
         ),
       ],
