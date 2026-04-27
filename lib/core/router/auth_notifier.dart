@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:petter/features/auth/domain/entities/user.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthNotifier extends ChangeNotifier {

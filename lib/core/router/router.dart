@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/di/di.dart';
 import 'package:petter/core/router/auth_notifier.dart';
-import 'package:petter/features/account/presentation/pages/account_page.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
@@ -12,6 +11,7 @@ import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
+import 'package:petter/features/user/presentation/pages/account_page.dart';
 
 final authNotifier = AuthNotifier(sl<AuthRepository>());
 

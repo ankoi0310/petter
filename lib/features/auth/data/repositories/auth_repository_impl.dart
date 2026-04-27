@@ -3,10 +3,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:petter/features/auth/data/mapper/user_mapper.dart';
-import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:petter/features/user/data/mapper/user_mapper.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._remoteDataSource);

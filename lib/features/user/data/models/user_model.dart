@@ -10,7 +10,7 @@ part 'user_model.g.dart';
 @freezed
 abstract class UserModel with _$UserModel {
   const factory UserModel({
-    required String id,
+    required String uid,
     required String email,
     String? name,
     String? phone,
@@ -19,7 +19,7 @@ abstract class UserModel with _$UserModel {
   }) = _UserModel;
 
   factory UserModel.fromFirebaseUser(User user) => UserModel(
-    id: user.uid,
+    uid: user.uid,
     email: user.email ?? '',
     name: user.displayName,
     phone: user.phoneNumber,
@@ -31,7 +31,7 @@ abstract class UserModel with _$UserModel {
   ) {
     final data = snapshot.data()!;
     return UserModel(
-      id: data['id'] as String,
+      uid: data['id'] as String,
       email: data['email'] as String,
       name: data['name'] as String?,
       phone: data['phone'] as String?,

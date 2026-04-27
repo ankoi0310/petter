@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/features/account/presentation/widgets/account_overview.dart';
-import 'package:petter/features/account/presentation/widgets/account_section.dart';
-import 'package:petter/features/account/presentation/widgets/app_section.dart';
-import 'package:petter/features/account/presentation/widgets/premium_account_badge.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/user/presentation/widgets/account_overview.dart';
+import 'package:petter/features/user/presentation/widgets/account_section.dart';
+import 'package:petter/features/user/presentation/widgets/app_section.dart';
+import 'package:petter/features/user/presentation/widgets/premium_account_badge.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});

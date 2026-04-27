@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petter/core/error/exception.dart';
-import 'package:petter/features/auth/data/models/user_model.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:petter/features/user/data/models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserModel> signUpWithEmail(SignUpParams params);
@@ -49,7 +49,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     await user.reload();
 
     final newUser = UserModel(
-      id: user.uid,
+      uid: user.uid,
       email: params.email,
       name: params.name,
       phone: params.phone,

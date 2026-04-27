@@ -10,6 +10,11 @@ import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/watch_auth_state_use_case.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/user/data/datasources/user_remote_data_source.dart';
+import 'package:petter/features/user/data/repositories/user_repository_impl.dart';
+import 'package:petter/features/user/domain/repositories/user_repository.dart';
+import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
+import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -24,6 +29,7 @@ void initInjection() {
     );
 
   _initAuth(sl);
+  _initUser(sl);
 }
 
 void _initAuth(GetIt sl) {
@@ -46,4 +52,16 @@ void _initAuth(GetIt sl) {
         watchAuthState: sl(),
       ),
     );
+}
+
+void _initUser(GetIt sl) {
+  sl
+    ..registerLazySingleton<UserRemoteDataSource>(
+      () => UserRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => GetProfileUseCase(sl()))
+    ..registerFactory(() => UserBloc(getProfile: sl()));
 }

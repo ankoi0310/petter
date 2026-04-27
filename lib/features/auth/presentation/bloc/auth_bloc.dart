@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/error_util.dart';
-import 'package:petter/features/auth/domain/entities/user.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';

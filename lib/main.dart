@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/app.dart';
 import 'package:petter/core/di/di.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:petter/firebase_options.dart';
 
 void main() async {
@@ -18,7 +19,10 @@ void main() async {
 
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider.value(value: sl<AuthBloc>())],
+      providers: [
+        BlocProvider.value(value: sl<AuthBloc>()),
+        BlocProvider(create: (_) => sl<UserBloc>()),
+      ],
       child: const MyApp(),
     ),
   );

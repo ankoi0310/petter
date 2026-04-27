@@ -4,8 +4,9 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
-import 'package:petter/features/auth/domain/entities/user.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
+import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class AccountOverview extends StatelessWidget {
@@ -13,10 +14,29 @@ class AccountOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uid = context.read<AuthBloc>().state.maybeWhen(
+      authenticated: (user) => user.uid,
+      orElse: () => null,
+    );
+
+    if (uid != null) {
+      context.read<UserBloc>().add(UserEvent.getProfile(uid));
+    }
+
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return state.maybeWhen(
-          authenticated: (user) => buildUserInfo(context, user: user),
+          authenticated: (user) {
+            return BlocBuilder<UserBloc, UserState>(
+              builder: (context, userState) {
+                return userState.maybeWhen(
+                  loaded: (user) =>
+                      buildUserInfo(context, user: user),
+                  orElse: () => buildUserInfo(context, user: user),
+                );
+              },
+            );
+          },
           orElse: () => Skeletonizer(child: buildUserInfo(context)),
         );
       },
