@@ -19,7 +19,7 @@ class AppTheme {
       brightness: Brightness.light,
 
       // Brand / interactive
-      primary: Color(0xff101010),
+      primary: Color(0xFFC16438),
       // Near-black — buttons, active icons
       onPrimary: Color(0xffffffff),
       // White text on primary
@@ -36,7 +36,7 @@ class AppTheme {
       onTertiary: Color(0xff101010),
 
       // Surfaces
-      surface: Color(0xffffffff),
+      surface: Color(0xFFF7EED3),
       // Pure white canvas
       onSurface: Color(0xff101010),
       // Primary text

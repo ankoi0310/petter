@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/features/account/presentation/widgets/account_overview.dart';
 import 'package:petter/features/account/presentation/widgets/account_section.dart';
 import 'package:petter/features/account/presentation/widgets/app_section.dart';
 import 'package:petter/features/account/presentation/widgets/premium_account_badge.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -32,9 +33,9 @@ class AccountPage extends StatelessWidget {
                     side: BorderSide(color: context.colors.error),
                   ),
                   contentPadding: const .symmetric(horizontal: 16),
-                  onTap: () {
-                    showSnackBar(context, content: 'Sign out');
-                  },
+                  onTap: () => context.read<AuthBloc>().add(
+                    const AuthEvent.signOut(),
+                  ),
                   leading: Icon(
                     Iconsax.logout_copy,
                     color: context.colors.error,

@@ -63,7 +63,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthState.loading());
 
     final result = await _signUp(
-      SignUpParams(email: event.email, password: event.password),
+      SignUpParams(
+        name: event.displayName,
+        phone: event.phoneNumber,
+        email: event.email,
+        password: event.password,
+      ),
     );
 
     result.fold(

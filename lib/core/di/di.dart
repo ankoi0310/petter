@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:petter/features/auth/data/repositories/auth_repository_impl.dart';
@@ -12,7 +14,14 @@ import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 final GetIt sl = GetIt.instance;
 
 void initInjection() {
-  sl.registerLazySingleton(() => FirebaseAuth.instance);
+  sl
+    ..registerLazySingleton(() => FirebaseAuth.instance)
+    ..registerLazySingleton(
+      () => FirebaseFirestore.instanceFor(
+        app: Firebase.app(),
+        databaseId: 'petter',
+      ),
+    );
 
   _initAuth(sl);
 }
@@ -20,7 +29,7 @@ void initInjection() {
 void _initAuth(GetIt sl) {
   sl
     ..registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(sl()),
+      () => AuthRemoteDataSourceImpl(sl(), sl()),
     )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(sl()),

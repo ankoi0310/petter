@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:petter/core/error/exception.dart';
+import 'package:petter/features/auth/data/models/user_model.dart';
+import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserCredential> signUpWithEmail({
-    required String email,
-    required String password,
-  });
+  Future<void> signUpWithEmail(SignUpParams params);
 
-  Future<UserCredential> signInWithEmail({
+  Future<UserModel> signInWithEmail({
     required String email,
     required String password,
   });
@@ -17,31 +18,98 @@ abstract class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  const AuthRemoteDataSourceImpl(this._auth);
+  const AuthRemoteDataSourceImpl(this._auth, this._firestore);
 
   final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+
+  CollectionReference<UserModel> get _usersCollection => _firestore
+      .collection('users')
+      .withConverter<UserModel>(
+        fromFirestore: (snapshot, _) =>
+            UserModel.fromFirestore(snapshot),
+        toFirestore: (user, _) => user.toJson(),
+      );
 
   @override
-  Future<UserCredential> signUpWithEmail({
-    required String email,
-    required String password,
-  }) => _auth.createUserWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
+  Future<void> signUpWithEmail(SignUpParams params) async {
+    final credential = await _auth.createUserWithEmailAndPassword(
+      email: params.email,
+      password: params.password,
+    );
+
+    if (credential.user == null) {
+      throw const AuthException('User not found');
+    }
+
+    final user = credential.user!;
+
+    // await user.linkWithPhoneNumber(params.phoneNumber);
+    await user.updateProfile(displayName: params.name);
+    await user.reload();
+
+    final newUser = UserModel(
+      id: user.uid,
+      email: params.email,
+      name: params.name,
+      phone: params.phone,
+      createdAt: DateTime.now(),
+    );
+
+    try {
+      await _usersCollection.doc(user.uid).set(newUser);
+    } on Exception catch (error) {
+      await credential.user?.delete();
+      throw _mapError(error);
+    }
+  }
 
   @override
-  Future<UserCredential> signInWithEmail({
+  Future<UserModel> signInWithEmail({
     required String email,
     required String password,
-  }) => _auth.signInWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
+  }) async {
+    try {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final doc = await _usersCollection
+          .doc(credential.user!.uid)
+          .get();
+
+      return doc.data() ??
+          UserModel.fromFirebaseUser(credential.user!);
+    } catch (error) {
+      throw _mapError(error);
+    }
+  }
 
   @override
   Future<void> signOut() => _auth.signOut();
 
   @override
   Stream<User?> get authStateChange => _auth.authStateChanges();
+
+  Exception _mapError(Object error) {
+    if (error is FirebaseAuthException) {
+      return switch (error.code) {
+        'user-not-found' => const AuthException(
+          'Account is not exist',
+        ),
+        'wrong-password' => const AuthException('Wrong password'),
+        'email-already-in-use' => const AuthException(
+          'Email already in use',
+        ),
+        'invalid-email' => const AuthException('Email is invalid'),
+        'weak-password' => const AuthException(
+          'Password is too weak',
+        ),
+        _ => AuthException(error.message ?? 'Authentication Error'),
+      };
+    }
+
+    return UnknownException(toString());
+  }
 }

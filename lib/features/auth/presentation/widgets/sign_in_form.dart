@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/router/router.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -27,6 +27,18 @@ class _SignInFormState extends State<SignInForm> {
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
+  }
+
+  void _signIn() {
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      context.read<AuthBloc>().add(
+        AuthEvent.signIn(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        ),
+      );
+    }
   }
 
   @override
@@ -80,7 +92,7 @@ class _SignInFormState extends State<SignInForm> {
                   horizontal: 16,
                 ),
               ),
-              onPressed: () => context.goNamed(AppRoutes.home.name),
+              onPressed: _signIn,
               child: const Text('Sign In'),
             ),
           ),

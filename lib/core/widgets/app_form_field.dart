@@ -10,6 +10,8 @@ class AppTextFormField extends StatelessWidget {
     this.required = true,
     this.hintText,
     this.maxLines,
+    this.validator,
+    this.onFieldSubmitted,
     super.key,
   });
 
@@ -19,6 +21,8 @@ class AppTextFormField extends StatelessWidget {
   final String title;
   final String? hintText;
   final int? maxLines;
+  final String? Function(String?)? validator;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,8 @@ class AppTextFormField extends StatelessWidget {
               fillColor: context.colors.primaryContainer,
               border: OutlineInputBorder(borderRadius: .circular(16)),
             ),
+            validator: validator,
+            onFieldSubmitted: onFieldSubmitted,
           ),
         ),
       ],
@@ -71,11 +77,13 @@ class AppPasswordFormField extends StatefulWidget {
   const AppPasswordFormField({
     required this.controller,
     required this.focusNode,
+    this.onFieldSubmitted,
     super.key,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   State<AppPasswordFormField> createState() =>
@@ -91,7 +99,17 @@ class _AppPasswordFormFieldState extends State<AppPasswordFormField> {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Text('Password', style: context.textTheme.bodyLarge),
+        Row(
+          children: [
+            Text('Password', style: context.textTheme.bodyLarge),
+            Text(
+              '*',
+              style: context.textTheme.bodyLarge?.copyWith(
+                color: context.colors.error,
+              ),
+            ),
+          ],
+        ),
         Container(
           decoration: BoxDecoration(
             borderRadius: .circular(16),
@@ -124,6 +142,7 @@ class _AppPasswordFormFieldState extends State<AppPasswordFormField> {
                 ),
               ),
             ),
+            onFieldSubmitted: widget.onFieldSubmitted,
           ),
         ),
       ],

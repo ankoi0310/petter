@@ -4,6 +4,7 @@ import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
+import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._remoteDataSource);
@@ -11,14 +12,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
 
   @override
-  VoidFuture signUp({
-    required String email,
-    required String password,
-  }) => TaskEither.tryCatch(
-    () => _remoteDataSource.signUpWithEmail(
-      email: email,
-      password: password,
-    ),
+  VoidFuture signUp(SignUpParams params) => TaskEither.tryCatch(
+    () => _remoteDataSource.signUpWithEmail(params),
     (error, _) => _mapError(error),
   ).map((_) => unit).run();
 
@@ -47,19 +42,17 @@ class AuthRepositoryImpl implements AuthRepository {
   Failure _mapError(Object error) {
     if (error is FirebaseAuthException) {
       return switch (error.code) {
-        'user-not-found' => const Failure.auth(
-          'Account is not exist',
-        ),
-        'wrong-password' => const Failure.auth('Wrong password'),
-        'email-already-in-use' => const Failure.auth(
+        'user-not-found' => const AuthFailure('Account is not exist'),
+        'wrong-password' => const AuthFailure('Wrong password'),
+        'email-already-in-use' => const AuthFailure(
           'Email already in use',
         ),
-        'invalid-email' => const Failure.auth('Email is invalid'),
-        'weak-password' => const Failure.auth('Password is too weak'),
-        _ => Failure.auth(error.message ?? 'Authentication Error'),
+        'invalid-email' => const AuthFailure('Email is invalid'),
+        'weak-password' => const AuthFailure('Password is too weak'),
+        _ => AuthFailure(error.message ?? 'Authentication Error'),
       };
     }
 
-    return Failure.unknown(error.toString());
+    return UnknownFailure(toString());
   }
 }
