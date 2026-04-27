@@ -1,5 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:petter/core/di/di.dart';
+import 'package:petter/core/router/auth_notifier.dart';
 import 'package:petter/features/account/presentation/pages/account_page.dart';
+import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/chat/presentation/pages/chat_page.dart';
@@ -10,8 +13,30 @@ import 'package:petter/features/onboarding/presentation/pages/onboarding_page.da
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 
+final authNotifier = AuthNotifier(sl<AuthRepository>());
+
+final List<String> publicRoutes = [
+  AppRoutes.signIn.path,
+  AppRoutes.signUp.path,
+];
+
 final routerConfig = GoRouter(
   initialLocation: AppRoutes.signIn.path,
+  refreshListenable: authNotifier,
+  redirect: (context, state) {
+    final isAuth = authNotifier.isAuthenticated;
+    final location = state.matchedLocation;
+
+    if (!isAuth && !publicRoutes.contains(location)) {
+      return AppRoutes.signIn.path;
+    }
+
+    if (isAuth && publicRoutes.contains(location)) {
+      return AppRoutes.home.path;
+    }
+
+    return null;
+  },
   routes: [
     GoRoute(
       name: AppRoutes.onboarding.name,
