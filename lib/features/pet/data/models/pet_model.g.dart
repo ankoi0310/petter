@@ -18,8 +18,8 @@ _PetModel _$PetModelFromJson(Map<String, dynamic> json) => _PetModel(
   species: json['species'] as String,
   description: json['description'] as String,
   imageUrl: json['imageUrl'] as String,
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  createdAt: const TimestampConverter().fromJson(json['createdAt']),
+  updatedAt: const TimestampConverter().fromJson(json['updatedAt']),
   isAdopted: json['isAdopted'] as bool,
   isDeleted: json['isDeleted'] as bool,
 );
@@ -36,8 +36,8 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
   'species': instance.species,
   'description': instance.description,
   'imageUrl': instance.imageUrl,
-  'createdAt': instance.createdAt.toIso8601String(),
-  'updatedAt': instance.updatedAt.toIso8601String(),
+  'createdAt': const TimestampConverter().toJson(instance.createdAt),
+  'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
   'isAdopted': instance.isAdopted,
   'isDeleted': instance.isDeleted,
 };

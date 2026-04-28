@@ -4,26 +4,44 @@ import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/widgets/button.dart';
 
 class PetImageView extends StatelessWidget {
-  const PetImageView({required this.imageUrl, super.key});
+  const PetImageView({
+    required this.id,
+    required this.imageUrl,
+    super.key,
+  });
 
+  final String id;
   final String imageUrl;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: context.width - 16 * 2,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: context.colors.primary,
-              width: 2,
-            ),
-            borderRadius: .circular(32),
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(imageUrl),
-              fit: .cover,
-            ),
-          ),
+        CachedNetworkImage(
+          cacheKey: imageUrl,
+          imageUrl: imageUrl,
+          imageBuilder: (context, imageProvider) {
+            return Container(
+              height: context.width - 16 * 2,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: context.colors.primary,
+                  width: 2,
+                ),
+                borderRadius: .circular(32),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: .cover,
+                ),
+              ),
+            );
+          },
+          placeholder: (context, url) {
+            return const Center(child: CircularProgressIndicator());
+          },
+          errorWidget: (context, url, error) {
+            return const Icon(Icons.error);
+          },
         ),
         Positioned(
           top: 16,

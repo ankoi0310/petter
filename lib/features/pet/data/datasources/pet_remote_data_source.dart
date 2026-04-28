@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:petter/core/services/supabase_storage_service.dart';
 import 'package:petter/core/error/exception.dart';
+import 'package:petter/core/services/supabase_storage_service.dart';
 import 'package:petter/features/pet/data/models/pet_model.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
@@ -37,11 +38,12 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         toFirestore: (pet, _) => pet.toJson(),
       );
 
-  Future<String?> _uploadPetImage(File imageFile) async {
+  Future<String?> _uploadPetImage(String id, File imageFile) async {
     try {
       if (!imageFile.existsSync()) return null;
 
       final ext = imageFile.path.split('.').last.toLowerCase();
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
       final contentType = switch (ext) {
         'png' => 'image/png',
         'webp' => 'image/webp',
@@ -49,8 +51,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         _ => 'image/jpeg',
       };
 
-      final fileName =
-          '${DateTime.now().millisecondsSinceEpoch}.$ext';
+      final fileName = '${id}_$timestamp.$ext';
       final path = 'pets/$fileName';
 
       return _storageService.uploadImage(
@@ -98,7 +99,10 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
       var imageUrl = '';
       if (params.imageFile != null) {
-        final uploadedUrl = await _uploadPetImage(params.imageFile!);
+        final uploadedUrl = await _uploadPetImage(
+          docRef.id,
+          params.imageFile!,
+        );
         if (uploadedUrl != null) {
           imageUrl = uploadedUrl;
         }
@@ -137,15 +141,30 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
       final updateData = params.toJson();
 
       if (params.imageFile != null) {
-        final uploadedUrl = await _uploadPetImage(params.imageFile!);
+        final uploadedUrl = await _uploadPetImage(
+          params.id,
+          params.imageFile!,
+        );
         if (uploadedUrl != null) {
+          await CachedNetworkImage.evictFromCache(
+            params.currentImageUrl,
+            cacheKey: params.id,
+          );
+
+          if (params.currentImageUrl.isNotEmpty) {
+            final oldPath = _extractPath(params.currentImageUrl);
+            await _storageService.deleteFile(
+              bucket: 'images',
+              path: oldPath,
+            );
+          }
           updateData['imageUrl'] = uploadedUrl;
         }
       }
 
       await _petsCollection.doc(params.id).update({
         ...updateData,
-        'updatedAt': FieldValue.serverTimestamp(),
+        'updatedAt': DateTime.now(),
       });
       final doc = await _petsCollection.doc(params.id).get();
 
@@ -153,5 +172,11 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     } catch (e) {
       throw ServerException(e.toString());
     }
+  }
+
+  String _extractPath(String url) {
+    final uri = Uri.parse(url);
+    final cleanPath = uri.path;
+    return cleanPath.split('/object/public/images/').last;
   }
 }

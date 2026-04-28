@@ -116,7 +116,6 @@ final routerConfig = GoRouter(
           name: AppRoutes.myPetInfo.name,
           path: AppRoutes.myPetInfo.path,
           builder: (context, state) {
-            print(state.pathParameters);
             final id = state.pathParameters['id']!;
             final pet = state.extra! as Pet;
             return PetDetailPage(id: id, pet: pet);
@@ -127,7 +126,8 @@ final routerConfig = GoRouter(
           path: AppRoutes.myPetUpdate.path,
           builder: (context, state) {
             final id = state.pathParameters['id']!;
-            return PetUpdatePage(id: id);
+            final pet = state.extra! as Pet;
+            return PetUpdatePage(id: id, pet: pet);
           },
         ),
       ],

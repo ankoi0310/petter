@@ -18,16 +18,29 @@ class PetImageContainer extends StatelessWidget {
         pathParameters: {'id': pet.id},
         extra: pet,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.colors.primaryContainer,
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(pet.imageUrl),
-            fit: .cover,
-          ),
-          border: Border.all(color: context.colors.primary, width: 2),
-          borderRadius: .circular(16),
-        ),
+      child: CachedNetworkImage(
+        cacheKey: pet.imageUrl,
+        imageUrl: pet.imageUrl,
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            decoration: BoxDecoration(
+              color: context.colors.primaryContainer,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: .cover,
+              ),
+              border: Border.all(
+                color: context.colors.primary,
+                width: 2,
+              ),
+              borderRadius: .circular(16),
+            ),
+          );
+        },
+        placeholder: (context, url) {
+          return Container(color: context.colors.primaryContainer);
+        },
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );
   }

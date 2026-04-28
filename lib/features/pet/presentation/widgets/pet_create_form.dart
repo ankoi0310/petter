@@ -25,13 +25,14 @@ class _PetCreateFormState extends State<PetCreateForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _speciesController = TextEditingController();
+  final _addressController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   File? selectedImage;
-  final categoryListenable = ValueNotifier<String?>('Dog');
-  final genderListenable = ValueNotifier<Gender?>(Gender.male);
+  final categoryListenable = ValueNotifier<String>('Dog');
+  final genderListenable = ValueNotifier<Gender>(Gender.male);
 
   void _submit() {
     FocusScope.of(context).unfocus();
@@ -46,10 +47,10 @@ class _PetCreateFormState extends State<PetCreateForm> {
     final params = CreatePetParams(
       uid: uid,
       name: _nameController.text.trim(),
-      category: categoryListenable.value ?? 'Dog',
+      category: categoryListenable.value,
       species: _speciesController.text.trim(),
-      address: 'address',
-      gender: genderListenable.value ?? Gender.male,
+      address: _addressController.text.trim(),
+      gender: genderListenable.value,
       age: _ageController.text.trim(),
       weight: _weightController.text.trim(),
       description: _descriptionController.text.trim(),
@@ -61,6 +62,13 @@ class _PetCreateFormState extends State<PetCreateForm> {
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _speciesController.dispose();
+    _addressController.dispose();
+    _ageController.dispose();
+    _weightController.dispose();
+    _descriptionController.dispose();
+
     super.dispose();
   }
 
@@ -145,6 +153,11 @@ class _PetCreateFormState extends State<PetCreateForm> {
               controller: _speciesController,
               focusNode: FocusNode(),
               title: 'Species',
+            ),
+            AppTextFormField(
+              controller: _addressController,
+              focusNode: FocusNode(),
+              title: 'Address',
             ),
             GenderDropdownField(
               focusNode: FocusNode(),

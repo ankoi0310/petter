@@ -221,7 +221,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 
 /// @nodoc
 @JsonSerializable()
-
+@TimestampConverter()
 class _PetModel implements PetModel {
   const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.category, required this.species, required this.description, required this.imageUrl, required this.createdAt, required this.updatedAt, required this.isAdopted, required this.isDeleted});
   factory _PetModel.fromJson(Map<String, dynamic> json) => _$PetModelFromJson(json);

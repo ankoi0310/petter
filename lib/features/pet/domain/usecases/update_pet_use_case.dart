@@ -9,6 +9,8 @@ import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
 class UpdatePetParams {
   const UpdatePetParams({
     required this.id,
+    required this.uid,
+    required this.currentImageUrl,
     this.name,
     this.address,
     this.gender,
@@ -21,6 +23,7 @@ class UpdatePetParams {
   });
 
   final String id;
+  final String uid;
   final String? name;
   final String? address;
   final Gender? gender;
@@ -29,6 +32,7 @@ class UpdatePetParams {
   final String? category;
   final String? species;
   final String? description;
+  final String currentImageUrl;
   final File? imageFile;
 
   JsonData toJson() => {
