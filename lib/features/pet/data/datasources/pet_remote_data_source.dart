@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:petter/core/services/supabase_storage_service.dart';
 import 'package:petter/core/error/exception.dart';
 import 'package:petter/features/pet/data/models/pet_model.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
@@ -17,9 +20,13 @@ abstract class PetRemoteDataSource {
 }
 
 class PetRemoteDataSourceImpl implements PetRemoteDataSource {
-  const PetRemoteDataSourceImpl(this._firestore);
+  const PetRemoteDataSourceImpl(
+    this._firestore,
+    this._storageService,
+  );
 
   final FirebaseFirestore _firestore;
+  final SupabaseStorageService _storageService;
 
   CollectionReference<PetModel> get _petsCollection => _firestore
       .collection('pets')
@@ -29,6 +36,35 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         },
         toFirestore: (pet, _) => pet.toJson(),
       );
+
+  Future<String?> _uploadPetImage(File imageFile) async {
+    try {
+      if (!imageFile.existsSync()) return null;
+
+      final ext = imageFile.path.split('.').last.toLowerCase();
+      final contentType = switch (ext) {
+        'png' => 'image/png',
+        'webp' => 'image/webp',
+        'gif' => 'image/gif',
+        _ => 'image/jpeg',
+      };
+
+      final fileName =
+          '${DateTime.now().millisecondsSinceEpoch}.$ext';
+      final path = 'pets/$fileName';
+
+      return _storageService.uploadImage(
+        bucket: 'images',
+        path: path,
+        file: imageFile,
+        contentType: contentType,
+      );
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      throw ServerException('Failed to upload pet image: $e');
+    }
+  }
 
   @override
   Future<List<PetModel>> getPets() async {
@@ -57,35 +93,65 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
   @override
   Future<PetModel> createPet(CreatePetParams params) async {
-    final docRef = _petsCollection.doc();
+    try {
+      final docRef = _petsCollection.doc();
 
-    final pet = PetModel(
-      id: docRef.id,
-      uid: params.uid,
-      name: params.name,
-      gender: params.gender,
-      weight: params.weight,
-      age: params.age,
-      description: params.description,
-      imageUrl: params.imageUrl,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      isAdopted: false,
-      isDeleted: false,
-    );
+      var imageUrl = '';
+      if (params.imageFile != null) {
+        final uploadedUrl = await _uploadPetImage(params.imageFile!);
+        if (uploadedUrl != null) {
+          imageUrl = uploadedUrl;
+        }
+      }
 
-    await docRef.set(pet);
-    return pet;
+      final pet = PetModel(
+        id: docRef.id,
+        uid: params.uid,
+        name: params.name,
+        address: params.address,
+        gender: params.gender,
+        category: params.category,
+        species: params.species,
+        age: params.age,
+        weight: params.weight,
+        description: params.description,
+        imageUrl: imageUrl,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        isAdopted: false,
+        isDeleted: false,
+      );
+
+      await docRef.set(pet);
+      return pet;
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      throw ServerException('Failed to create pet: $e');
+    }
   }
 
   @override
   Future<PetModel> updatePet(UpdatePetParams params) async {
-    await _petsCollection.doc(params.id).update({
-      ...params.toJson(),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
-    final doc = await _petsCollection.doc(params.id).get();
+    try {
+      final updateData = params.toJson();
 
-    return doc.data()!;
+      if (params.imageFile != null) {
+        final uploadedUrl = await _uploadPetImage(params.imageFile!);
+        if (uploadedUrl != null) {
+          updateData['imageUrl'] = uploadedUrl;
+        }
+      }
+
+      await _petsCollection.doc(params.id).update({
+        ...updateData,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+      final doc = await _petsCollection.doc(params.id).get();
+
+      return doc.data()!;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }

@@ -35,9 +35,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(context.colors.surfaceContainerHighest);
-    print(context.colors.secondaryContainer);
-    print(context.colors.tertiaryContainer);
     return Scaffold(
       backgroundColor: context.colors.surface,
       body: SafeArea(

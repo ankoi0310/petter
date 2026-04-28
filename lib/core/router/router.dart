@@ -9,6 +9,7 @@ import 'package:petter/features/chat/presentation/pages/conversation_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
@@ -93,7 +94,8 @@ final routerConfig = GoRouter(
       path: AppRoutes.petInfo.path,
       builder: (context, state) {
         final id = state.pathParameters['id']!;
-        return PetDetailPage(id: id);
+        final pet = state.extra! as Pet;
+        return PetDetailPage(id: id, pet: pet);
       },
     ),
     GoRoute(
@@ -114,8 +116,10 @@ final routerConfig = GoRouter(
           name: AppRoutes.myPetInfo.name,
           path: AppRoutes.myPetInfo.path,
           builder: (context, state) {
+            print(state.pathParameters);
             final id = state.pathParameters['id']!;
-            return PetDetailPage(id: id);
+            final pet = state.extra! as Pet;
+            return PetDetailPage(id: id, pet: pet);
           },
         ),
         GoRoute(

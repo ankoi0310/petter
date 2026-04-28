@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
 
 class BottomActionWidget extends StatelessWidget {
@@ -44,6 +45,8 @@ class BottomActionWidget extends StatelessWidget {
             ],
           ),
           AppIconButton(
+            // handle create conversation first
+            onTap: () => context.pushNamed(AppRoutes.chat.name),
             icon: Iconsax.messages_2_copy,
             padding: const .all(12),
             borderRadius: .circular(16),
@@ -57,6 +60,7 @@ class BottomActionWidget extends StatelessWidget {
             ],
           ),
           Expanded(
+            // handle adopt function
             child: AppIconButton(
               icon: Iconsax.pet_copy,
               padding: const .all(12),

@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
 
 class PetImageView extends StatelessWidget {
-  const PetImageView({super.key});
+  const PetImageView({required this.imageUrl, super.key});
 
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,7 +20,7 @@ class PetImageView extends StatelessWidget {
             ),
             borderRadius: .circular(32),
             image: DecorationImage(
-              image: Assets.images.pets.pet0.provider(),
+              image: CachedNetworkImageProvider(imageUrl),
               fit: .cover,
             ),
           ),

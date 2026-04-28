@@ -607,15 +607,17 @@ extension PetStatePatterns on PetState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Creating value)?  creating,TResult Function( _Updating value)?  updating,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Creating value)?  creating,TResult Function( _CreatePetSuccess value)?  createPetSuccess,TResult Function( _Updating value)?  updating,TResult Function( _UpdatePetSuccess value)?  updatePetSuccess,TResult Function( _Error value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _Loaded() when loaded != null:
 return loaded(_that);case _Creating() when creating != null:
-return creating(_that);case _Updating() when updating != null:
-return updating(_that);case _Error() when error != null:
+return creating(_that);case _CreatePetSuccess() when createPetSuccess != null:
+return createPetSuccess(_that);case _Updating() when updating != null:
+return updating(_that);case _UpdatePetSuccess() when updatePetSuccess != null:
+return updatePetSuccess(_that);case _Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -634,15 +636,17 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Creating value)  creating,required TResult Function( _Updating value)  updating,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Creating value)  creating,required TResult Function( _CreatePetSuccess value)  createPetSuccess,required TResult Function( _Updating value)  updating,required TResult Function( _UpdatePetSuccess value)  updatePetSuccess,required TResult Function( _Error value)  error,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case _Loading():
 return loading(_that);case _Loaded():
 return loaded(_that);case _Creating():
-return creating(_that);case _Updating():
-return updating(_that);case _Error():
+return creating(_that);case _CreatePetSuccess():
+return createPetSuccess(_that);case _Updating():
+return updating(_that);case _UpdatePetSuccess():
+return updatePetSuccess(_that);case _Error():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -660,15 +664,17 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Creating value)?  creating,TResult? Function( _Updating value)?  updating,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Creating value)?  creating,TResult? Function( _CreatePetSuccess value)?  createPetSuccess,TResult? Function( _Updating value)?  updating,TResult? Function( _UpdatePetSuccess value)?  updatePetSuccess,TResult? Function( _Error value)?  error,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _Loaded() when loaded != null:
 return loaded(_that);case _Creating() when creating != null:
-return creating(_that);case _Updating() when updating != null:
-return updating(_that);case _Error() when error != null:
+return creating(_that);case _CreatePetSuccess() when createPetSuccess != null:
+return createPetSuccess(_that);case _Updating() when updating != null:
+return updating(_that);case _UpdatePetSuccess() when updatePetSuccess != null:
+return updatePetSuccess(_that);case _Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -686,14 +692,16 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult Function()?  creating,TResult Function()?  updating,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult Function()?  creating,TResult Function()?  createPetSuccess,TResult Function()?  updating,TResult Function()?  updatePetSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
 return loaded(_that.pets,_that.userPets,_that.pet);case _Creating() when creating != null:
-return creating();case _Updating() when updating != null:
-return updating();case _Error() when error != null:
+return creating();case _CreatePetSuccess() when createPetSuccess != null:
+return createPetSuccess();case _Updating() when updating != null:
+return updating();case _UpdatePetSuccess() when updatePetSuccess != null:
+return updatePetSuccess();case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -712,14 +720,16 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)  loaded,required TResult Function()  creating,required TResult Function()  updating,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)  loaded,required TResult Function()  creating,required TResult Function()  createPetSuccess,required TResult Function()  updating,required TResult Function()  updatePetSuccess,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
 return loaded(_that.pets,_that.userPets,_that.pet);case _Creating():
-return creating();case _Updating():
-return updating();case _Error():
+return creating();case _CreatePetSuccess():
+return createPetSuccess();case _Updating():
+return updating();case _UpdatePetSuccess():
+return updatePetSuccess();case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -737,14 +747,16 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult? Function()?  creating,TResult? Function()?  updating,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult? Function()?  creating,TResult? Function()?  createPetSuccess,TResult? Function()?  updating,TResult? Function()?  updatePetSuccess,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
 return loaded(_that.pets,_that.userPets,_that.pet);case _Creating() when creating != null:
-return creating();case _Updating() when updating != null:
-return updating();case _Error() when error != null:
+return creating();case _CreatePetSuccess() when createPetSuccess != null:
+return createPetSuccess();case _Updating() when updating != null:
+return updating();case _UpdatePetSuccess() when updatePetSuccess != null:
+return updatePetSuccess();case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -946,6 +958,38 @@ String toString() {
 /// @nodoc
 
 
+class _CreatePetSuccess implements PetState {
+  const _CreatePetSuccess();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreatePetSuccess);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'PetState.createPetSuccess()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
 class _Updating implements PetState {
   const _Updating();
   
@@ -967,6 +1011,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'PetState.updating()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _UpdatePetSuccess implements PetState {
+  const _UpdatePetSuccess();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdatePetSuccess);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'PetState.updatePetSuccess()';
 }
 
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
@@ -12,8 +14,10 @@ class UpdatePetParams {
     this.gender,
     this.age,
     this.weight,
+    this.category,
+    this.species,
     this.description,
-    this.imageUrl,
+    this.imageFile,
   });
 
   final String id;
@@ -21,20 +25,23 @@ class UpdatePetParams {
   final String? address;
   final Gender? gender;
   final String? age;
-  final double? weight;
+  final String? weight;
+  final String? category;
+  final String? species;
   final String? description;
-  final String? imageUrl;
+  final File? imageFile;
 
   JsonData toJson() => {
     if (name != null && name!.isNotEmpty) 'name': name,
     if (address != null && address!.isNotEmpty) 'address': address,
     if (gender != null) 'gender': gender?.name,
-    if (age != null && age!.isNotEmpty) 'age': age,
+    if (age != null) 'age': age,
     if (weight != null) 'weight': weight,
+    if (category != null && category!.isNotEmpty)
+      'category': category,
+    if (species != null && species!.isNotEmpty) 'species': species,
     if (description != null && description!.isNotEmpty)
       'description': description,
-    if (imageUrl != null && imageUrl!.isNotEmpty)
-      'imageUrl': imageUrl,
   };
 }
 

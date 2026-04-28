@@ -43,7 +43,6 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
               },
             ),
             AppTextFormField(
-              required: false,
               controller: TextEditingController(),
               focusNode: FocusNode(),
               title: 'Name',
@@ -61,12 +60,6 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
               controller: TextEditingController(),
               focusNode: FocusNode(),
               title: 'Gender',
-            ),
-            AppTextFormField(
-              required: false,
-              controller: TextEditingController(),
-              focusNode: FocusNode(),
-              title: 'Date of birth',
             ),
             AppTextFormField(
               controller: TextEditingController(),

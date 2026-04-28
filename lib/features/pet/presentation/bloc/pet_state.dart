@@ -13,8 +13,10 @@ class PetState with _$PetState {
   }) = _Loaded;
 
   const factory PetState.creating() = _Creating;
+  const factory PetState.createPetSuccess() = _CreatePetSuccess;
 
   const factory PetState.updating() = _Updating;
+  const factory PetState.updatePetSuccess() = _UpdatePetSuccess;
 
   const factory PetState.error(String message) = _Error;
 }

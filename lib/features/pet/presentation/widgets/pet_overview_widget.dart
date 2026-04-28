@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
+import 'package:petter/features/pet/domain/entities/pet.dart';
 
 class PetInfoWidget extends StatelessWidget {
-  const PetInfoWidget({super.key});
+  const PetInfoWidget({required this.pet, super.key});
+
+  final Pet pet;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +24,13 @@ class PetInfoWidget extends StatelessWidget {
                 mainAxisAlignment: .center,
                 spacing: 4,
                 children: [
-                  Text('Max', style: context.textTheme.titleLarge),
+                  Text(pet.name, style: context.textTheme.titleLarge),
                   Row(
                     spacing: 4,
                     children: [
                       Assets.icons.mapPin.svg(width: 16),
                       Text(
-                        "Max's address",
+                        pet.address,
                         style: context.textTheme.bodySmall,
                       ),
                     ],
@@ -35,14 +39,18 @@ class PetInfoWidget extends StatelessWidget {
               ),
             ),
             AppButton(
-              child: Assets.icons.male.svg(
-                width: 24,
-                height: 24,
-                colorFilter: ColorFilter.mode(
-                  context.colors.primary,
-                  .srcIn,
-                ),
-              ),
+              child:
+                  (pet.gender == Gender.male
+                          ? Assets.icons.male
+                          : Assets.icons.female)
+                      .svg(
+                        width: 24,
+                        height: 24,
+                        colorFilter: ColorFilter.mode(
+                          context.colors.primary,
+                          .srcIn,
+                        ),
+                      ),
             ),
           ],
         ),
@@ -55,7 +63,6 @@ class PetInfoWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: context.colors.shadow.withValues(alpha: .8),
-                blurStyle: BlurStyle.solid,
                 offset: const Offset(4, 4),
               ),
             ],

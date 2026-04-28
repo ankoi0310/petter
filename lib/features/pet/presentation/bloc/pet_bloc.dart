@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
@@ -52,12 +53,21 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   ) async {
     emit(const PetState.loading());
     final result = await _getPets(NoParams());
-    result.fold((failure) => emit(PetState.error(failure.message)), (
-      pets,
-    ) {
-      _pets = pets;
-      _emitLoaded(emit);
-    });
+    result.fold(
+      (failure) => emit(
+        PetState.error(
+          failure.when(
+            auth: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
+      (pets) {
+        _pets = pets;
+        _emitLoaded(emit);
+      },
+    );
   }
 
   Future<void> _onGetUserPets(
@@ -66,12 +76,21 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   ) async {
     emit(const PetState.loading());
     final result = await _getUserPets(event.uid);
-    result.fold((failure) => emit(PetState.error(failure.message)), (
-      pets,
-    ) {
-      _userPets = pets;
-      _emitLoaded(emit);
-    });
+    result.fold(
+      (failure) => emit(
+        PetState.error(
+          failure.when(
+            auth: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
+      (pets) {
+        _userPets = pets;
+        _emitLoaded(emit);
+      },
+    );
   }
 
   Future<void> _onGetPet(
@@ -80,7 +99,15 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   ) async {
     final result = await _getPet(event.id);
     result.fold(
-      (failure) => emit(PetState.error(failure.message)),
+      (failure) => emit(
+        PetState.error(
+          failure.when(
+            auth: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
       (pet) => emit(
         PetState.loaded(pets: _pets, userPets: _userPets, pet: pet),
       ),
@@ -93,13 +120,23 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   ) async {
     emit(const PetState.creating());
     final result = await _createPet(event.params);
-    result.fold((failure) => emit(PetState.error(failure.message)), (
-      pet,
-    ) {
-      _pets = [..._pets, pet];
-      _userPets = [..._userPets, pet];
-      _emitLoaded(emit);
-    });
+    result.fold(
+      (failure) => emit(
+        PetState.error(
+          failure.when(
+            auth: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
+      (pet) {
+        _pets = [..._pets, pet];
+        _userPets = [..._userPets, pet];
+        emit(const PetState.createPetSuccess());
+        _emitLoaded(emit);
+      },
+    );
   }
 
   Future<void> _onUpdatePet(
@@ -108,17 +145,27 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   ) async {
     emit(const PetState.updating());
     final result = await _updatePet(event.params);
-    result.fold((failure) => emit(PetState.error(failure.message)), (
-      updatedPet,
-    ) {
-      _pets = _pets
-          .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
-          .toList();
-      _userPets = _userPets
-          .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
-          .toList();
-      _emitLoaded(emit);
-    });
+    result.fold(
+      (failure) => emit(
+        PetState.error(
+          failure.when(
+            auth: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
+      (updatedPet) {
+        _pets = _pets
+            .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
+            .toList();
+        _userPets = _userPets
+            .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
+            .toList();
+        emit(const PetState.updatePetSuccess());
+        _emitLoaded(emit);
+      },
+    );
   }
 
   // Future<void> _onDeletePet(

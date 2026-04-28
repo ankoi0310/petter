@@ -6,8 +6,11 @@ extension PetMapper on PetModel {
     return Pet(
       id: id,
       uid: uid,
+      address: address,
       name: name,
       gender: gender,
+      category: category,
+      species: species,
       age: age,
       weight: weight,
       description: description,

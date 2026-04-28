@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
@@ -10,20 +12,24 @@ class CreatePetParams {
     required this.name,
     required this.address,
     required this.gender,
-    required this.age,
-    required this.weight,
+    required this.category,
+    required this.species,
+    this.age,
+    this.weight,
     required this.description,
-    this.imageUrl = '',
+    this.imageFile,
   });
 
   final String uid;
   final String name;
   final String address;
   final Gender gender;
-  final String age;
-  final double weight;
+  final String? age;
+  final String? weight;
+  final String category;
+  final String species;
   final String description;
-  final String imageUrl;
+  final File? imageFile;
 }
 
 class CreatePetUseCase implements UseCase<Pet, CreatePetParams> {

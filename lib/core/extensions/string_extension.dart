@@ -13,4 +13,10 @@ extension StringExtension on String {
     );
     return regex.hasMatch(this);
   }
+
+  String get capitalize =>
+      isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : this;
+
+  String get toTitleCase =>
+      split(' ').map((word) => word.capitalize).join(' ');
 }
