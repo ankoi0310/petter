@@ -11,6 +11,10 @@ import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/watch_auth_state_use_case.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/category/data/datasources/category_remote_data_source.dart';
+import 'package:petter/features/category/data/repositories/category_repository_impl.dart';
+import 'package:petter/features/category/domain/repositories/category_repository.dart';
+import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
 import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart';
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
@@ -46,6 +50,7 @@ void initInjection() {
 
   _initAuth(sl);
   _initUser(sl);
+  _initCategory(sl);
   _initPet(sl);
 }
 
@@ -84,6 +89,18 @@ void _initUser(GetIt sl) {
     ..registerFactory(
       () => UserBloc(getProfile: sl(), updateProfile: sl()),
     );
+}
+
+void _initCategory(GetIt sl) {
+  sl
+    ..registerLazySingleton<CategoryRemoteDataSource>(
+      () => CategoryRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton<CategoryRepository>(
+      () => CategoryRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => WatchAuthStateUseCase(sl()))
+    ..registerFactory(() => CategoryBloc(watchCategories: sl()));
 }
 
 void _initPet(GetIt sl) {
