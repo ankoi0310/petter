@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
-import 'package:petter/core/router/router.dart';
-import 'package:petter/core/widgets/button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
+import 'package:petter/core/widgets/pet_card.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class HomeCarouselSlider extends StatefulWidget {
@@ -17,18 +15,14 @@ class HomeCarouselSlider extends StatefulWidget {
 class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   late PageController _pageController;
   double _pageOffset = 0;
-
-  // Tổng số item ảo để tạo cảm giác vô hạn
   final int _virtualCount = 10000;
-
-  // Số lượng dữ liệu thực tế (ví dụ bạn có 10 câu triết lý)
   final int _realCount = 10;
-
-  final List<AssetGenImage> pets = Assets.images.pets.values.toList();
 
   @override
   void initState() {
     super.initState();
+    context.read<PetBloc>().add(const PetEvent.getPets());
+
     final middle = _virtualCount ~/ 2;
     final initialPage = middle - (middle % _realCount);
 
@@ -85,39 +79,24 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   }
 
   Widget _buildCard(int index) {
-    return Stack(
-      children: [
-        GestureDetector(
-          excludeFromSemantics: true,
-          onTap: () => context.pushNamed(
-            AppRoutes.petInfo.name,
-            pathParameters: {'id': '$index'},
-          ),
-          child: Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 32,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: context.colors.primary.withValues(alpha: .5),
-                width: 2,
+    return BlocBuilder<PetBloc, PetState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          loading: () {
+            return const CircularProgressIndicator();
+          },
+          loaded: (pets, myPets, _) {
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 32,
               ),
-              image: DecorationImage(
-                image: pets[index].provider(),
-                fit: .cover,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 16,
-          child: LikeButton(onTap: () {}),
-        ),
-      ],
+              child: PetCard(pet: pets[index]),
+            );
+          },
+          orElse: () => const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

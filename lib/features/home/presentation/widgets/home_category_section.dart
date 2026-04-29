@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/features/home/presentation/widgets/category_horizontal_list_view.dart';
 
-class HomeCategoryWidget extends StatelessWidget {
-  const HomeCategoryWidget({super.key});
+class HomeCategorySection extends StatelessWidget {
+  const HomeCategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,10 @@ class HomeCategoryWidget extends StatelessWidget {
             mainAxisAlignment: .spaceBetween,
             children: [
               Text('Categories', style: context.textTheme.titleLarge),
-              const Icon(Iconsax.arrow_right_2_copy),
+              GestureDetector(
+                onTap: () => context.pushNamed(AppRoutes.search.name),
+                child: const Icon(Iconsax.arrow_right_2_copy),
+              ),
             ],
           ),
           const CategoryHorizontalListView(),

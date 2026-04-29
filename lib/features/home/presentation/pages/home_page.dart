@@ -7,7 +7,7 @@ import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/home/presentation/widgets/home_bottom_nav.dart';
 import 'package:petter/features/home/presentation/widgets/home_carousel_slider.dart';
-import 'package:petter/features/home/presentation/widgets/home_category_widget.dart';
+import 'package:petter/features/home/presentation/widgets/home_category_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const HomeCategoryWidget(),
+              const HomeCategorySection(),
               const Expanded(child: HomeCarouselSlider()),
               const HomeBottomNav(),
             ],
