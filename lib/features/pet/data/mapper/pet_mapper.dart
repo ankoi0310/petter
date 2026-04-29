@@ -9,7 +9,7 @@ extension PetMapper on PetModel {
       address: address,
       name: name,
       gender: gender,
-      category: category,
+      categoryId: categoryId,
       species: species,
       age: age,
       weight: weight,

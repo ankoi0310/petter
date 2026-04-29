@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/widgets/button.dart';
+import 'package:petter/core/widgets/like_button.dart';
 
-class PetImageView extends StatelessWidget {
-  const PetImageView({
+class PetDetailImageView extends StatelessWidget {
+  const PetDetailImageView({
     required this.id,
     required this.imageUrl,
     super.key,
@@ -43,11 +43,7 @@ class PetImageView extends StatelessWidget {
             return const Icon(Icons.error);
           },
         ),
-        Positioned(
-          top: 16,
-          right: 16,
-          child: LikeButton(onTap: () {}),
-        ),
+        Positioned(top: 16, right: 16, child: LikeButton(petId: id)),
       ],
     );
   }

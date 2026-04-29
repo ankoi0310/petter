@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/presentation/widgets/bottom_action_widget.dart';
-import 'package:petter/features/pet/presentation/widgets/pet_description_view_more.dart';
-import 'package:petter/features/pet/presentation/widgets/pet_image_view.dart';
-import 'package:petter/features/pet/presentation/widgets/pet_overview_widget.dart';
+import 'package:petter/features/pet/presentation/widgets/pet_detail_description_view_more.dart';
+import 'package:petter/features/pet/presentation/widgets/pet_detail_image_view.dart';
+import 'package:petter/features/pet/presentation/widgets/pet_detail_overview_widget.dart';
 
 class PetDetailPage extends StatelessWidget {
   const PetDetailPage({
@@ -26,9 +26,14 @@ class PetDetailPage extends StatelessWidget {
               crossAxisAlignment: .stretch,
               spacing: 32,
               children: [
-                PetImageView(id: pet.id, imageUrl: pet.imageUrl),
-                PetInfoWidget(pet: pet),
-                PetDescriptionViewMore(description: pet.description),
+                PetDetailImageView(
+                  id: pet.id,
+                  imageUrl: pet.imageUrl,
+                ),
+                PetDetailOverviewWidget(pet: pet),
+                PetDetailDescriptionViewMore(
+                  description: pet.description,
+                ),
               ],
             ),
           ),

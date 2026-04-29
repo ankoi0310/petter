@@ -114,7 +114,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         name: params.name,
         address: params.address,
         gender: params.gender,
-        category: params.category,
+        categoryId: params.categoryId,
         species: params.species,
         age: params.age,
         weight: params.weight,

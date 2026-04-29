@@ -49,7 +49,7 @@ class _MyPetPageState extends State<MyPetPage> {
           builder: (context, state) {
             return state.maybeWhen(
               loaded: (pets, userPets, _) {
-                return MyPetGridView(pets: userPets);
+                return MyPetGridView(pets: userPets, editable: true);
               },
               orElse: () {
                 return const Center(

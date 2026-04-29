@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
-class PetDescriptionViewMore extends StatelessWidget {
-  const PetDescriptionViewMore({
+class PetDetailDescriptionViewMore extends StatelessWidget {
+  const PetDetailDescriptionViewMore({
     required this.description,
     super.key,
   });

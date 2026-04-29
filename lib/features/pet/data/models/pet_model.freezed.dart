@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PetModel {
 
- String get id; String get uid; String get name; String get address; Gender get gender; String? get age; String? get weight; String get category; String get species; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
+ String get id; String get uid; String get name; String get address; Gender get gender; String get age; String get weight; String get categoryId; String get species; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PetModelCopyWith<PetModel> get copyWith => _$PetModelCopyWithImpl<PetModel>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.category, category) || other.category == category)&&(identical(other.species, species) || other.species == species)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.species, species) || other.species == species)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,category,species,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,categoryId,species,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted);
 
 @override
 String toString() {
-  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, category: $category, species: $species, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted)';
+  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, categoryId: $categoryId, species: $species, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PetModelCopyWith<$Res>  {
   factory $PetModelCopyWith(PetModel value, $Res Function(PetModel) _then) = _$PetModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String uid, String name, String address, Gender gender, String? age, String? weight, String category, String species, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+ String id, String uid, String name, String address, Gender gender, String age, String weight, String categoryId, String species, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
@@ -65,16 +65,16 @@ class _$PetModelCopyWithImpl<$Res>
 
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? category = null,Object? species = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = null,Object? weight = null,Object? categoryId = null,Object? species = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as Gender,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
-as String?,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
-as String?,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as Gender,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
+as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
+as String,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as String,species: null == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -167,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String? age,  String? weight,  String category,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String categoryId,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.category,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.categoryId,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
   return orElse();
 
 }
@@ -188,10 +188,10 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String? age,  String? weight,  String category,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String categoryId,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
 switch (_that) {
 case _PetModel():
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.category,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.categoryId,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +208,10 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  String address,  Gender gender,  String? age,  String? weight,  String category,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String categoryId,  String species,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.category,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.categoryId,_that.species,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
   return null;
 
 }
@@ -223,7 +223,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 @JsonSerializable()
 @TimestampConverter()
 class _PetModel implements PetModel {
-  const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.category, required this.species, required this.description, required this.imageUrl, required this.createdAt, required this.updatedAt, required this.isAdopted, required this.isDeleted});
+  const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.categoryId, required this.species, required this.description, required this.imageUrl, required this.createdAt, required this.updatedAt, required this.isAdopted, required this.isDeleted});
   factory _PetModel.fromJson(Map<String, dynamic> json) => _$PetModelFromJson(json);
 
 @override final  String id;
@@ -231,9 +231,9 @@ class _PetModel implements PetModel {
 @override final  String name;
 @override final  String address;
 @override final  Gender gender;
-@override final  String? age;
-@override final  String? weight;
-@override final  String category;
+@override final  String age;
+@override final  String weight;
+@override final  String categoryId;
 @override final  String species;
 @override final  String description;
 @override final  String imageUrl;
@@ -255,16 +255,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.category, category) || other.category == category)&&(identical(other.species, species) || other.species == species)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.species, species) || other.species == species)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,category,species,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,categoryId,species,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted);
 
 @override
 String toString() {
-  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, category: $category, species: $species, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted)';
+  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, categoryId: $categoryId, species: $species, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted)';
 }
 
 
@@ -275,7 +275,7 @@ abstract mixin class _$PetModelCopyWith<$Res> implements $PetModelCopyWith<$Res>
   factory _$PetModelCopyWith(_PetModel value, $Res Function(_PetModel) _then) = __$PetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String uid, String name, String address, Gender gender, String? age, String? weight, String category, String species, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+ String id, String uid, String name, String address, Gender gender, String age, String weight, String categoryId, String species, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
@@ -292,16 +292,16 @@ class __$PetModelCopyWithImpl<$Res>
 
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? category = null,Object? species = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = null,Object? weight = null,Object? categoryId = null,Object? species = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,}) {
   return _then(_PetModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as Gender,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
-as String?,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
-as String?,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as Gender,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
+as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
+as String,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as String,species: null == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable

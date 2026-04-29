@@ -12,10 +12,10 @@ class CreatePetParams {
     required this.name,
     required this.address,
     required this.gender,
-    required this.category,
+    required this.categoryId,
     required this.species,
-    this.age,
-    this.weight,
+    required this.age,
+    required this.weight,
     required this.description,
     this.imageFile,
   });
@@ -24,9 +24,9 @@ class CreatePetParams {
   final String name;
   final String address;
   final Gender gender;
-  final String? age;
-  final String? weight;
-  final String category;
+  final String age;
+  final String weight;
+  final String categoryId;
   final String species;
   final String description;
   final File? imageFile;

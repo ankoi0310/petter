@@ -13,8 +13,8 @@ import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
-import 'package:petter/features/pet/presentation/widgets/category_dropdown_field.dart';
-import 'package:petter/features/pet/presentation/widgets/gender_dropdown_field.dart';
+import 'package:petter/core/widgets/category_dropdown_field.dart';
+import 'package:petter/core/widgets/gender_dropdown_field.dart';
 
 class PetUpdateForm extends StatefulWidget {
   const PetUpdateForm({
@@ -50,10 +50,10 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
     _nameController.text = widget.pet.name;
     _speciesController.text = widget.pet.species;
     _addressController.text = widget.pet.address;
-    _ageController.text = widget.pet.age ?? '';
-    _weightController.text = widget.pet.weight ?? '';
+    _ageController.text = widget.pet.age;
+    _weightController.text = widget.pet.weight;
     _descriptionController.text = widget.pet.description;
-    categoryListenable = ValueNotifier<String>(widget.pet.category);
+    categoryListenable = ValueNotifier<String>(widget.pet.categoryId);
     genderListenable = ValueNotifier<Gender>(widget.pet.gender);
   }
 
@@ -83,7 +83,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
       id: widget.id,
       uid: uid,
       name: _nameController.text.trim(),
-      category: categoryListenable.value,
+      categoryId: categoryListenable.value,
       species: _speciesController.text.trim(),
       address: _addressController.text.trim(),
       gender: genderListenable.value,

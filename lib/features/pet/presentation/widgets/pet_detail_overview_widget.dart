@@ -5,8 +5,8 @@ import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 
-class PetInfoWidget extends StatelessWidget {
-  const PetInfoWidget({required this.pet, super.key});
+class PetDetailOverviewWidget extends StatelessWidget {
+  const PetDetailOverviewWidget({required this.pet, super.key});
 
   final Pet pet;
 
@@ -76,7 +76,7 @@ class PetInfoWidget extends StatelessWidget {
                     children: [
                       Text('Age', style: context.textTheme.bodyLarge),
                       Text(
-                        '1 year 5 month',
+                        pet.age,
                         style: context.textTheme.bodySmall,
                       ),
                     ],
@@ -95,7 +95,7 @@ class PetInfoWidget extends StatelessWidget {
                         style: context.textTheme.bodyLarge,
                       ),
                       Text(
-                        '3.5kg',
+                        pet.weight,
                         style: context.textTheme.bodySmall,
                       ),
                     ],
