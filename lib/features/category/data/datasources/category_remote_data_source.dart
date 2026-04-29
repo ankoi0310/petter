@@ -23,8 +23,11 @@ class CategoryRemoteDataSourceImpl
 
   @override
   Stream<List<CategoryModel>> get categoryListChange {
-    return _categoriesCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => doc.data()).toList();
-    });
+    return _categoriesCollection
+        .where('isActive', isEqualTo: true)
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((doc) => doc.data()).toList();
+        });
   }
 }

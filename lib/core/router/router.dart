@@ -14,6 +14,7 @@ import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_update_page.dart';
+import 'package:petter/features/pet/presentation/pages/search_page.dart';
 import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
@@ -31,13 +32,18 @@ final routerConfig = GoRouter(
   refreshListenable: authNotifier,
   redirect: (context, state) {
     final isAuth = authNotifier.isAuthenticated;
+    final isInitialized = authNotifier.isInitialized;
     final location = state.matchedLocation;
 
-    if (!isAuth && !publicRoutes.contains(location)) {
+    if (!isInitialized) return AppRoutes.splash.path;
+
+    final isPublic = publicRoutes.contains(location);
+
+    if (!isAuth && !isPublic) {
       return AppRoutes.signIn.path;
     }
 
-    if (isAuth && publicRoutes.contains(location)) {
+    if (isAuth && (isPublic || location == AppRoutes.splash.path)) {
       return AppRoutes.home.path;
     }
 
@@ -88,6 +94,11 @@ final routerConfig = GoRouter(
           },
         ),
       ],
+    ),
+    GoRoute(
+      name: AppRoutes.search.name,
+      path: AppRoutes.search.path,
+      builder: (context, state) => const SearchPage(),
     ),
     GoRoute(
       name: AppRoutes.petInfo.name,

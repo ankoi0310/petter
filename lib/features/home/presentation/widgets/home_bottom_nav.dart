@@ -28,7 +28,10 @@ class HomeBottomNav extends StatelessWidget {
         mainAxisAlignment: .spaceAround,
         children: [
           const Icon(Iconsax.home_2_copy),
-          const Icon(Iconsax.search_normal_copy),
+          GestureDetector(
+            onTap: () => context.pushNamed(AppRoutes.search.name),
+            child: const Icon(Iconsax.search_normal_copy),
+          ),
           GestureDetector(
             onTap: () => context.pushNamed(AppRoutes.myPet.name),
             child: const Icon(Iconsax.pet_copy),

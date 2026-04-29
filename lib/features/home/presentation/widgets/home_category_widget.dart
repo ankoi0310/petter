@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
+import 'package:petter/features/home/presentation/widgets/category_horizontal_list_view.dart';
 
 class HomeCategoryWidget extends StatelessWidget {
   const HomeCategoryWidget({super.key});
@@ -21,30 +21,7 @@ class HomeCategoryWidget extends StatelessWidget {
               const Icon(Iconsax.arrow_right_2_copy),
             ],
           ),
-          IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: .spaceBetween,
-              children: Assets.images.categories.values.map((asset) {
-                return Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: .circle,
-                      border: Border.all(
-                        color: context.colors.secondary,
-                      ),
-                    ),
-                    child: CircleAvatar(
-                      radius: 32,
-                      child: ClipRRect(
-                        borderRadius: .circular(32),
-                        child: asset.image(),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
+          const CategoryHorizontalListView(),
         ],
       ),
     );

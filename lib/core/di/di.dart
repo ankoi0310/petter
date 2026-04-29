@@ -14,6 +14,7 @@ import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/category/data/datasources/category_remote_data_source.dart';
 import 'package:petter/features/category/data/repositories/category_repository_impl.dart';
 import 'package:petter/features/category/domain/repositories/category_repository.dart';
+import 'package:petter/features/category/domain/usecases/watch_categories_use_case.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
 import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart';
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
@@ -99,7 +100,7 @@ void _initCategory(GetIt sl) {
     ..registerLazySingleton<CategoryRepository>(
       () => CategoryRepositoryImpl(sl()),
     )
-    ..registerLazySingleton(() => WatchAuthStateUseCase(sl()))
+    ..registerLazySingleton(() => WatchCategoriesUseCase(sl()))
     ..registerFactory(() => CategoryBloc(watchCategories: sl()));
 }
 
