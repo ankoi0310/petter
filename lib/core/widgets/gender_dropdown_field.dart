@@ -12,7 +12,7 @@ class GenderDropdownField extends StatelessWidget {
   });
 
   final FocusNode focusNode;
-  final ValueNotifier<Gender> valueListenable;
+  final ValueNotifier<Gender?> valueListenable;
 
   @override
   Widget build(BuildContext context) {

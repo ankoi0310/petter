@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/di/di.dart';
-import 'package:petter/core/router/auth_notifier.dart';
-import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
+import 'package:petter/core/router/bloc_listenable.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/chat/presentation/pages/chat_page.dart';
 import 'package:petter/features/chat/presentation/pages/conversation_page.dart';
+import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:petter/features/favorite/presentation/pages/favorite_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/home/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -14,13 +18,11 @@ import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_update_page.dart';
-import 'package:petter/features/pet/presentation/pages/search_page.dart';
+import 'package:petter/features/search/presentation/pages/search_page.dart';
 import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
 import 'package:petter/features/user/presentation/pages/user_profile_page.dart';
-
-final authNotifier = AuthNotifier(sl<AuthRepository>());
 
 final List<String> publicRoutes = [
   AppRoutes.signIn.path,
@@ -29,25 +31,42 @@ final List<String> publicRoutes = [
 
 final routerConfig = GoRouter(
   initialLocation: AppRoutes.splash.path,
-  refreshListenable: authNotifier,
+  refreshListenable: Listenable.merge([
+    BlocListenable(sl<AuthBloc>()),
+    BlocListenable(sl<FavoriteBloc>()),
+  ]),
   redirect: (context, state) {
-    final isAuth = authNotifier.isAuthenticated;
-    final isInitialized = authNotifier.isInitialized;
+    final authState = context.read<AuthBloc>().state;
+    final favoriteState = context.read<FavoriteBloc>().state;
     final location = state.matchedLocation;
-
-    if (!isInitialized) return AppRoutes.splash.path;
 
     final isPublic = publicRoutes.contains(location);
 
-    if (!isAuth && !isPublic) {
-      return AppRoutes.signIn.path;
-    }
+    return authState.maybeWhen(
+      authenticated: (user) {
+        final isFavoriteLoaded = favoriteState.maybeWhen(
+          loaded: (_) => true,
+          error: (_) => true,
+          orElse: () => false,
+        );
 
-    if (isAuth && (isPublic || location == AppRoutes.splash.path)) {
-      return AppRoutes.home.path;
-    }
+        print(isFavoriteLoaded);
 
-    return null;
+        if (!isFavoriteLoaded && location == AppRoutes.splash.path) {
+          return null;
+        }
+
+        if (location == AppRoutes.splash.path || isPublic) {
+          return AppRoutes.home.path;
+        }
+
+        return null;
+      },
+      unauthenticated: () {
+        return !isPublic ? AppRoutes.signIn.path : null;
+      },
+      orElse: () => null,
+    );
   },
   routes: [
     GoRoute(
@@ -144,6 +163,13 @@ final routerConfig = GoRouter(
       ],
     ),
     GoRoute(
+      name: AppRoutes.favorite.name,
+      path: AppRoutes.favorite.path,
+      builder: (context, state) {
+        return const FavoritePage();
+      },
+    ),
+    GoRoute(
       name: AppRoutes.account.name,
       path: AppRoutes.account.path,
       builder: (context, state) => const AccountPage(),
@@ -181,6 +207,7 @@ enum AppRoutes {
   myPetAdd(name: 'myPetAdd', path: '/add'),
   myPetInfo(name: 'myPetInfo', path: '/:id'),
   myPetUpdate(name: 'myPetUpdate', path: '/:id/update'),
+  favorite(name: 'favorite', path: '/favorite'),
   account(name: 'account', path: '/account'),
   userProfile(name: 'userProfile', path: '/profile'),
   accountChangePassword(

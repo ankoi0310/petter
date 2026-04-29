@@ -16,6 +16,13 @@ import 'package:petter/features/category/data/repositories/category_repository_i
 import 'package:petter/features/category/domain/repositories/category_repository.dart';
 import 'package:petter/features/category/domain/usecases/watch_categories_use_case.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
+import 'package:petter/features/favorite/data/datasources/favorite_remote_data_source.dart';
+import 'package:petter/features/favorite/data/repositories/favorite_repository_impl.dart';
+import 'package:petter/features/favorite/domain/repositories/favorite_repository.dart';
+import 'package:petter/features/favorite/domain/usecases/add_to_favorite_use_case.dart';
+import 'package:petter/features/favorite/domain/usecases/get_favorites_use_case.dart';
+import 'package:petter/features/favorite/domain/usecases/remove_from_favorite_use_case.dart';
+import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart';
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
@@ -53,6 +60,7 @@ void initInjection() {
   _initUser(sl);
   _initCategory(sl);
   _initPet(sl);
+  _initFavorite(sl);
 }
 
 void _initAuth(GetIt sl) {
@@ -124,6 +132,27 @@ void _initPet(GetIt sl) {
         getPet: sl(),
         createPet: sl(),
         updatePet: sl(),
+      ),
+    );
+}
+
+void _initFavorite(GetIt sl) {
+  sl
+    ..registerLazySingleton<FavoriteRemoteDataSource>(
+      () => FavoriteRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton<FavoriteRepository>(
+      () => FavoriteRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => GetFavoritesUseCase(sl()))
+    ..registerLazySingleton(() => AddToFavoriteUseCase(sl()))
+    ..registerLazySingleton(() => RemoveFromFavoriteUseCase(sl()))
+    ..registerFactory(
+      () => FavoriteBloc(
+        watchAuthState: sl(),
+        getFavorites: sl(),
+        addToFavorite: sl(),
+        removeFromFavorite: sl(),
       ),
     );
 }
