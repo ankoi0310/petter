@@ -42,9 +42,13 @@ class AuthRepositoryImpl implements AuthRepository {
   ).map((_) => unit).run();
 
   @override
-  Stream<User?> get user => _remoteDataSource.authStateChange.map(
-    (user) => user?.toEntity(),
-  );
+  ResultStream<User?> get user => _remoteDataSource.authStateChange
+      .map<Either<Failure, User?>>((user) => right(user?.toEntity()))
+      .handleError((dynamic error) {
+        return left<Failure, List<User?>>(
+          Failure.server(error.toString()),
+        );
+      });
 
   Failure _mapError(Object error) {
     if (error is FirebaseAuthException) {

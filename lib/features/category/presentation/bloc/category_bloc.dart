@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/category/domain/entities/category.dart';
 import 'package:petter/features/category/domain/usecases/watch_categories_use_case.dart';
@@ -21,8 +23,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
       await _categorySubcription?.cancel();
       _categorySubcription = _watchCategories(NoParams()).listen(
-        (categories) {
-          add(CategoryEvent.categoriesUpdated(categories));
+        (result) {
+          result.fold((failure) {}, (categories) {
+            add(CategoryEvent.categoriesUpdated(categories));
+          });
         },
         onError: (dynamic e) =>
             emit(CategoryState.error(e.toString())),
@@ -34,7 +38,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   }
 
   final WatchCategoriesUseCase _watchCategories;
-  StreamSubscription<List<Category>>? _categorySubcription;
+  StreamSubscription<Either<Failure, List<Category>>>?
+  _categorySubcription;
 
   @override
   Future<void> close() async {

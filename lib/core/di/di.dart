@@ -16,6 +16,15 @@ import 'package:petter/features/category/data/repositories/category_repository_i
 import 'package:petter/features/category/domain/repositories/category_repository.dart';
 import 'package:petter/features/category/domain/usecases/watch_categories_use_case.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
+import 'package:petter/features/chat/data/datasources/chat_remote_data_source.dart';
+import 'package:petter/features/chat/data/repositories/chat_repository_impl.dart';
+import 'package:petter/features/chat/domain/repositories/chat_repository.dart';
+import 'package:petter/features/chat/domain/usecases/create_chat_room.dart';
+import 'package:petter/features/chat/domain/usecases/send_message.dart';
+import 'package:petter/features/chat/domain/usecases/watch_chat_rooms.dart';
+import 'package:petter/features/chat/domain/usecases/watch_messages.dart';
+import 'package:petter/features/chat/presentation/bloc/chat_message/chat_message_bloc.dart';
+import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
 import 'package:petter/features/favorite/data/datasources/favorite_remote_data_source.dart';
 import 'package:petter/features/favorite/data/repositories/favorite_repository_impl.dart';
 import 'package:petter/features/favorite/domain/repositories/favorite_repository.dart';
@@ -61,6 +70,7 @@ void initInjection() {
   _initCategory(sl);
   _initPet(sl);
   _initFavorite(sl);
+  _initChat(sl);
 }
 
 void _initAuth(GetIt sl) {
@@ -153,6 +163,30 @@ void _initFavorite(GetIt sl) {
         getFavorites: sl(),
         addToFavorite: sl(),
         removeFromFavorite: sl(),
+      ),
+    );
+}
+
+void _initChat(GetIt sl) {
+  sl
+    ..registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(sl(), sl()),
+    )
+    ..registerLazySingleton<ChatRepository>(
+      () => ChatRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => WatchChatRoomsUseCase(sl()))
+    ..registerLazySingleton(() => CreateChatRoomUseCase(sl()))
+    ..registerLazySingleton(() => WatchMessagesUseCase(sl()))
+    ..registerLazySingleton(() => SendMessageUseCase(sl()))
+    ..registerLazySingleton(
+      () => ChatRoomBloc(watchChatRooms: sl(), createChatRoom: sl()),
+    )
+    ..registerFactoryParam<ChatMessageBloc, String, String>(
+      (roomId, _) => ChatMessageBloc(
+        watchMessages: sl(),
+        sendMessage: sl(),
+        roomId: roomId,
       ),
     );
 }

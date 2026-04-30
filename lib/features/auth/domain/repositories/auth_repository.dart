@@ -11,5 +11,5 @@ abstract class AuthRepository {
   });
 
   VoidFuture signOut();
-  Stream<User?> get user;
+  ResultStream<User?> get user;
 }

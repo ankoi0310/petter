@@ -5,7 +5,7 @@ abstract class UseCase<ReturnType, Params> {
 }
 
 abstract class StreamUseCase<ReturnType, Params> {
-  Stream<ReturnType> call(Params params);
+  ResultStream<ReturnType> call(Params params);
 }
 
 class NoParams {}

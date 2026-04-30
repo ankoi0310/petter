@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/error_util.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
@@ -11,7 +13,9 @@ import 'package:petter/features/auth/domain/usecases/watch_auth_state_use_case.d
 import 'package:petter/features/user/domain/entities/user.dart';
 
 part 'auth_bloc.freezed.dart';
+
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -39,17 +43,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInUseCase _signIn;
   final SignOutUseCase _signOut;
   final WatchAuthStateUseCase _watchAuthState;
-  StreamSubscription<User?>? _subscription;
+  StreamSubscription<Either<Failure, User?>>? _subscription;
 
   Future<void> _onStarted(
     _Started event,
     Emitter<AuthState> emit,
   ) async {
-    final user = await _watchAuthState(NoParams()).first;
-    emit(
-      user != null
-          ? AuthState.authenticated(user)
-          : const AuthState.unauthenticated(),
+    final result = await _watchAuthState(NoParams()).first;
+    result.fold(
+      (failure) => emit(const AuthState.unauthenticated()),
+      (user) {
+        emit(
+          user != null
+              ? AuthState.authenticated(user)
+              : const AuthState.unauthenticated(),
+        );
+      },
     );
   }
 

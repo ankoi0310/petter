@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
@@ -32,10 +33,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<_GetFavorites>(_onGetFavorites);
     on<_ToggleFavorite>(_onToggleFavorite);
 
-    _authSubscription = _watchAuthState(NoParams()).listen((user) {
-      if (user != null) {
-        add(FavoriteEvent.getFavorites(user.uid));
-      }
+    _authSubscription = _watchAuthState(NoParams()).listen((result) {
+      result.fold((failure) {}, (user) {
+        if (user != null) {
+          add(FavoriteEvent.getFavorites(user.uid));
+        }
+      });
     });
   }
 
@@ -44,7 +47,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final AddToFavoriteUseCase _addToFavorite;
   final RemoveFromFavoriteUseCase _removeFromFavorite;
 
-  StreamSubscription<User?>? _authSubscription;
+  StreamSubscription<Either<Failure, User?>>? _authSubscription;
 
   FutureOr<void> _onToggleFavorite(
     _ToggleFavorite event,
@@ -112,7 +115,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         ),
       ),
       (favorites) {
-        print('Fetch favorites successfully');
         emit(FavoriteState.loaded(List.unmodifiable(favorites)));
       },
     );
