@@ -6,8 +6,7 @@ class FavoriteState with _$FavoriteState {
 
   const factory FavoriteState.loading() = _Loading;
 
-  const factory FavoriteState.loaded(List<Favorite> favorites) =
-      _Loaded;
+  const factory FavoriteState.loaded(List<Pet> pets) = _Loaded;
 
   const factory FavoriteState.error(String message) = _Error;
 }

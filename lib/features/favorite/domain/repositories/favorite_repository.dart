@@ -2,7 +2,7 @@ import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/favorite/domain/entities/favorite.dart';
 
 abstract class FavoriteRepository {
-  ResultFuture<List<Favorite>> getFavorites(String uid);
+  ResultStreamList<Favorite> watchFavorites(String uid);
 
   ResultFuture<Favorite> addToFavorite({
     required String uid,

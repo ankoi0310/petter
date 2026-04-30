@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/core/widgets/pet_card.dart';
+import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class HomeCarouselSlider extends StatefulWidget {

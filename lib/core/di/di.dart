@@ -29,8 +29,8 @@ import 'package:petter/features/favorite/data/datasources/favorite_remote_data_s
 import 'package:petter/features/favorite/data/repositories/favorite_repository_impl.dart';
 import 'package:petter/features/favorite/domain/repositories/favorite_repository.dart';
 import 'package:petter/features/favorite/domain/usecases/add_to_favorite_use_case.dart';
-import 'package:petter/features/favorite/domain/usecases/get_favorites_use_case.dart';
 import 'package:petter/features/favorite/domain/usecases/remove_from_favorite_use_case.dart';
+import 'package:petter/features/favorite/domain/usecases/watch_favorites_use_case.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart';
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
@@ -154,13 +154,13 @@ void _initFavorite(GetIt sl) {
     ..registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositoryImpl(sl()),
     )
-    ..registerLazySingleton(() => GetFavoritesUseCase(sl()))
+    ..registerLazySingleton(() => WatchFavoritesUseCase(sl(), sl()))
     ..registerLazySingleton(() => AddToFavoriteUseCase(sl()))
     ..registerLazySingleton(() => RemoveFromFavoriteUseCase(sl()))
     ..registerFactory(
       () => FavoriteBloc(
         watchAuthState: sl(),
-        getFavorites: sl(),
+        watchFavorites: sl(),
         addToFavorite: sl(),
         removeFromFavorite: sl(),
       ),

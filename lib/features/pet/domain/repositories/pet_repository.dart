@@ -4,7 +4,8 @@ import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 
 abstract class PetRepository {
-  ResultFuture<List<Pet>> getPets(); // search update
+  ResultFuture<List<Pet>> getPets({List<String>? ids});
+
   ResultFuture<List<Pet>> getUserPets(
     String uid,
   ); // maybe search update

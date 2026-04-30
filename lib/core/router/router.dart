@@ -52,8 +52,10 @@ final routerConfig = GoRouter(
 
         print(isFavoriteLoaded);
 
-        if (!isFavoriteLoaded && location == AppRoutes.splash.path) {
-          return null;
+        if (!isFavoriteLoaded) {
+          return location == AppRoutes.splash.path
+              ? null
+              : AppRoutes.splash.path;
         }
 
         if (location == AppRoutes.splash.path || isPublic) {

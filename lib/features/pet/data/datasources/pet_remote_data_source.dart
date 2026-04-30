@@ -9,7 +9,7 @@ import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 
 abstract class PetRemoteDataSource {
-  Future<List<PetModel>> getPets();
+  Future<List<PetModel>> getPets({List<String>? ids});
 
   Future<List<PetModel>> getUserPets(String uid);
 
@@ -68,7 +68,31 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
   }
 
   @override
-  Future<List<PetModel>> getPets() async {
+  Future<List<PetModel>> getPets({List<String>? ids}) async {
+    if (ids != null) {
+      if (ids.isEmpty) return [];
+
+      final chunks = <List<String>>[];
+      for (var i = 0; i < ids.length; i += 30) {
+        chunks.add(
+          ids.sublist(i, i + 30 > ids.length ? ids.length : i + 30),
+        );
+      }
+
+      final results = await Future.wait(
+        chunks.map(
+          (chunk) => _petsCollection
+              .where(FieldPath.documentId, whereIn: chunk)
+              .get(),
+        ),
+      );
+
+      return results
+          .expand((snap) => snap.docs)
+          .map((doc) => doc.data())
+          .toList();
+    }
+
     final snapshot = await _petsCollection.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }

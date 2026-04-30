@@ -3,7 +3,7 @@ import 'package:petter/core/error/exception.dart';
 import 'package:petter/features/favorite/data/models/favorite_model.dart';
 
 abstract class FavoriteRemoteDataSource {
-  Future<List<FavoriteModel>> getFavorites(String uid);
+  Stream<List<FavoriteModel>> watchFavorites(String uid);
 
   Future<FavoriteModel> addToFavorite({
     required String uid,
@@ -33,11 +33,13 @@ class FavoriteRemoteDataSourceImpl
           );
 
   @override
-  Future<List<FavoriteModel>> getFavorites(String uid) async {
-    final snapshot = await _favoritesCollection
+  Stream<List<FavoriteModel>> watchFavorites(String uid) {
+    return _favoritesCollection
         .where('uid', isEqualTo: uid)
-        .get();
-    return snapshot.docs.map((doc) => doc.data()).toList();
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((doc) => doc.data()).toList();
+        });
   }
 
   @override
@@ -71,7 +73,7 @@ class FavoriteRemoteDataSourceImpl
           .where('petId', isEqualTo: petId)
           .get();
 
-      for (var doc in query.docs) {
+      for (final doc in query.docs) {
         await doc.reference.delete();
       }
     } catch (e) {

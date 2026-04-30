@@ -89,8 +89,10 @@ class _LikeButtonState extends State<LikeButton>
       builder: (context, state) {
         final isLiked = context.select<FavoriteBloc, bool>((bloc) {
           return bloc.state.maybeWhen(
-            loaded: (favorites) {
-              return favorites.any((p) => p.petId == widget.petId);
+            loaded: (favoritePets) {
+              return favoritePets.any(
+                (pet) => pet.id == widget.petId,
+              );
             },
             orElse: () => false,
           );
