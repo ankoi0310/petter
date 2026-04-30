@@ -182,7 +182,7 @@ void _initChat(GetIt sl) {
     ..registerLazySingleton(
       () => ChatRoomBloc(watchChatRooms: sl(), createChatRoom: sl()),
     )
-    ..registerFactoryParam<ChatMessageBloc, String, String>(
+    ..registerFactoryParam<ChatMessageBloc, String, dynamic>(
       (roomId, _) => ChatMessageBloc(
         watchMessages: sl(),
         sendMessage: sl(),

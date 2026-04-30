@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/di/di.dart';
@@ -6,9 +5,10 @@ import 'package:petter/core/router/bloc_listenable.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
+import 'package:petter/features/chat/domain/entities/chat_room.dart';
+import 'package:petter/features/chat/presentation/bloc/chat_message/chat_message_bloc.dart';
+import 'package:petter/features/chat/presentation/pages/chat_detail_page.dart';
 import 'package:petter/features/chat/presentation/pages/chat_page.dart';
-import 'package:petter/features/chat/presentation/pages/conversation_page.dart';
-import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/favorite/presentation/pages/favorite_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
 import 'package:petter/features/home/presentation/pages/notification_page.dart';
@@ -31,33 +31,15 @@ final List<String> publicRoutes = [
 
 final routerConfig = GoRouter(
   initialLocation: AppRoutes.splash.path,
-  refreshListenable: Listenable.merge([
-    BlocListenable(sl<AuthBloc>()),
-    BlocListenable(sl<FavoriteBloc>()),
-  ]),
+  refreshListenable: BlocListenable(sl<AuthBloc>()),
   redirect: (context, state) {
     final authState = context.read<AuthBloc>().state;
-    final favoriteState = context.read<FavoriteBloc>().state;
     final location = state.matchedLocation;
 
     final isPublic = publicRoutes.contains(location);
 
     return authState.maybeWhen(
       authenticated: (user) {
-        final isFavoriteLoaded = favoriteState.maybeWhen(
-          loaded: (_) => true,
-          error: (_) => true,
-          orElse: () => false,
-        );
-
-        print(isFavoriteLoaded);
-
-        if (!isFavoriteLoaded) {
-          return location == AppRoutes.splash.path
-              ? null
-              : AppRoutes.splash.path;
-        }
-
         if (location == AppRoutes.splash.path || isPublic) {
           return AppRoutes.home.path;
         }
@@ -102,16 +84,22 @@ final routerConfig = GoRouter(
       builder: (context, state) => const NotificationPage(),
     ),
     GoRoute(
-      name: AppRoutes.conversation.name,
-      path: AppRoutes.conversation.path,
-      builder: (context, state) => const ConversationPage(),
+      name: AppRoutes.chat.name,
+      path: AppRoutes.chat.path,
+      builder: (context, state) => const ChatPage(),
       routes: [
         GoRoute(
-          name: AppRoutes.chat.name,
-          path: AppRoutes.chat.path,
+          name: AppRoutes.chatDetail.name,
+          path: AppRoutes.chatDetail.path,
           builder: (context, state) {
             final id = int.parse(state.pathParameters['id']!);
-            return ChatPage(id: id);
+            final room = state.extra! as ChatRoom;
+            return BlocProvider(
+              create: (context) => sl.call<ChatMessageBloc>(
+                param1: id,
+              )..add(const ChatMessageEvent.subscriptionRequested()),
+              child: ChatDetailPage(id: id, room: room),
+            );
           },
         ),
       ],
@@ -201,8 +189,8 @@ enum AppRoutes {
   signIn(name: 'signIn', path: '/sign-in'),
   home(name: 'home', path: '/home'),
   notification(name: 'notification', path: '/notification'),
-  conversation(name: 'conversation', path: '/conversation'),
-  chat(name: 'chat', path: '/:id'),
+  chat(name: 'conversation', path: '/conversation'),
+  chatDetail(name: 'chatDetail', path: '/:id'),
   search(name: 'search', path: '/search'),
   petInfo(name: 'petInfo', path: '/pet/:id'),
   myPet(name: 'myPet', path: '/my-pet'),

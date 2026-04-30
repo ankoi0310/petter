@@ -29,8 +29,7 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           GestureDetector(
-            onTap: () =>
-                context.pushNamed(AppRoutes.conversation.name),
+            onTap: () => context.pushNamed(AppRoutes.chat.name),
             child: const AppIconButton(
               icon: Iconsax.sms_notification_copy,
             ),

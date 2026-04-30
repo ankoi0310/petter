@@ -8,6 +8,7 @@ import 'package:petter/core/constant/app_constants.dart';
 import 'package:petter/core/di/di.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
+import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
@@ -42,6 +43,7 @@ void main() async {
         BlocProvider(create: (_) => sl<CategoryBloc>()),
         BlocProvider(create: (_) => sl<PetBloc>()),
         BlocProvider(create: (_) => sl<FavoriteBloc>()),
+        BlocProvider(create: (_) => sl<ChatRoomBloc>()),
       ],
       child: const MyApp(),
     ),

@@ -18,29 +18,28 @@ class PetDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pet's Information"),
+        titleSpacing: 0,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const .symmetric(horizontal: 16, vertical: 12),
-            child: Column(
-              crossAxisAlignment: .stretch,
-              spacing: 32,
-              children: [
-                PetDetailImageView(
-                  id: pet.id,
-                  imageUrl: pet.imageUrl,
-                ),
-                PetDetailOverviewWidget(pet: pet),
-                PetDetailDescriptionViewMore(
-                  description: pet.description,
-                ),
-              ],
-            ),
+          padding: const .only(left: 16, right: 16, bottom: 12),
+          child: Column(
+            crossAxisAlignment: .stretch,
+            spacing: 32,
+            children: [
+              PetDetailImageView(id: pet.id, imageUrl: pet.imageUrl),
+              PetDetailOverviewWidget(pet: pet),
+              PetDetailDescriptionViewMore(
+                description: pet.description,
+              ),
+            ],
           ),
         ),
       ),
-      bottomNavigationBar: const SafeArea(
-        child: BottomActionWidget(),
+      bottomNavigationBar: SafeArea(
+        child: BottomActionWidget(petOwnerId: pet.uid),
       ),
     );
   }
