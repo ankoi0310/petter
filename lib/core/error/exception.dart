@@ -4,6 +4,12 @@ class AuthException implements Exception {
   final String message;
 }
 
+class ChatException implements Exception {
+  const ChatException(this.message);
+
+  final String message;
+}
+
 class ServerException implements Exception {
   const ServerException(this.message);
 

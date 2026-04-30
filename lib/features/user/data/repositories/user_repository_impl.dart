@@ -19,7 +19,7 @@ class UserRepositoryImpl implements UserRepository {
       final user = await _remoteDataSource.getProfile(uid);
       return right(user.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -29,7 +29,7 @@ class UserRepositoryImpl implements UserRepository {
       final user = await _remoteDataSource.updateProfile(params);
       return right(user.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 }

@@ -37,6 +37,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         UserState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -58,6 +59,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         UserState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),

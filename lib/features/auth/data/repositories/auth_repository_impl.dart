@@ -49,17 +49,19 @@ class AuthRepositoryImpl implements AuthRepository {
   Failure _mapError(Object error) {
     if (error is FirebaseAuthException) {
       return switch (error.code) {
-        'user-not-found' => const AuthFailure('Account is not exist'),
-        'wrong-password' => const AuthFailure('Wrong password'),
-        'email-already-in-use' => const AuthFailure(
+        'user-not-found' => const Failure.auth(
+          'Account is not exist',
+        ),
+        'wrong-password' => const Failure.auth('Wrong password'),
+        'email-already-in-use' => const Failure.auth(
           'Email already in use',
         ),
-        'invalid-email' => const AuthFailure('Email is invalid'),
-        'weak-password' => const AuthFailure('Password is too weak'),
-        _ => AuthFailure(error.message ?? 'Authentication Error'),
+        'invalid-email' => const Failure.auth('Email is invalid'),
+        'weak-password' => const Failure.auth('Password is too weak'),
+        _ => Failure.auth(error.message ?? 'Authentication Error'),
       };
     }
 
-    return UnknownFailure(toString());
+    return Failure.unknown(toString());
   }
 }

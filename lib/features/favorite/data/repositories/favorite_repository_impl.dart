@@ -22,7 +22,7 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
         }).toList(),
       );
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -38,7 +38,7 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
       );
       return right(model.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -48,10 +48,13 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
     required String petId,
   }) async {
     try {
-      await _remoteDataSource.removeFromFavorite(uid: uid, petId: petId);
+      await _remoteDataSource.removeFromFavorite(
+        uid: uid,
+        petId: petId,
+      );
       return right(unit);
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 }

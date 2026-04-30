@@ -105,6 +105,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         FavoriteState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -119,9 +120,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   String _mapFailure(Failure failure) {
     return failure.when(
-      auth: (msg) => msg,
-      server: (msg) => msg,
-      unknown: (msg) => msg,
+      auth: (message) => message,
+      chat: (message) => message,
+      server: (message) => message,
+      unknown: (message) => message,
     );
   }
 

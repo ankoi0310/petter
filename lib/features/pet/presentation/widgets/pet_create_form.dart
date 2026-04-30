@@ -7,12 +7,12 @@ import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/core/widgets/button.dart';
+import 'package:petter/core/widgets/category_dropdown_field.dart';
+import 'package:petter/core/widgets/gender_dropdown_field.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
-import 'package:petter/core/widgets/category_dropdown_field.dart';
-import 'package:petter/core/widgets/gender_dropdown_field.dart';
 
 class PetCreateForm extends StatefulWidget {
   const PetCreateForm({super.key});

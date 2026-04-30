@@ -58,6 +58,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         PetState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -81,6 +82,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         PetState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -103,6 +105,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         PetState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -125,6 +128,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         PetState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),
@@ -150,6 +154,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         PetState.error(
           failure.when(
             auth: (message) => message,
+            chat: (message) => message,
             server: (message) => message,
             unknown: (message) => message,
           ),

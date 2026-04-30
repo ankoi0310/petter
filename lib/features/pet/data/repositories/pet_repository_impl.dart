@@ -20,7 +20,7 @@ class PetRepositoryImpl implements PetRepository {
       final pets = await _remoteDataSource.getPets();
       return right(pets.map((pet) => pet.toEntity()).toList());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -30,7 +30,7 @@ class PetRepositoryImpl implements PetRepository {
       final pets = await _remoteDataSource.getUserPets(uid);
       return right(pets.map((pet) => pet.toEntity()).toList());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -40,7 +40,7 @@ class PetRepositoryImpl implements PetRepository {
       final pet = await _remoteDataSource.getPet(id);
       return right(pet.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -50,7 +50,7 @@ class PetRepositoryImpl implements PetRepository {
       final pet = await _remoteDataSource.createPet(params);
       return right(pet.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 
@@ -60,7 +60,7 @@ class PetRepositoryImpl implements PetRepository {
       final pet = await _remoteDataSource.updatePet(params);
       return right(pet.toEntity());
     } on ServerException catch (e) {
-      return left(ServerFailure(e.message));
+      return left(Failure.server(e.message));
     }
   }
 }

@@ -86,12 +86,13 @@ extension FailurePatterns on Failure {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthFailure value)?  auth,TResult Function( ServerFailure value)?  server,TResult Function( UnknownFailure value)?  unknown,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _AuthFailure value)?  auth,TResult Function( _ChatFailure value)?  chat,TResult Function( _ServerFailure value)?  server,TResult Function( _UnknownFailure value)?  unknown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case AuthFailure() when auth != null:
-return auth(_that);case ServerFailure() when server != null:
-return server(_that);case UnknownFailure() when unknown != null:
+case _AuthFailure() when auth != null:
+return auth(_that);case _ChatFailure() when chat != null:
+return chat(_that);case _ServerFailure() when server != null:
+return server(_that);case _UnknownFailure() when unknown != null:
 return unknown(_that);case _:
   return orElse();
 
@@ -110,12 +111,13 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthFailure value)  auth,required TResult Function( ServerFailure value)  server,required TResult Function( UnknownFailure value)  unknown,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _AuthFailure value)  auth,required TResult Function( _ChatFailure value)  chat,required TResult Function( _ServerFailure value)  server,required TResult Function( _UnknownFailure value)  unknown,}){
 final _that = this;
 switch (_that) {
-case AuthFailure():
-return auth(_that);case ServerFailure():
-return server(_that);case UnknownFailure():
+case _AuthFailure():
+return auth(_that);case _ChatFailure():
+return chat(_that);case _ServerFailure():
+return server(_that);case _UnknownFailure():
 return unknown(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -133,12 +135,13 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthFailure value)?  auth,TResult? Function( ServerFailure value)?  server,TResult? Function( UnknownFailure value)?  unknown,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _AuthFailure value)?  auth,TResult? Function( _ChatFailure value)?  chat,TResult? Function( _ServerFailure value)?  server,TResult? Function( _UnknownFailure value)?  unknown,}){
 final _that = this;
 switch (_that) {
-case AuthFailure() when auth != null:
-return auth(_that);case ServerFailure() when server != null:
-return server(_that);case UnknownFailure() when unknown != null:
+case _AuthFailure() when auth != null:
+return auth(_that);case _ChatFailure() when chat != null:
+return chat(_that);case _ServerFailure() when server != null:
+return server(_that);case _UnknownFailure() when unknown != null:
 return unknown(_that);case _:
   return null;
 
@@ -156,11 +159,12 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  auth,TResult Function( String message)?  server,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  auth,TResult Function( String message)?  chat,TResult Function( String message)?  server,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case AuthFailure() when auth != null:
-return auth(_that.message);case ServerFailure() when server != null:
-return server(_that.message);case UnknownFailure() when unknown != null:
+case _AuthFailure() when auth != null:
+return auth(_that.message);case _ChatFailure() when chat != null:
+return chat(_that.message);case _ServerFailure() when server != null:
+return server(_that.message);case _UnknownFailure() when unknown != null:
 return unknown(_that.message);case _:
   return orElse();
 
@@ -179,11 +183,12 @@ return unknown(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  auth,required TResult Function( String message)  server,required TResult Function( String message)  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  auth,required TResult Function( String message)  chat,required TResult Function( String message)  server,required TResult Function( String message)  unknown,}) {final _that = this;
 switch (_that) {
-case AuthFailure():
-return auth(_that.message);case ServerFailure():
-return server(_that.message);case UnknownFailure():
+case _AuthFailure():
+return auth(_that.message);case _ChatFailure():
+return chat(_that.message);case _ServerFailure():
+return server(_that.message);case _UnknownFailure():
 return unknown(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -201,11 +206,12 @@ return unknown(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  auth,TResult? Function( String message)?  server,TResult? Function( String message)?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  auth,TResult? Function( String message)?  chat,TResult? Function( String message)?  server,TResult? Function( String message)?  unknown,}) {final _that = this;
 switch (_that) {
-case AuthFailure() when auth != null:
-return auth(_that.message);case ServerFailure() when server != null:
-return server(_that.message);case UnknownFailure() when unknown != null:
+case _AuthFailure() when auth != null:
+return auth(_that.message);case _ChatFailure() when chat != null:
+return chat(_that.message);case _ServerFailure() when server != null:
+return server(_that.message);case _UnknownFailure() when unknown != null:
 return unknown(_that.message);case _:
   return null;
 
@@ -217,8 +223,8 @@ return unknown(_that.message);case _:
 /// @nodoc
 
 
-class AuthFailure implements Failure {
-  const AuthFailure(this.message);
+class _AuthFailure implements Failure {
+  const _AuthFailure(this.message);
   
 
 @override final  String message;
@@ -227,13 +233,13 @@ class AuthFailure implements Failure {
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$AuthFailureCopyWith<AuthFailure> get copyWith => _$AuthFailureCopyWithImpl<AuthFailure>(this, _$identity);
+_$AuthFailureCopyWith<_AuthFailure> get copyWith => __$AuthFailureCopyWithImpl<_AuthFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthFailure&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthFailure&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -249,8 +255,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $AuthFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
-  factory $AuthFailureCopyWith(AuthFailure value, $Res Function(AuthFailure) _then) = _$AuthFailureCopyWithImpl;
+abstract mixin class _$AuthFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
+  factory _$AuthFailureCopyWith(_AuthFailure value, $Res Function(_AuthFailure) _then) = __$AuthFailureCopyWithImpl;
 @override @useResult
 $Res call({
  String message
@@ -261,17 +267,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$AuthFailureCopyWithImpl<$Res>
-    implements $AuthFailureCopyWith<$Res> {
-  _$AuthFailureCopyWithImpl(this._self, this._then);
+class __$AuthFailureCopyWithImpl<$Res>
+    implements _$AuthFailureCopyWith<$Res> {
+  __$AuthFailureCopyWithImpl(this._self, this._then);
 
-  final AuthFailure _self;
-  final $Res Function(AuthFailure) _then;
+  final _AuthFailure _self;
+  final $Res Function(_AuthFailure) _then;
 
 /// Create a copy of Failure
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(AuthFailure(
+  return _then(_AuthFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -283,8 +289,8 @@ as String,
 /// @nodoc
 
 
-class ServerFailure implements Failure {
-  const ServerFailure(this.message);
+class _ChatFailure implements Failure {
+  const _ChatFailure(this.message);
   
 
 @override final  String message;
@@ -293,13 +299,79 @@ class ServerFailure implements Failure {
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ServerFailureCopyWith<ServerFailure> get copyWith => _$ServerFailureCopyWithImpl<ServerFailure>(this, _$identity);
+_$ChatFailureCopyWith<_ChatFailure> get copyWith => __$ChatFailureCopyWithImpl<_ChatFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ServerFailure&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatFailure&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'Failure.chat(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ChatFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
+  factory _$ChatFailureCopyWith(_ChatFailure value, $Res Function(_ChatFailure) _then) = __$ChatFailureCopyWithImpl;
+@override @useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$ChatFailureCopyWithImpl<$Res>
+    implements _$ChatFailureCopyWith<$Res> {
+  __$ChatFailureCopyWithImpl(this._self, this._then);
+
+  final _ChatFailure _self;
+  final $Res Function(_ChatFailure) _then;
+
+/// Create a copy of Failure
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_ChatFailure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _ServerFailure implements Failure {
+  const _ServerFailure(this.message);
+  
+
+@override final  String message;
+
+/// Create a copy of Failure
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ServerFailureCopyWith<_ServerFailure> get copyWith => __$ServerFailureCopyWithImpl<_ServerFailure>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ServerFailure&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -315,8 +387,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $ServerFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
-  factory $ServerFailureCopyWith(ServerFailure value, $Res Function(ServerFailure) _then) = _$ServerFailureCopyWithImpl;
+abstract mixin class _$ServerFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
+  factory _$ServerFailureCopyWith(_ServerFailure value, $Res Function(_ServerFailure) _then) = __$ServerFailureCopyWithImpl;
 @override @useResult
 $Res call({
  String message
@@ -327,17 +399,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$ServerFailureCopyWithImpl<$Res>
-    implements $ServerFailureCopyWith<$Res> {
-  _$ServerFailureCopyWithImpl(this._self, this._then);
+class __$ServerFailureCopyWithImpl<$Res>
+    implements _$ServerFailureCopyWith<$Res> {
+  __$ServerFailureCopyWithImpl(this._self, this._then);
 
-  final ServerFailure _self;
-  final $Res Function(ServerFailure) _then;
+  final _ServerFailure _self;
+  final $Res Function(_ServerFailure) _then;
 
 /// Create a copy of Failure
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(ServerFailure(
+  return _then(_ServerFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -349,8 +421,8 @@ as String,
 /// @nodoc
 
 
-class UnknownFailure implements Failure {
-  const UnknownFailure(this.message);
+class _UnknownFailure implements Failure {
+  const _UnknownFailure(this.message);
   
 
 @override final  String message;
@@ -359,13 +431,13 @@ class UnknownFailure implements Failure {
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$UnknownFailureCopyWith<UnknownFailure> get copyWith => _$UnknownFailureCopyWithImpl<UnknownFailure>(this, _$identity);
+_$UnknownFailureCopyWith<_UnknownFailure> get copyWith => __$UnknownFailureCopyWithImpl<_UnknownFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UnknownFailure&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UnknownFailure&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -381,8 +453,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $UnknownFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
-  factory $UnknownFailureCopyWith(UnknownFailure value, $Res Function(UnknownFailure) _then) = _$UnknownFailureCopyWithImpl;
+abstract mixin class _$UnknownFailureCopyWith<$Res> implements $FailureCopyWith<$Res> {
+  factory _$UnknownFailureCopyWith(_UnknownFailure value, $Res Function(_UnknownFailure) _then) = __$UnknownFailureCopyWithImpl;
 @override @useResult
 $Res call({
  String message
@@ -393,17 +465,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$UnknownFailureCopyWithImpl<$Res>
-    implements $UnknownFailureCopyWith<$Res> {
-  _$UnknownFailureCopyWithImpl(this._self, this._then);
+class __$UnknownFailureCopyWithImpl<$Res>
+    implements _$UnknownFailureCopyWith<$Res> {
+  __$UnknownFailureCopyWithImpl(this._self, this._then);
 
-  final UnknownFailure _self;
-  final $Res Function(UnknownFailure) _then;
+  final _UnknownFailure _self;
+  final $Res Function(_UnknownFailure) _then;
 
 /// Create a copy of Failure
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(UnknownFailure(
+  return _then(_UnknownFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
