@@ -125,12 +125,12 @@ return roomCreated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  subscriptionRequested,TResult Function( Either<Failure, List<ChatRoom>> result)?  roomsReceived,TResult Function( List<String> members)?  roomCreated,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  subscriptionRequested,TResult Function( Either<Failure, List<ChatRoom>> result)?  roomsReceived,TResult Function( User currentUser,  String ownerId)?  roomCreated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SubscriptionRequested() when subscriptionRequested != null:
 return subscriptionRequested();case _RoomsReceived() when roomsReceived != null:
 return roomsReceived(_that.result);case _RoomCreated() when roomCreated != null:
-return roomCreated(_that.members);case _:
+return roomCreated(_that.currentUser,_that.ownerId);case _:
   return orElse();
 
 }
@@ -148,12 +148,12 @@ return roomCreated(_that.members);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  subscriptionRequested,required TResult Function( Either<Failure, List<ChatRoom>> result)  roomsReceived,required TResult Function( List<String> members)  roomCreated,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  subscriptionRequested,required TResult Function( Either<Failure, List<ChatRoom>> result)  roomsReceived,required TResult Function( User currentUser,  String ownerId)  roomCreated,}) {final _that = this;
 switch (_that) {
 case _SubscriptionRequested():
 return subscriptionRequested();case _RoomsReceived():
 return roomsReceived(_that.result);case _RoomCreated():
-return roomCreated(_that.members);case _:
+return roomCreated(_that.currentUser,_that.ownerId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +170,12 @@ return roomCreated(_that.members);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  subscriptionRequested,TResult? Function( Either<Failure, List<ChatRoom>> result)?  roomsReceived,TResult? Function( List<String> members)?  roomCreated,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  subscriptionRequested,TResult? Function( Either<Failure, List<ChatRoom>> result)?  roomsReceived,TResult? Function( User currentUser,  String ownerId)?  roomCreated,}) {final _that = this;
 switch (_that) {
 case _SubscriptionRequested() when subscriptionRequested != null:
 return subscriptionRequested();case _RoomsReceived() when roomsReceived != null:
 return roomsReceived(_that.result);case _RoomCreated() when roomCreated != null:
-return roomCreated(_that.members);case _:
+return roomCreated(_that.currentUser,_that.ownerId);case _:
   return null;
 
 }
@@ -285,16 +285,11 @@ as Either<Failure, List<ChatRoom>>,
 
 
 class _RoomCreated implements ChatRoomEvent {
-  const _RoomCreated(final  List<String> members): _members = members;
+  const _RoomCreated({required this.currentUser, required this.ownerId});
   
 
- final  List<String> _members;
- List<String> get members {
-  if (_members is EqualUnmodifiableListView) return _members;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_members);
-}
-
+ final  User currentUser;
+ final  String ownerId;
 
 /// Create a copy of ChatRoomEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -306,16 +301,16 @@ _$RoomCreatedCopyWith<_RoomCreated> get copyWith => __$RoomCreatedCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoomCreated&&const DeepCollectionEquality().equals(other._members, _members));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoomCreated&&(identical(other.currentUser, currentUser) || other.currentUser == currentUser)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_members));
+int get hashCode => Object.hash(runtimeType,currentUser,ownerId);
 
 @override
 String toString() {
-  return 'ChatRoomEvent.roomCreated(members: $members)';
+  return 'ChatRoomEvent.roomCreated(currentUser: $currentUser, ownerId: $ownerId)';
 }
 
 
@@ -326,11 +321,11 @@ abstract mixin class _$RoomCreatedCopyWith<$Res> implements $ChatRoomEventCopyWi
   factory _$RoomCreatedCopyWith(_RoomCreated value, $Res Function(_RoomCreated) _then) = __$RoomCreatedCopyWithImpl;
 @useResult
 $Res call({
- List<String> members
+ User currentUser, String ownerId
 });
 
 
-
+$UserCopyWith<$Res> get currentUser;
 
 }
 /// @nodoc
@@ -343,14 +338,24 @@ class __$RoomCreatedCopyWithImpl<$Res>
 
 /// Create a copy of ChatRoomEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? members = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? currentUser = null,Object? ownerId = null,}) {
   return _then(_RoomCreated(
-null == members ? _self._members : members // ignore: cast_nullable_to_non_nullable
-as List<String>,
+currentUser: null == currentUser ? _self.currentUser : currentUser // ignore: cast_nullable_to_non_nullable
+as User,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
-
+/// Create a copy of ChatRoomEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res> get currentUser {
+  
+  return $UserCopyWith<$Res>(_self.currentUser, (value) {
+    return _then(_self.copyWith(currentUser: value));
+  });
+}
 }
 
 /// @nodoc

@@ -20,7 +20,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       .collection('users')
       .withConverter<UserModel>(
         fromFirestore: (snapshot, _) =>
-            UserModel.fromFirestore(snapshot),
+            UserModel.fromJson(snapshot.data()!),
         toFirestore: (user, _) => user.toJson(),
       );
 

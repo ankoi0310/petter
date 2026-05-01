@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/chat/domain/entities/chat_room.dart';
@@ -51,8 +51,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       orElse: () => '',
     );
 
+    final otherUserId = widget.room.memberIds.firstWhere(
+      (id) => id != currentUid,
+    );
+    final avatar = widget.room.memberAvatars[otherUserId] ?? '';
+    final name =
+        widget.room.memberNames[otherUserId] ?? 'Người dùng Petter';
+
     return Scaffold(
-      appBar: AppBar(title: Text(widget.room.id), titleSpacing: 0),
+      appBar: AppBar(
+        title: buildRow(context, avatar: avatar, name: name),
+        titleSpacing: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: .stretch,
@@ -67,7 +77,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 listener: (context, state) {
                   state.whenOrNull(
                     failure: (failure) {
-                      print(failure.message);
                       showSnackBar(context, content: failure.message);
                     },
                   );
@@ -96,7 +105,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     );
   }
 
-  Row buildRow(BuildContext context) {
+  Row buildRow(
+    BuildContext context, {
+    required String avatar,
+    required String name,
+  }) {
     return Row(
       spacing: 8,
       children: [
@@ -112,7 +125,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 radius: 20,
                 child: ClipRRect(
                   borderRadius: .circular(20),
-                  child: Assets.images.categories.cat.image(
+                  child: CachedNetworkImage(
+                    imageUrl: avatar,
                     fit: .cover,
                   ),
                 ),
@@ -135,7 +149,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         Column(
           crossAxisAlignment: .start,
           children: [
-            Text('Koi', style: context.textTheme.bodyLarge),
+            Text(name, style: context.textTheme.bodyLarge),
             Text('Online', style: context.textTheme.bodySmall),
           ],
         ),

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/error/failure.dart';
@@ -8,6 +8,8 @@ import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/chat/domain/entities/chat_room.dart';
 import 'package:petter/features/chat/domain/usecases/create_chat_room.dart';
 import 'package:petter/features/chat/domain/usecases/watch_chat_rooms.dart';
+import 'package:petter/features/user/domain/entities/user.dart';
+import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
 
 part 'chat_room_event.dart';
 
@@ -19,8 +21,10 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({
     required WatchChatRoomsUseCase watchChatRooms,
     required CreateChatRoomUseCase createChatRoom,
+    required GetProfileUseCase getProfile,
   }) : _watchChatRooms = watchChatRooms,
        _createChatRoom = createChatRoom,
+       _getProfile = getProfile,
        super(const ChatRoomState.initial()) {
     on<_SubscriptionRequested>(_onSubscriptionRequested);
     on<_RoomsReceived>(_onRoomsReceived);
@@ -29,6 +33,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
 
   final WatchChatRoomsUseCase _watchChatRooms;
   final CreateChatRoomUseCase _createChatRoom;
+  final GetProfileUseCase _getProfile;
 
   StreamSubscription<Either<Failure, List<ChatRoom>>>?
   _roomsSubscription;
@@ -61,14 +66,31 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     _RoomCreated event,
     Emitter<ChatRoomState> emit,
   ) async {
-    // Thường dùng khi bấm vào nút "Chat" từ profile của một người lạ
-    final result = await _createChatRoom(
-      CreateChatRoomParams(members: event.members),
-    );
+    final currentUser = event.currentUser;
+    final userResult = await _getProfile(event.ownerId);
 
-    result.fold(
-      (failure) => emit(ChatRoomState.failure(failure)),
-      (room) => emit(ChatRoomState.roomReady(room)),
+    await userResult.fold(
+      (failure) async => emit(ChatRoomState.failure(failure)),
+      (owner) async {
+        final roomResult = await _createChatRoom(
+          CreateChatRoomParams(
+            memberIds: [currentUser.id, owner.id],
+            memberNames: {
+              currentUser.id: currentUser.name,
+              owner.id: owner.name,
+            },
+            memberAvatars: {
+              currentUser.id: currentUser.avatar,
+              owner.id: owner.avatar,
+            },
+          ),
+        );
+
+        roomResult.fold(
+          (failure) => emit(ChatRoomState.failure(failure)),
+          (room) => emit(ChatRoomState.roomReady(room)),
+        );
+      },
     );
   }
 

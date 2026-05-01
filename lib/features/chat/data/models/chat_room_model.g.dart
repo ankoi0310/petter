@@ -9,27 +9,27 @@ part of 'chat_room_model.dart';
 _ChatRoomModel _$ChatRoomModelFromJson(Map<String, dynamic> json) =>
     _ChatRoomModel(
       id: json['id'] as String,
-      members: (json['members'] as List<dynamic>)
+      memberIds: (json['memberIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      memberNames: Map<String, String>.from(json['memberNames'] as Map),
+      memberAvatars: Map<String, String>.from(json['memberAvatars'] as Map),
+      unreadCount: Map<String, int>.from(json['unreadCount'] as Map),
       lastMessage: json['lastMessage'] as String?,
       lastMessageSent: const TimestampConverterNullable().fromJson(
         json['lastMessageSent'],
       ),
-      unreadCount:
-          (json['unreadCount'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, (e as num).toInt()),
-          ) ??
-          const {},
     );
 
 Map<String, dynamic> _$ChatRoomModelToJson(_ChatRoomModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'members': instance.members,
+      'memberIds': instance.memberIds,
+      'memberNames': instance.memberNames,
+      'memberAvatars': instance.memberAvatars,
+      'unreadCount': instance.unreadCount,
       'lastMessage': instance.lastMessage,
       'lastMessageSent': const TimestampConverterNullable().toJson(
         instance.lastMessageSent,
       ),
-      'unreadCount': instance.unreadCount,
     };

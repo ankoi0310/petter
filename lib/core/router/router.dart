@@ -94,8 +94,6 @@ final routerConfig = GoRouter(
           builder: (context, state) {
             final id = state.pathParameters['id']!;
             final room = state.extra! as ChatRoom;
-            print(id);
-            print(room);
             return BlocProvider(
               create: (context) => sl.call<ChatMessageBloc>(
                 param1: id,

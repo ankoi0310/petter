@@ -16,9 +16,9 @@ class BottomActionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentUid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (user) => user.id,
-      orElse: () => '',
+    final currentUser = context.read<AuthBloc>().state.maybeWhen(
+      authenticated: (user) => user,
+      orElse: () => null,
     );
 
     return BlocListener<ChatRoomBloc, ChatRoomState>(
@@ -39,7 +39,8 @@ class BottomActionWidget extends StatelessWidget {
         padding: const .symmetric(horizontal: 16, vertical: 8),
         child: Row(
           spacing: 16,
-          children: petOwnerId != currentUid
+          children:
+              currentUser != null && currentUser.id != petOwnerId
               ? [
                   AppIconButton(
                     icon: Iconsax.call_copy,
@@ -57,10 +58,10 @@ class BottomActionWidget extends StatelessWidget {
                   AppIconButton(
                     onTap: () {
                       context.read<ChatRoomBloc>().add(
-                        ChatRoomEvent.roomCreated([
-                          currentUid,
-                          petOwnerId,
-                        ]),
+                        ChatRoomEvent.roomCreated(
+                          currentUser: currentUser,
+                          ownerId: petOwnerId,
+                        ),
                       );
                     },
                     icon: Iconsax.messages_2_copy,

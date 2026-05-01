@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatRoom {
 
- String get id; List<String> get members; String? get lastMessage; DateTime? get lastMessageSent; Map<String, int> get unreadCount;
+ String get id; List<String> get memberIds; Map<String, String> get memberNames; Map<String, String> get memberAvatars; Map<String, int> get unreadCount; String? get lastMessage; DateTime? get lastMessageSent;
 /// Create a copy of ChatRoom
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ChatRoomCopyWith<ChatRoom> get copyWith => _$ChatRoomCopyWithImpl<ChatRoom>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatRoom&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageSent, lastMessageSent) || other.lastMessageSent == lastMessageSent)&&const DeepCollectionEquality().equals(other.unreadCount, unreadCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatRoom&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.memberIds, memberIds)&&const DeepCollectionEquality().equals(other.memberNames, memberNames)&&const DeepCollectionEquality().equals(other.memberAvatars, memberAvatars)&&const DeepCollectionEquality().equals(other.unreadCount, unreadCount)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageSent, lastMessageSent) || other.lastMessageSent == lastMessageSent));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(members),lastMessage,lastMessageSent,const DeepCollectionEquality().hash(unreadCount));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(memberIds),const DeepCollectionEquality().hash(memberNames),const DeepCollectionEquality().hash(memberAvatars),const DeepCollectionEquality().hash(unreadCount),lastMessage,lastMessageSent);
 
 @override
 String toString() {
-  return 'ChatRoom(id: $id, members: $members, lastMessage: $lastMessage, lastMessageSent: $lastMessageSent, unreadCount: $unreadCount)';
+  return 'ChatRoom(id: $id, memberIds: $memberIds, memberNames: $memberNames, memberAvatars: $memberAvatars, unreadCount: $unreadCount, lastMessage: $lastMessage, lastMessageSent: $lastMessageSent)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ChatRoomCopyWith<$Res>  {
   factory $ChatRoomCopyWith(ChatRoom value, $Res Function(ChatRoom) _then) = _$ChatRoomCopyWithImpl;
 @useResult
 $Res call({
- String id, List<String> members, String? lastMessage, DateTime? lastMessageSent, Map<String, int> unreadCount
+ String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
 });
 
 
@@ -62,14 +62,16 @@ class _$ChatRoomCopyWithImpl<$Res>
 
 /// Create a copy of ChatRoom
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? members = null,Object? lastMessage = freezed,Object? lastMessageSent = freezed,Object? unreadCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? memberIds = null,Object? memberNames = null,Object? memberAvatars = null,Object? unreadCount = null,Object? lastMessage = freezed,Object? lastMessageSent = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,members: null == members ? _self.members : members // ignore: cast_nullable_to_non_nullable
-as List<String>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as String,memberIds: null == memberIds ? _self.memberIds : memberIds // ignore: cast_nullable_to_non_nullable
+as List<String>,memberNames: null == memberNames ? _self.memberNames : memberNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,memberAvatars: null == memberAvatars ? _self.memberAvatars : memberAvatars // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,unreadCount: null == unreadCount ? _self.unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
+as Map<String, int>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageSent: freezed == lastMessageSent ? _self.lastMessageSent : lastMessageSent // ignore: cast_nullable_to_non_nullable
-as DateTime?,unreadCount: null == unreadCount ? _self.unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
-as Map<String, int>,
+as DateTime?,
   ));
 }
 
@@ -154,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<String> members,  String? lastMessage,  DateTime? lastMessageSent,  Map<String, int> unreadCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatRoom() when $default != null:
-return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_that.unreadCount);case _:
+return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
   return orElse();
 
 }
@@ -175,10 +177,10 @@ return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<String> members,  String? lastMessage,  DateTime? lastMessageSent,  Map<String, int> unreadCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)  $default,) {final _that = this;
 switch (_that) {
 case _ChatRoom():
-return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_that.unreadCount);case _:
+return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +197,10 @@ return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<String> members,  String? lastMessage,  DateTime? lastMessageSent,  Map<String, int> unreadCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatRoom() when $default != null:
-return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_that.unreadCount);case _:
+return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
   return null;
 
 }
@@ -210,26 +212,40 @@ return $default(_that.id,_that.members,_that.lastMessage,_that.lastMessageSent,_
 
 @TimestampConverter()
 class _ChatRoom implements ChatRoom {
-  const _ChatRoom({required this.id, required final  List<String> members, this.lastMessage, this.lastMessageSent, final  Map<String, int> unreadCount = const {}}): _members = members,_unreadCount = unreadCount;
+  const _ChatRoom({required this.id, required final  List<String> memberIds, required final  Map<String, String> memberNames, required final  Map<String, String> memberAvatars, required final  Map<String, int> unreadCount, this.lastMessage, this.lastMessageSent}): _memberIds = memberIds,_memberNames = memberNames,_memberAvatars = memberAvatars,_unreadCount = unreadCount;
   
 
 @override final  String id;
- final  List<String> _members;
-@override List<String> get members {
-  if (_members is EqualUnmodifiableListView) return _members;
+ final  List<String> _memberIds;
+@override List<String> get memberIds {
+  if (_memberIds is EqualUnmodifiableListView) return _memberIds;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_members);
+  return EqualUnmodifiableListView(_memberIds);
 }
 
-@override final  String? lastMessage;
-@override final  DateTime? lastMessageSent;
+ final  Map<String, String> _memberNames;
+@override Map<String, String> get memberNames {
+  if (_memberNames is EqualUnmodifiableMapView) return _memberNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_memberNames);
+}
+
+ final  Map<String, String> _memberAvatars;
+@override Map<String, String> get memberAvatars {
+  if (_memberAvatars is EqualUnmodifiableMapView) return _memberAvatars;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_memberAvatars);
+}
+
  final  Map<String, int> _unreadCount;
-@override@JsonKey() Map<String, int> get unreadCount {
+@override Map<String, int> get unreadCount {
   if (_unreadCount is EqualUnmodifiableMapView) return _unreadCount;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_unreadCount);
 }
 
+@override final  String? lastMessage;
+@override final  DateTime? lastMessageSent;
 
 /// Create a copy of ChatRoom
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +257,16 @@ _$ChatRoomCopyWith<_ChatRoom> get copyWith => __$ChatRoomCopyWithImpl<_ChatRoom>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatRoom&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageSent, lastMessageSent) || other.lastMessageSent == lastMessageSent)&&const DeepCollectionEquality().equals(other._unreadCount, _unreadCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatRoom&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._memberIds, _memberIds)&&const DeepCollectionEquality().equals(other._memberNames, _memberNames)&&const DeepCollectionEquality().equals(other._memberAvatars, _memberAvatars)&&const DeepCollectionEquality().equals(other._unreadCount, _unreadCount)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageSent, lastMessageSent) || other.lastMessageSent == lastMessageSent));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_members),lastMessage,lastMessageSent,const DeepCollectionEquality().hash(_unreadCount));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_memberIds),const DeepCollectionEquality().hash(_memberNames),const DeepCollectionEquality().hash(_memberAvatars),const DeepCollectionEquality().hash(_unreadCount),lastMessage,lastMessageSent);
 
 @override
 String toString() {
-  return 'ChatRoom(id: $id, members: $members, lastMessage: $lastMessage, lastMessageSent: $lastMessageSent, unreadCount: $unreadCount)';
+  return 'ChatRoom(id: $id, memberIds: $memberIds, memberNames: $memberNames, memberAvatars: $memberAvatars, unreadCount: $unreadCount, lastMessage: $lastMessage, lastMessageSent: $lastMessageSent)';
 }
 
 
@@ -261,7 +277,7 @@ abstract mixin class _$ChatRoomCopyWith<$Res> implements $ChatRoomCopyWith<$Res>
   factory _$ChatRoomCopyWith(_ChatRoom value, $Res Function(_ChatRoom) _then) = __$ChatRoomCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<String> members, String? lastMessage, DateTime? lastMessageSent, Map<String, int> unreadCount
+ String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
 });
 
 
@@ -278,14 +294,16 @@ class __$ChatRoomCopyWithImpl<$Res>
 
 /// Create a copy of ChatRoom
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? members = null,Object? lastMessage = freezed,Object? lastMessageSent = freezed,Object? unreadCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? memberIds = null,Object? memberNames = null,Object? memberAvatars = null,Object? unreadCount = null,Object? lastMessage = freezed,Object? lastMessageSent = freezed,}) {
   return _then(_ChatRoom(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,members: null == members ? _self._members : members // ignore: cast_nullable_to_non_nullable
-as List<String>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as String,memberIds: null == memberIds ? _self._memberIds : memberIds // ignore: cast_nullable_to_non_nullable
+as List<String>,memberNames: null == memberNames ? _self._memberNames : memberNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,memberAvatars: null == memberAvatars ? _self._memberAvatars : memberAvatars // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,unreadCount: null == unreadCount ? _self._unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
+as Map<String, int>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageSent: freezed == lastMessageSent ? _self.lastMessageSent : lastMessageSent // ignore: cast_nullable_to_non_nullable
-as DateTime?,unreadCount: null == unreadCount ? _self._unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
-as Map<String, int>,
+as DateTime?,
   ));
 }
 

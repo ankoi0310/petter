@@ -5,10 +5,12 @@ extension ChatRoomMapper on ChatRoomModel {
   ChatRoom toEntity() {
     return ChatRoom(
       id: id,
-      members: members,
+      memberIds: memberIds,
+      memberNames: memberNames,
+      memberAvatars: memberAvatars,
+      unreadCount: unreadCount,
       lastMessage: lastMessage,
       lastMessageSent: lastMessageSent,
-      unreadCount: unreadCount,
     );
   }
 }

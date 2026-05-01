@@ -8,9 +8,11 @@ abstract class ChatRoom with _$ChatRoom {
   @TimestampConverter()
   const factory ChatRoom({
     required String id,
-    required List<String> members,
+    required List<String> memberIds,
+    required Map<String, String> memberNames,
+    required Map<String, String> memberAvatars,
+    required Map<String, int> unreadCount,
     String? lastMessage,
     DateTime? lastMessageSent,
-    @Default({}) Map<String, int> unreadCount,
   }) = _ChatRoom;
 }

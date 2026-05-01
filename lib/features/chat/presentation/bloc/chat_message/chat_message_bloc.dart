@@ -83,7 +83,6 @@ class ChatMessageBloc
 
     result.fold(
       (failure) {
-        print(failure.message);
         emit(ChatMessageState.failure(failure));
       },
       (_) {

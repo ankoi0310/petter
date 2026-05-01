@@ -51,7 +51,6 @@ class ChatRepositoryImpl implements ChatRepository {
     return _remoteDataSource
         .watchMessages(roomId)
         .map<Either<Failure, List<Message>>>((models) {
-          print(models);
           final entities = models
               .map((model) => model.toEntity())
               .toList();

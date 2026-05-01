@@ -180,7 +180,11 @@ void _initChat(GetIt sl) {
     ..registerLazySingleton(() => WatchMessagesUseCase(sl()))
     ..registerLazySingleton(() => SendMessageUseCase(sl()))
     ..registerLazySingleton(
-      () => ChatRoomBloc(watchChatRooms: sl(), createChatRoom: sl()),
+      () => ChatRoomBloc(
+        watchChatRooms: sl(),
+        createChatRoom: sl(),
+        getProfile: sl(),
+      ),
     )
     ..registerFactoryParam<ChatMessageBloc, String, dynamic>(
       (roomId, _) => ChatMessageBloc(

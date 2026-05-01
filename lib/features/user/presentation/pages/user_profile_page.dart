@@ -18,7 +18,6 @@ class UserProfilePage extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           updateSuccess: (user) {
-            print(user);
             context.pop();
           },
           error: (message) => showSnackBar(context, content: message),

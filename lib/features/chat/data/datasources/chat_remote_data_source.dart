@@ -51,11 +51,13 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     if (user == null) return Stream.value([]);
 
     return _roomsCollection
-        .where('members', arrayContains: user.uid)
+        .where('memberIds', arrayContains: user.uid)
         .orderBy('lastMessageSent', descending: true)
         .snapshots()
         .map((snapshot) {
-          return snapshot.docs.map((doc) => doc.data()).toList();
+          return snapshot.docs.map((doc) {
+            return doc.data();
+          }).toList();
         });
   }
 
@@ -73,8 +75,8 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   Future<ChatRoomModel> createChatRoom(
     CreateChatRoomParams params,
   ) async {
-    final members = List<String>.from(params.members)..sort();
-    final roomId = members.join('_');
+    final memberIds = List<String>.from(params.memberIds)..sort();
+    final roomId = memberIds.join('_');
 
     final roomDoc = _roomsCollection.doc(roomId);
     final snapshot = await roomDoc.get();
@@ -82,8 +84,10 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     if (!snapshot.exists) {
       final newRoom = ChatRoomModel(
         id: roomId,
-        members: params.members,
-        unreadCount: {for (final id in params.members) id: 0},
+        memberIds: params.memberIds,
+        memberNames: params.memberNames,
+        memberAvatars: params.memberAvatars,
+        unreadCount: {for (final id in params.memberIds) id: 0},
       );
 
       await roomDoc.set(newRoom);
@@ -117,7 +121,7 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     }
 
     final members = List<String>.from(
-      roomDoc.data()?.members as List? ?? [],
+      roomDoc.data()?.memberIds as List? ?? [],
     );
     final otherMembers = members
         .where((id) => id != currentUserId)

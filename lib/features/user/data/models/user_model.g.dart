@@ -9,12 +9,10 @@ part of 'user_model.dart';
 _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   id: json['id'] as String,
   email: json['email'] as String,
-  name: json['name'] as String?,
-  phone: json['phone'] as String?,
-  avatar: json['avatar'] as String?,
-  createdAt: json['createdAt'] == null
-      ? null
-      : DateTime.parse(json['createdAt'] as String),
+  name: json['name'] as String,
+  phone: json['phone'] as String,
+  avatar: json['avatar'] as String,
+  createdAt: const TimestampConverter().fromJson(json['createdAt']),
 );
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
@@ -24,5 +22,5 @@ Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
       'name': instance.name,
       'phone': instance.phone,
       'avatar': instance.avatar,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

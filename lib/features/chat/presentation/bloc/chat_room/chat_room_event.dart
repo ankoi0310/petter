@@ -9,6 +9,8 @@ class ChatRoomEvent with _$ChatRoomEvent {
     Either<Failure, List<ChatRoom>> result,
   ) = _RoomsReceived;
 
-  const factory ChatRoomEvent.roomCreated(List<String> members) =
-      _RoomCreated;
+  const factory ChatRoomEvent.roomCreated({
+    required User currentUser,
+    required String ownerId,
+  }) = _RoomCreated;
 }

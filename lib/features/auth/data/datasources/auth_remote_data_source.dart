@@ -27,7 +27,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       .collection('users')
       .withConverter<UserModel>(
         fromFirestore: (snapshot, _) =>
-            UserModel.fromFirestore(snapshot),
+            UserModel.fromJson(snapshot.data()!),
         toFirestore: (user, _) => user.toJson(),
       );
 
@@ -53,6 +53,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       email: params.email,
       name: params.name,
       phone: params.phone,
+      avatar: 'https://robohash.org/${user.uid}',
       createdAt: DateTime.now(),
     );
 
@@ -80,8 +81,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .doc(credential.user!.uid)
           .get();
 
-      return doc.data() ??
-          UserModel.fromFirebaseUser(credential.user!);
+      if (!doc.exists) {
+        throw const ServerException('User not found');
+      }
+
+      return doc.data()!;
     } catch (error) {
       throw _mapError(error);
     }
@@ -96,7 +100,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (user == null) return null;
 
       final doc = await _usersCollection.doc(user.uid).get();
-      return doc.data() ?? UserModel.fromFirebaseUser(user);
+      return doc.data();
     });
   }
 

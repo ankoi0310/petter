@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/chat/domain/entities/chat_room.dart';
@@ -88,6 +88,11 @@ class ChatRoomTile extends StatelessWidget {
       orElse: () => '',
     );
 
+    final otherUserId = room.memberIds.firstWhere(
+      (id) => id != currentUid,
+    );
+    final avatar = room.memberAvatars[otherUserId] ?? '';
+    final name = room.memberNames[otherUserId] ?? 'Người dùng Petter';
     final unread = room.unreadCount[currentUid] ?? 0;
 
     return ListTile(
@@ -103,11 +108,11 @@ class ChatRoomTile extends StatelessWidget {
           radius: 24,
           child: ClipRRect(
             borderRadius: .circular(24),
-            child: Assets.images.categories.cat.image(fit: .cover),
+            child: CachedNetworkImage(imageUrl: avatar, fit: .cover),
           ),
         ),
       ),
-      title: Text(room.id, maxLines: 1, overflow: .ellipsis),
+      title: Text(name, maxLines: 1, overflow: .ellipsis),
       subtitle: Text(
         room.lastMessage ?? '',
         maxLines: 1,
