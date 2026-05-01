@@ -74,7 +74,7 @@ class _LikeButtonState extends State<LikeButton>
 
         context.read<FavoriteBloc>().add(
           FavoriteEvent.toggleFavorite(
-            FavoriteParams(uid: user.uid, petId: widget.petId),
+            FavoriteParams(uid: user.id, petId: widget.petId),
           ),
         );
       },

@@ -3,7 +3,14 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
 class MessageInputWidget extends StatefulWidget {
-  const MessageInputWidget({super.key});
+  const MessageInputWidget({
+    required this.controller,
+    required this.onSend,
+    super.key,
+  });
+
+  final TextEditingController controller;
+  final VoidCallback onSend;
 
   @override
   State<MessageInputWidget> createState() =>
@@ -22,6 +29,7 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
         children: [
           Expanded(
             child: TextField(
+              controller: widget.controller,
               decoration: InputDecoration(
                 hintText: 'Messages',
                 hintStyle: TextStyle(color: context.colors.outline),
@@ -48,6 +56,10 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
                 });
               },
             ),
+          ),
+          IconButton.filled(
+            onPressed: widget.onSend,
+            icon: const Icon(Iconsax.send_1_copy),
           ),
           if (!_isFocus) ...[
             const Icon(Iconsax.gallery_copy),

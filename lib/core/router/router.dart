@@ -92,8 +92,10 @@ final routerConfig = GoRouter(
           name: AppRoutes.chatDetail.name,
           path: AppRoutes.chatDetail.path,
           builder: (context, state) {
-            final id = int.parse(state.pathParameters['id']!);
+            final id = state.pathParameters['id']!;
             final room = state.extra! as ChatRoom;
+            print(id);
+            print(room);
             return BlocProvider(
               create: (context) => sl.call<ChatMessageBloc>(
                 param1: id,

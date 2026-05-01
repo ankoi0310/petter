@@ -43,7 +43,12 @@ void main() async {
         BlocProvider(create: (_) => sl<CategoryBloc>()),
         BlocProvider(create: (_) => sl<PetBloc>()),
         BlocProvider(create: (_) => sl<FavoriteBloc>()),
-        BlocProvider(create: (_) => sl<ChatRoomBloc>()),
+        BlocProvider(
+          create: (_) {
+            return sl<ChatRoomBloc>()
+              ..add(const ChatRoomEvent.subscriptionRequested());
+          },
+        ),
       ],
       child: const MyApp(),
     ),

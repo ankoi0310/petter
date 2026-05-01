@@ -38,7 +38,16 @@ class PetImageContainer extends StatelessWidget {
           );
         },
         placeholder: (context, url) {
-          return Container(color: context.colors.primaryContainer);
+          return Container(
+            decoration: BoxDecoration(
+              color: context.colors.primaryContainer,
+              border: Border.all(
+                color: context.colors.primary,
+                width: 2,
+              ),
+              borderRadius: .circular(16),
+            ),
+          );
         },
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
