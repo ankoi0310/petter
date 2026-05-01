@@ -21,13 +21,20 @@ class HomePage extends StatelessWidget {
         actionsIconTheme: const IconThemeData(size: 20),
         actions: [
           GestureDetector(
+            onTap: () => context.pushNamed(AppRoutes.search.name),
+            child: const AppIconButton(
+              icon: Iconsax.search_normal_copy,
+            ),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
             onTap: () =>
                 context.pushNamed(AppRoutes.notification.name),
             child: const AppIconButton(
               icon: Iconsax.notification_copy,
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 8),
           GestureDetector(
             onTap: () => context.pushNamed(AppRoutes.chat.name),
             child: const AppIconButton(

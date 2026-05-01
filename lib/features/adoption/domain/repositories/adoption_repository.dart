@@ -4,6 +4,8 @@ import 'package:petter/features/adoption/domain/usecases/create_adoption_request
 import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
 
 abstract class AdoptionRepository {
+  ResultFuture<List<AdoptionRequest>> getAdoptionRequests();
+
   ResultFuture<AdoptionRequest> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   );

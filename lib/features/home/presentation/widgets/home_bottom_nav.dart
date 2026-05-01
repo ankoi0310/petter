@@ -29,16 +29,17 @@ class HomeBottomNav extends StatelessWidget {
         children: [
           const Icon(Iconsax.home_2_copy),
           GestureDetector(
-            onTap: () => context.pushNamed(AppRoutes.search.name),
-            child: const Icon(Iconsax.search_normal_copy),
+            onTap: () => context.pushNamed(AppRoutes.favorite.name),
+            child: const Icon(Iconsax.heart_copy),
           ),
           GestureDetector(
             onTap: () => context.pushNamed(AppRoutes.myPet.name),
             child: const Icon(Iconsax.pet_copy),
           ),
           GestureDetector(
-            onTap: () => context.pushNamed(AppRoutes.favorite.name),
-            child: const Icon(Iconsax.heart_copy),
+            onTap: () =>
+                context.pushNamed(AppRoutes.adoptionRequest.name),
+            child: const Icon(Iconsax.receipt_edit_copy),
           ),
           GestureDetector(
             onTap: () => context.pushNamed(AppRoutes.account.name),

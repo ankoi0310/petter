@@ -15,6 +15,18 @@ class AdoptionRepositoryImpl implements AdoptionRepository {
   final AdoptionRemoteDataSource _remoteDataSource;
 
   @override
+  ResultFuture<List<AdoptionRequest>> getAdoptionRequests() async {
+    try {
+      final models = await _remoteDataSource.getAdoptionRequests();
+      return right(models.map((model) => model.toEntity()).toList());
+    } on AuthException catch (e) {
+      return left(Failure.auth(e.message));
+    } on ServerException catch (e) {
+      return left(Failure.server(e.message));
+    }
+  }
+
+  @override
   ResultFuture<AdoptionRequest> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   ) async {

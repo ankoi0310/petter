@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petter/core/error/exception.dart';
 import 'package:petter/features/adoption/data/models/adoption_request_model.dart';
 import 'package:petter/features/adoption/domain/usecases/create_adoption_request_use_case.dart';
 import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
 
 abstract class AdoptionRemoteDataSource {
+  Future<List<AdoptionRequestModel>> getAdoptionRequests();
+
   Future<AdoptionRequestModel> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   );
@@ -16,8 +19,9 @@ abstract class AdoptionRemoteDataSource {
 
 class AdoptionRemoteDataSourceImpl
     implements AdoptionRemoteDataSource {
-  const AdoptionRemoteDataSourceImpl(this._firestore);
+  const AdoptionRemoteDataSourceImpl(this._auth, this._firestore);
 
+  final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
   CollectionReference<AdoptionRequestModel>
@@ -31,6 +35,22 @@ class AdoptionRemoteDataSourceImpl
       );
 
   @override
+  Future<List<AdoptionRequestModel>> getAdoptionRequests() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw const AuthException('User not sign in');
+    }
+
+    final snapshot = await _adoptionRequestsCollection
+        .where('adopterId', isEqualTo: currentUser.uid)
+        .orderBy('createdAt', descending: true)
+        .get();
+
+    return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  @override
   Future<AdoptionRequestModel> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   ) async {
@@ -39,8 +59,13 @@ class AdoptionRemoteDataSourceImpl
 
       final newRequest = AdoptionRequestModel(
         id: adoptionReqRef.id,
-        petId: params.petId,
-        adopterId: params.adopterId,
+        petId: params.pet.id,
+        petName: params.pet.name,
+        petImageUrl: params.pet.imageUrl,
+        adopterId: params.adopter.id,
+        adopterName: params.adopter.name,
+        adopterAvatar: params.adopter.avatar,
+        adopterPhone: params.adopter.phone,
         createAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );

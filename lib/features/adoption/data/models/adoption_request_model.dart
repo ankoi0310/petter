@@ -13,7 +13,12 @@ abstract class AdoptionRequestModel with _$AdoptionRequestModel {
   const factory AdoptionRequestModel({
     required String id,
     required String petId,
+    required String petName,
+    required String petImageUrl,
     required String adopterId,
+    required String adopterName,
+    required String adopterAvatar,
+    required String adopterPhone,
     required DateTime createAt,
     required DateTime updatedAt,
     @Default(RequestStatus.pending) RequestStatus status,

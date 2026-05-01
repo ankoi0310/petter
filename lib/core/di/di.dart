@@ -7,6 +7,7 @@ import 'package:petter/features/adoption/data/datasources/adoption_remote_data_s
 import 'package:petter/features/adoption/data/repositories/adoption_repository_impl.dart';
 import 'package:petter/features/adoption/domain/repositories/adoption_repository.dart';
 import 'package:petter/features/adoption/domain/usecases/create_adoption_request_use_case.dart';
+import 'package:petter/features/adoption/domain/usecases/get_adoption_requests_use_case.dart';
 import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
@@ -156,15 +157,17 @@ void _initPet(GetIt sl) {
 void _initAdoption(GetIt sl) {
   sl
     ..registerLazySingleton<AdoptionRemoteDataSource>(
-      () => AdoptionRemoteDataSourceImpl(sl()),
+      () => AdoptionRemoteDataSourceImpl(sl(), sl()),
     )
     ..registerLazySingleton<AdoptionRepository>(
       () => AdoptionRepositoryImpl(sl()),
     )
+    ..registerLazySingleton(() => GetAdoptionRequestsUseCase(sl()))
     ..registerLazySingleton(() => CreateAdoptionRequestUseCase(sl()))
     ..registerLazySingleton(() => UpdateAdoptionRequestUseCase(sl()))
     ..registerFactory(
       () => AdoptionBloc(
+        getAdoptionRequests: sl(),
         createAdoptionRequest: sl(),
         updateAdoptionRequest: sl(),
       ),

@@ -11,7 +11,12 @@ _AdoptionRequestModel _$AdoptionRequestModelFromJson(
 ) => _AdoptionRequestModel(
   id: json['id'] as String,
   petId: json['petId'] as String,
+  petName: json['petName'] as String,
+  petImageUrl: json['petImageUrl'] as String,
   adopterId: json['adopterId'] as String,
+  adopterName: json['adopterName'] as String,
+  adopterAvatar: json['adopterAvatar'] as String,
+  adopterPhone: json['adopterPhone'] as String,
   createAt: const TimestampConverter().fromJson(json['createAt']),
   updatedAt: const TimestampConverter().fromJson(json['updatedAt']),
   status:
@@ -25,7 +30,12 @@ Map<String, dynamic> _$AdoptionRequestModelToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'petId': instance.petId,
+  'petName': instance.petName,
+  'petImageUrl': instance.petImageUrl,
   'adopterId': instance.adopterId,
+  'adopterName': instance.adopterName,
+  'adopterAvatar': instance.adopterAvatar,
+  'adopterPhone': instance.adopterPhone,
   'createAt': const TimestampConverter().toJson(instance.createAt),
   'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
   'status': _$RequestStatusEnumMap[instance.status]!,
