@@ -21,7 +21,7 @@ class _MyPetPageState extends State<MyPetPage> {
     super.initState();
 
     final uid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (user) => user.uid,
+      authenticated: (user) => user.id,
       orElse: () => null,
     );
 

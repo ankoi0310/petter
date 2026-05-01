@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$User {
 
- String get uid; String get email; String? get name; String? get phone; String? get avatar; DateTime? get createdAt;
+ String get id; String get email; String? get name; String? get phone; String? get avatar; DateTime? get createdAt;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,phone,avatar,createdAt);
+int get hashCode => Object.hash(runtimeType,id,email,name,phone,avatar,createdAt);
 
 @override
 String toString() {
-  return 'User(uid: $uid, email: $email, name: $name, phone: $phone, avatar: $avatar, createdAt: $createdAt)';
+  return 'User(id: $id, email: $email, name: $name, phone: $phone, avatar: $avatar, createdAt: $createdAt)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $UserCopyWith<$Res>  {
   factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
- String uid, String email, String? name, String? phone, String? avatar, DateTime? createdAt
+ String id, String email, String? name, String? phone, String? avatar, DateTime? createdAt
 });
 
 
@@ -62,9 +62,9 @@ class _$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? email = null,Object? name = freezed,Object? phone = freezed,Object? avatar = freezed,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? name = freezed,Object? phone = freezed,Object? avatar = freezed,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
-uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _User():
-return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String email,  String? name,  String? phone,  String? avatar,  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.name,_that.phone,_that.avatar,_that.createdAt);case _:
   return null;
 
 }
@@ -211,10 +211,10 @@ return $default(_that.uid,_that.email,_that.name,_that.phone,_that.avatar,_that.
 
 
 class _User implements User {
-  const _User({required this.uid, required this.email, this.name, this.phone, this.avatar, this.createdAt});
+  const _User({required this.id, required this.email, this.name, this.phone, this.avatar, this.createdAt});
   
 
-@override final  String uid;
+@override final  String id;
 @override final  String email;
 @override final  String? name;
 @override final  String? phone;
@@ -231,16 +231,16 @@ _$UserCopyWith<_User> get copyWith => __$UserCopyWithImpl<_User>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,phone,avatar,createdAt);
+int get hashCode => Object.hash(runtimeType,id,email,name,phone,avatar,createdAt);
 
 @override
 String toString() {
-  return 'User(uid: $uid, email: $email, name: $name, phone: $phone, avatar: $avatar, createdAt: $createdAt)';
+  return 'User(id: $id, email: $email, name: $name, phone: $phone, avatar: $avatar, createdAt: $createdAt)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) _then) = __$UserCopyWithImpl;
 @override @useResult
 $Res call({
- String uid, String email, String? name, String? phone, String? avatar, DateTime? createdAt
+ String id, String email, String? name, String? phone, String? avatar, DateTime? createdAt
 });
 
 
@@ -268,9 +268,9 @@ class __$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? email = null,Object? name = freezed,Object? phone = freezed,Object? avatar = freezed,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = null,Object? name = freezed,Object? phone = freezed,Object? avatar = freezed,Object? createdAt = freezed,}) {
   return _then(_User(
-uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable

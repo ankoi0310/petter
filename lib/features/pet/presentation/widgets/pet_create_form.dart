@@ -40,7 +40,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
     if (!_formKey.currentState!.validate()) return;
     final authState = context.read<AuthBloc>().state;
     final uid = authState.mapOrNull(
-      authenticated: (state) => state.user.uid,
+      authenticated: (state) => state.user.id,
     );
     if (uid == null) return;
 

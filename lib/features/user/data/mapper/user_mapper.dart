@@ -4,7 +4,7 @@ import 'package:petter/features/user/domain/entities/user.dart';
 extension UserMapper on UserModel {
   User toEntity() {
     return User(
-      uid: uid,
+      id: id,
       name: name,
       phone: phone,
       email: email,

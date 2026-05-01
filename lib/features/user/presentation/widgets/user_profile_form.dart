@@ -31,7 +31,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
   void initState() {
     super.initState();
 
-    _uidController.text = widget.user.uid;
+    _uidController.text = widget.user.id;
     _nameController.text = widget.user.name ?? '';
     _phoneController.text = widget.user.phone ?? '';
     _emailController.text = widget.user.email;

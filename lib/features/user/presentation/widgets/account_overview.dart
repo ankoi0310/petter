@@ -17,7 +17,7 @@ class AccountOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (user) => user.uid,
+      authenticated: (user) => user.id,
       orElse: () => null,
     );
 

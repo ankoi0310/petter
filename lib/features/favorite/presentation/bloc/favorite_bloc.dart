@@ -34,7 +34,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     _authSubscription = _watchAuthState(NoParams()).listen((result) {
       result.fold((failure) {}, (user) {
         if (user != null) {
-          add(FavoriteEvent.watchFavorites(user.uid));
+          add(FavoriteEvent.watchFavorites(user.id));
         }
       });
     });

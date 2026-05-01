@@ -49,7 +49,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     await user.reload();
 
     final newUser = UserModel(
-      uid: user.uid,
+      id: user.uid,
       email: params.email,
       name: params.name,
       phone: params.phone,

@@ -17,7 +17,7 @@ class BottomActionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentUid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (u) => u.uid,
+      authenticated: (user) => user.id,
       orElse: () => '',
     );
 

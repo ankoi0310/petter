@@ -83,7 +83,7 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
       builder: (context, state) {
         return state.maybeWhen(
           loading: () {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           },
           loaded: (pets, myPets, _) {
             return Container(
