@@ -3,6 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 import 'package:petter/core/services/supabase_storage_service.dart';
+import 'package:petter/features/adoption/data/datasources/adoption_remote_data_source.dart';
+import 'package:petter/features/adoption/data/repositories/adoption_repository_impl.dart';
+import 'package:petter/features/adoption/domain/repositories/adoption_repository.dart';
+import 'package:petter/features/adoption/domain/usecases/create_adoption_request_use_case.dart';
+import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
+import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:petter/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
@@ -69,6 +75,7 @@ void initInjection() {
   _initUser(sl);
   _initCategory(sl);
   _initPet(sl);
+  _initAdoption(sl);
   _initFavorite(sl);
   _initChat(sl);
 }
@@ -142,6 +149,24 @@ void _initPet(GetIt sl) {
         getPet: sl(),
         createPet: sl(),
         updatePet: sl(),
+      ),
+    );
+}
+
+void _initAdoption(GetIt sl) {
+  sl
+    ..registerLazySingleton<AdoptionRemoteDataSource>(
+      () => AdoptionRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton<AdoptionRepository>(
+      () => AdoptionRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => CreateAdoptionRequestUseCase(sl()))
+    ..registerLazySingleton(() => UpdateAdoptionRequestUseCase(sl()))
+    ..registerFactory(
+      () => AdoptionBloc(
+        createAdoptionRequest: sl(),
+        updateAdoptionRequest: sl(),
       ),
     );
 }

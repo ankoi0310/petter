@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:petter/app.dart';
 import 'package:petter/core/constant/app_constants.dart';
 import 'package:petter/core/di/di.dart';
+import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
 import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
@@ -42,6 +43,7 @@ void main() async {
         BlocProvider(create: (_) => sl<UserBloc>()),
         BlocProvider(create: (_) => sl<CategoryBloc>()),
         BlocProvider(create: (_) => sl<PetBloc>()),
+        BlocProvider(create: (_) => sl<AdoptionBloc>()),
         BlocProvider(create: (_) => sl<FavoriteBloc>()),
         BlocProvider(
           create: (_) {

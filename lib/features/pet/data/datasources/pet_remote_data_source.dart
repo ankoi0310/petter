@@ -146,8 +146,6 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         imageUrl: imageUrl,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
-        isAdopted: false,
-        isDeleted: false,
       );
 
       await docRef.set(pet);

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/pet_status.dart';
 import 'package:petter/core/utils/timestamp_converter.dart';
 import 'package:petter/core/utils/typedefs.dart';
 
@@ -24,8 +25,8 @@ abstract class PetModel with _$PetModel {
     required String imageUrl,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required bool isAdopted,
-    required bool isDeleted,
+    @Default(PetStatus.available) PetStatus status,
+    @Default(false) bool isDeleted,
   }) = _PetModel;
 
   factory PetModel.fromJson(JsonData json) =>
