@@ -67,16 +67,10 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
     final result = await _createAdoptionRequest(event.params);
 
     result.fold(
-      (failure) => emit(
-        .error(
-          failure.when(
-            auth: (message) => message,
-            chat: (message) => message,
-            server: (message) => message,
-            unknown: (message) => message,
-          ),
-        ),
-      ),
+      (failure) {
+        emit(const .initial());
+        emit(.error(failure.message));
+      },
       (adoptionRequest) {
         print('Create success');
         emit(const .createRequestSuccess());
