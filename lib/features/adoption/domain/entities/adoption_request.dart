@@ -14,7 +14,7 @@ abstract class AdoptionRequest with _$AdoptionRequest {
     required String adopterName,
     required String adopterAvatar,
     required String adopterPhone,
-    required DateTime createAt,
+    required DateTime createdAt,
     required DateTime updatedAt,
     required RequestStatus status,
     String? rejectionReason,

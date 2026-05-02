@@ -39,7 +39,7 @@ class PetDetailPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: BottomActionWidget(petOwnerId: pet.uid),
+        child: BottomActionWidget(pet: pet),
       ),
     );
   }

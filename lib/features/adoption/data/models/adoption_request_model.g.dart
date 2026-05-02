@@ -17,7 +17,7 @@ _AdoptionRequestModel _$AdoptionRequestModelFromJson(
   adopterName: json['adopterName'] as String,
   adopterAvatar: json['adopterAvatar'] as String,
   adopterPhone: json['adopterPhone'] as String,
-  createAt: const TimestampConverter().fromJson(json['createAt']),
+  createdAt: const TimestampConverter().fromJson(json['createdAt']),
   updatedAt: const TimestampConverter().fromJson(json['updatedAt']),
   status:
       $enumDecodeNullable(_$RequestStatusEnumMap, json['status']) ??
@@ -36,7 +36,7 @@ Map<String, dynamic> _$AdoptionRequestModelToJson(
   'adopterName': instance.adopterName,
   'adopterAvatar': instance.adopterAvatar,
   'adopterPhone': instance.adopterPhone,
-  'createAt': const TimestampConverter().toJson(instance.createAt),
+  'createdAt': const TimestampConverter().toJson(instance.createdAt),
   'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
   'status': _$RequestStatusEnumMap[instance.status]!,
   'rejectionReason': instance.rejectionReason,

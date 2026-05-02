@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/extensions/date_time_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 
@@ -33,11 +34,13 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
           builder: (context, state) {
             return state.maybeWhen(
               loaded: (requests) {
-                // if (requests.isEmpty) {
-                //   return const Center(
-                //     child: Text("You don't have any adoption request"),
-                //   );
-                // }
+                if (requests.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "You don't have any adoption request",
+                    ),
+                  );
+                }
 
                 return ListView.separated(
                   shrinkWrap: true,
@@ -45,11 +48,9 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                     horizontal: 16,
                     vertical: 12,
                   ),
-                  // itemCount: requests.length,
-                  itemCount: 10,
+                  itemCount: requests.length,
                   itemBuilder: (context, index) {
-                    // final request = requests[index];
-                    // return Text(request.petId);
+                    final request = requests[index];
                     return Container(
                       padding: const .symmetric(
                         horizontal: 12,
@@ -88,7 +89,7 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                                     spacing: 4,
                                     children: [
                                       Text(
-                                        'Milo',
+                                        request.petName,
                                         style: context
                                             .textTheme
                                             .bodyMedium!
@@ -104,7 +105,7 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                                     children: [
                                       const Text('Adopter:'),
                                       Text(
-                                        'Petter User',
+                                        request.adopterName,
                                         style: context
                                             .textTheme
                                             .bodyMedium!
@@ -120,7 +121,7 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                                     children: [
                                       const Text('Phone:'),
                                       Text(
-                                        '0123 xxx xxx',
+                                        request.adopterPhone,
                                         style: context
                                             .textTheme
                                             .bodyMedium!
@@ -136,7 +137,9 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                                     children: [
                                       const Text('Created at:'),
                                       Text(
-                                        '2 days ago',
+                                        request
+                                            .createdAt
+                                            .fullTimeDate,
                                         style: context
                                             .textTheme
                                             .bodyMedium!
@@ -152,7 +155,7 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage> {
                                     children: [
                                       const Text('Status:'),
                                       Text(
-                                        'Pending',
+                                        request.status.name,
                                         style: context
                                             .textTheme
                                             .bodyMedium!

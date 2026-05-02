@@ -55,24 +55,43 @@ class AdoptionRemoteDataSourceImpl
     CreateAdoptionRequestParams params,
   ) async {
     try {
-      final adoptionReqRef = _adoptionRequestsCollection.doc();
+      final query = _adoptionRequestsCollection
+          .where('petId', isEqualTo: params.pet.id)
+          .where('adopterId', isEqualTo: params.adopter.id)
+          .where(
+            'status',
+            whereIn: ['pending', 'reviewing', 'approved'],
+          );
 
-      final newRequest = AdoptionRequestModel(
-        id: adoptionReqRef.id,
-        petId: params.pet.id,
-        petName: params.pet.name,
-        petImageUrl: params.pet.imageUrl,
-        adopterId: params.adopter.id,
-        adopterName: params.adopter.name,
-        adopterAvatar: params.adopter.avatar,
-        adopterPhone: params.adopter.phone,
-        createAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
+      return await _firestore.runTransaction((transaction) async {
+        final snapshot = await query.get();
 
-      await adoptionReqRef.set(newRequest);
+        if (snapshot.docs.isNotEmpty) {
+          throw const ServerException(
+            'Bạn đã tạo yêu cầu cho thú cưng này rồi',
+          );
+        }
 
-      return newRequest;
+        final adoptionReqRef = _adoptionRequestsCollection.doc();
+        final request = AdoptionRequestModel(
+          id: adoptionReqRef.id,
+          petId: params.pet.id,
+          petName: params.pet.name,
+          petImageUrl: params.pet.imageUrl,
+          adopterId: params.adopter.id,
+          adopterName: params.adopter.name,
+          adopterAvatar: params.adopter.avatar,
+          adopterPhone: params.adopter.phone,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        );
+
+        transaction.set(adoptionReqRef, request);
+
+        return request;
+      });
+    } on ServerException {
+      rethrow;
     } catch (e) {
       throw ServerException('Create adoption request failed: $e');
     }

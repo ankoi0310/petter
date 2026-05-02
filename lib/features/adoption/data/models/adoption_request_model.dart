@@ -19,7 +19,7 @@ abstract class AdoptionRequestModel with _$AdoptionRequestModel {
     required String adopterName,
     required String adopterAvatar,
     required String adopterPhone,
-    required DateTime createAt,
+    required DateTime createdAt,
     required DateTime updatedAt,
     @Default(RequestStatus.pending) RequestStatus status,
     String? rejectionReason,

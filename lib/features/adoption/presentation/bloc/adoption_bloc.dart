@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 import 'package:petter/features/adoption/domain/usecases/create_adoption_request_use_case.dart';
@@ -41,7 +42,16 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
     final result = await _getAdoptionRequests(NoParams());
 
     result.fold(
-      (failure) => emit(AdoptionState.error(failure.message)),
+      (failure) => emit(
+        AdoptionState.error(
+          failure.when(
+            auth: (message) => message,
+            chat: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
       (adoptionRequests) {
         print(adoptionRequests);
         _requests = adoptionRequests;
@@ -57,10 +67,21 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
     final result = await _createAdoptionRequest(event.params);
 
     result.fold(
-      (failure) => emit(AdoptionState.error(failure.message)),
+      (failure) => emit(
+        .error(
+          failure.when(
+            auth: (message) => message,
+            chat: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
       (adoptionRequest) {
+        print('Create success');
+        emit(const .createRequestSuccess());
         _requests = [adoptionRequest, ..._requests];
-        emit(AdoptionState.loaded(_requests));
+        emit(.loaded(_requests));
       },
     );
   }
@@ -72,8 +93,18 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
     final result = await _updateAdoptionRequest(event.params);
 
     result.fold(
-      (failure) => emit(AdoptionState.error(failure.message)),
+      (failure) => emit(
+        .error(
+          failure.when(
+            auth: (message) => message,
+            chat: (message) => message,
+            server: (message) => message,
+            unknown: (message) => message,
+          ),
+        ),
+      ),
       (_) {
+        emit(const .updateRequestSuccess());
         // emit(AdoptionState.loaded(_requests));
       },
     );

@@ -12,7 +12,7 @@ extension AdoptionRequestMapper on AdoptionRequestModel {
       adopterName: adopterName,
       adopterAvatar: adopterAvatar,
       adopterPhone: adopterPhone,
-      createAt: createAt,
+      createdAt: createdAt,
       updatedAt: updatedAt,
       status: status,
       rejectionReason: rejectionReason,
