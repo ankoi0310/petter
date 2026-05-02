@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/di/di.dart';
 import 'package:petter/core/router/bloc_listenable.dart';
+import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
+import 'package:petter/features/adoption/presentation/pages/adoption_request_detail_page.dart';
 import 'package:petter/features/adoption/presentation/pages/adoption_request_page.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
@@ -166,6 +168,16 @@ final routerConfig = GoRouter(
       builder: (context, state) {
         return const AdoptionRequestPage();
       },
+      routes: [
+        GoRoute(
+          name: AppRoutes.adoptionRequestDetail.name,
+          path: AppRoutes.adoptionRequestDetail.path,
+          builder: (context, state) {
+            final request = state.extra! as AdoptionRequest;
+            return AdoptionRequestDetailPage(request: request);
+          },
+        ),
+      ],
     ),
     GoRoute(
       name: AppRoutes.account.name,
@@ -207,6 +219,10 @@ enum AppRoutes {
   myPetUpdate(name: 'myPetUpdate', path: '/:id/update'),
   favorite(name: 'favorite', path: '/favorite'),
   adoptionRequest(name: 'adoptionRequest', path: '/adoption-request'),
+  adoptionRequestDetail(
+    name: 'adoptionRequestDetail',
+    path: '/detail',
+  ),
   account(name: 'account', path: '/account'),
   userProfile(name: 'userProfile', path: '/profile'),
   accountChangePassword(

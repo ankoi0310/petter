@@ -13,6 +13,7 @@ abstract class AdoptionRequestModel with _$AdoptionRequestModel {
   const factory AdoptionRequestModel({
     required String id,
     required String petId,
+    required String petOwnerId,
     required String petName,
     required String petImageUrl,
     required String adopterId,

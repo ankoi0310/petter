@@ -5,7 +5,8 @@ class AdoptionState with _$AdoptionState {
   const factory AdoptionState.initial() = _Initial;
   const factory AdoptionState.loading() = _Loading;
   const factory AdoptionState.loaded(
-    List<AdoptionRequest> adoptionRequests,
+    List<AdoptionRequest> requests,
+    List<AdoptionRequest> myRequests,
   ) = _Loaded;
   const factory AdoptionState.createRequestSuccess() =
       _CreateRequestSuccess;

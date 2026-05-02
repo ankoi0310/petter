@@ -5,12 +5,13 @@ import 'package:petter/features/adoption/domain/usecases/update_adoption_request
 
 abstract class AdoptionRepository {
   ResultFuture<List<AdoptionRequest>> getAdoptionRequests();
+  ResultFuture<List<AdoptionRequest>> getUserAdoptionRequests();
 
   ResultFuture<AdoptionRequest> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   );
 
-  VoidFuture updateAdoptionRequest(
+  ResultFuture<AdoptionRequest> updateAdoptionRequest(
     UpdateAdoptionRequestParams params,
   );
 }

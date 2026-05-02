@@ -55,11 +55,12 @@ extension AdoptionEventPatterns on AdoptionEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetAdoptionRequests value)?  getAdoptionRequests,TResult Function( _CreateAdoptionRequest value)?  createAdoptionRequest,TResult Function( _UpdateAdoptionRequest value)?  updateAdoptionRequest,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetAdoptionRequests value)?  getAdoptionRequests,TResult Function( _GetMyAdoptionRequests value)?  getMyAdoptionRequests,TResult Function( _CreateAdoptionRequest value)?  createAdoptionRequest,TResult Function( _UpdateAdoptionRequest value)?  updateAdoptionRequest,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _GetAdoptionRequests() when getAdoptionRequests != null:
-return getAdoptionRequests(_that);case _CreateAdoptionRequest() when createAdoptionRequest != null:
+return getAdoptionRequests(_that);case _GetMyAdoptionRequests() when getMyAdoptionRequests != null:
+return getMyAdoptionRequests(_that);case _CreateAdoptionRequest() when createAdoptionRequest != null:
 return createAdoptionRequest(_that);case _UpdateAdoptionRequest() when updateAdoptionRequest != null:
 return updateAdoptionRequest(_that);case _:
   return orElse();
@@ -79,11 +80,12 @@ return updateAdoptionRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetAdoptionRequests value)  getAdoptionRequests,required TResult Function( _CreateAdoptionRequest value)  createAdoptionRequest,required TResult Function( _UpdateAdoptionRequest value)  updateAdoptionRequest,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetAdoptionRequests value)  getAdoptionRequests,required TResult Function( _GetMyAdoptionRequests value)  getMyAdoptionRequests,required TResult Function( _CreateAdoptionRequest value)  createAdoptionRequest,required TResult Function( _UpdateAdoptionRequest value)  updateAdoptionRequest,}){
 final _that = this;
 switch (_that) {
 case _GetAdoptionRequests():
-return getAdoptionRequests(_that);case _CreateAdoptionRequest():
+return getAdoptionRequests(_that);case _GetMyAdoptionRequests():
+return getMyAdoptionRequests(_that);case _CreateAdoptionRequest():
 return createAdoptionRequest(_that);case _UpdateAdoptionRequest():
 return updateAdoptionRequest(_that);case _:
   throw StateError('Unexpected subclass');
@@ -102,11 +104,12 @@ return updateAdoptionRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetAdoptionRequests value)?  getAdoptionRequests,TResult? Function( _CreateAdoptionRequest value)?  createAdoptionRequest,TResult? Function( _UpdateAdoptionRequest value)?  updateAdoptionRequest,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetAdoptionRequests value)?  getAdoptionRequests,TResult? Function( _GetMyAdoptionRequests value)?  getMyAdoptionRequests,TResult? Function( _CreateAdoptionRequest value)?  createAdoptionRequest,TResult? Function( _UpdateAdoptionRequest value)?  updateAdoptionRequest,}){
 final _that = this;
 switch (_that) {
 case _GetAdoptionRequests() when getAdoptionRequests != null:
-return getAdoptionRequests(_that);case _CreateAdoptionRequest() when createAdoptionRequest != null:
+return getAdoptionRequests(_that);case _GetMyAdoptionRequests() when getMyAdoptionRequests != null:
+return getMyAdoptionRequests(_that);case _CreateAdoptionRequest() when createAdoptionRequest != null:
 return createAdoptionRequest(_that);case _UpdateAdoptionRequest() when updateAdoptionRequest != null:
 return updateAdoptionRequest(_that);case _:
   return null;
@@ -125,10 +128,11 @@ return updateAdoptionRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getAdoptionRequests,TResult Function( CreateAdoptionRequestParams params)?  createAdoptionRequest,TResult Function( UpdateAdoptionRequestParams params)?  updateAdoptionRequest,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getAdoptionRequests,TResult Function()?  getMyAdoptionRequests,TResult Function( CreateAdoptionRequestParams params)?  createAdoptionRequest,TResult Function( UpdateAdoptionRequestParams params)?  updateAdoptionRequest,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GetAdoptionRequests() when getAdoptionRequests != null:
-return getAdoptionRequests();case _CreateAdoptionRequest() when createAdoptionRequest != null:
+return getAdoptionRequests();case _GetMyAdoptionRequests() when getMyAdoptionRequests != null:
+return getMyAdoptionRequests();case _CreateAdoptionRequest() when createAdoptionRequest != null:
 return createAdoptionRequest(_that.params);case _UpdateAdoptionRequest() when updateAdoptionRequest != null:
 return updateAdoptionRequest(_that.params);case _:
   return orElse();
@@ -148,10 +152,11 @@ return updateAdoptionRequest(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getAdoptionRequests,required TResult Function( CreateAdoptionRequestParams params)  createAdoptionRequest,required TResult Function( UpdateAdoptionRequestParams params)  updateAdoptionRequest,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getAdoptionRequests,required TResult Function()  getMyAdoptionRequests,required TResult Function( CreateAdoptionRequestParams params)  createAdoptionRequest,required TResult Function( UpdateAdoptionRequestParams params)  updateAdoptionRequest,}) {final _that = this;
 switch (_that) {
 case _GetAdoptionRequests():
-return getAdoptionRequests();case _CreateAdoptionRequest():
+return getAdoptionRequests();case _GetMyAdoptionRequests():
+return getMyAdoptionRequests();case _CreateAdoptionRequest():
 return createAdoptionRequest(_that.params);case _UpdateAdoptionRequest():
 return updateAdoptionRequest(_that.params);case _:
   throw StateError('Unexpected subclass');
@@ -170,10 +175,11 @@ return updateAdoptionRequest(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getAdoptionRequests,TResult? Function( CreateAdoptionRequestParams params)?  createAdoptionRequest,TResult? Function( UpdateAdoptionRequestParams params)?  updateAdoptionRequest,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getAdoptionRequests,TResult? Function()?  getMyAdoptionRequests,TResult? Function( CreateAdoptionRequestParams params)?  createAdoptionRequest,TResult? Function( UpdateAdoptionRequestParams params)?  updateAdoptionRequest,}) {final _that = this;
 switch (_that) {
 case _GetAdoptionRequests() when getAdoptionRequests != null:
-return getAdoptionRequests();case _CreateAdoptionRequest() when createAdoptionRequest != null:
+return getAdoptionRequests();case _GetMyAdoptionRequests() when getMyAdoptionRequests != null:
+return getMyAdoptionRequests();case _CreateAdoptionRequest() when createAdoptionRequest != null:
 return createAdoptionRequest(_that.params);case _UpdateAdoptionRequest() when updateAdoptionRequest != null:
 return updateAdoptionRequest(_that.params);case _:
   return null;
@@ -207,6 +213,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'AdoptionEvent.getAdoptionRequests()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _GetMyAdoptionRequests implements AdoptionEvent {
+  const _GetMyAdoptionRequests();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetMyAdoptionRequests);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdoptionEvent.getMyAdoptionRequests()';
 }
 
 
@@ -470,12 +508,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<AdoptionRequest> adoptionRequests)?  loaded,TResult Function()?  createRequestSuccess,TResult Function()?  updateRequestSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<AdoptionRequest> requests,  List<AdoptionRequest> myRequests)?  loaded,TResult Function()?  createRequestSuccess,TResult Function()?  updateRequestSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.adoptionRequests);case _CreateRequestSuccess() when createRequestSuccess != null:
+return loaded(_that.requests,_that.myRequests);case _CreateRequestSuccess() when createRequestSuccess != null:
 return createRequestSuccess();case _UpdateRequestSuccess() when updateRequestSuccess != null:
 return updateRequestSuccess();case _Error() when error != null:
 return error(_that.message);case _:
@@ -496,12 +534,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<AdoptionRequest> adoptionRequests)  loaded,required TResult Function()  createRequestSuccess,required TResult Function()  updateRequestSuccess,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<AdoptionRequest> requests,  List<AdoptionRequest> myRequests)  loaded,required TResult Function()  createRequestSuccess,required TResult Function()  updateRequestSuccess,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.adoptionRequests);case _CreateRequestSuccess():
+return loaded(_that.requests,_that.myRequests);case _CreateRequestSuccess():
 return createRequestSuccess();case _UpdateRequestSuccess():
 return updateRequestSuccess();case _Error():
 return error(_that.message);case _:
@@ -521,12 +559,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<AdoptionRequest> adoptionRequests)?  loaded,TResult? Function()?  createRequestSuccess,TResult? Function()?  updateRequestSuccess,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<AdoptionRequest> requests,  List<AdoptionRequest> myRequests)?  loaded,TResult? Function()?  createRequestSuccess,TResult? Function()?  updateRequestSuccess,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.adoptionRequests);case _CreateRequestSuccess() when createRequestSuccess != null:
+return loaded(_that.requests,_that.myRequests);case _CreateRequestSuccess() when createRequestSuccess != null:
 return createRequestSuccess();case _UpdateRequestSuccess() when updateRequestSuccess != null:
 return updateRequestSuccess();case _Error() when error != null:
 return error(_that.message);case _:
@@ -605,14 +643,21 @@ String toString() {
 
 
 class _Loaded implements AdoptionState {
-  const _Loaded(final  List<AdoptionRequest> adoptionRequests): _adoptionRequests = adoptionRequests;
+  const _Loaded(final  List<AdoptionRequest> requests, final  List<AdoptionRequest> myRequests): _requests = requests,_myRequests = myRequests;
   
 
- final  List<AdoptionRequest> _adoptionRequests;
- List<AdoptionRequest> get adoptionRequests {
-  if (_adoptionRequests is EqualUnmodifiableListView) return _adoptionRequests;
+ final  List<AdoptionRequest> _requests;
+ List<AdoptionRequest> get requests {
+  if (_requests is EqualUnmodifiableListView) return _requests;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_adoptionRequests);
+  return EqualUnmodifiableListView(_requests);
+}
+
+ final  List<AdoptionRequest> _myRequests;
+ List<AdoptionRequest> get myRequests {
+  if (_myRequests is EqualUnmodifiableListView) return _myRequests;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_myRequests);
 }
 
 
@@ -626,16 +671,16 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._adoptionRequests, _adoptionRequests));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._requests, _requests)&&const DeepCollectionEquality().equals(other._myRequests, _myRequests));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_adoptionRequests));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_requests),const DeepCollectionEquality().hash(_myRequests));
 
 @override
 String toString() {
-  return 'AdoptionState.loaded(adoptionRequests: $adoptionRequests)';
+  return 'AdoptionState.loaded(requests: $requests, myRequests: $myRequests)';
 }
 
 
@@ -646,7 +691,7 @@ abstract mixin class _$LoadedCopyWith<$Res> implements $AdoptionStateCopyWith<$R
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<AdoptionRequest> adoptionRequests
+ List<AdoptionRequest> requests, List<AdoptionRequest> myRequests
 });
 
 
@@ -663,9 +708,10 @@ class __$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of AdoptionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? adoptionRequests = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? requests = null,Object? myRequests = null,}) {
   return _then(_Loaded(
-null == adoptionRequests ? _self._adoptionRequests : adoptionRequests // ignore: cast_nullable_to_non_nullable
+null == requests ? _self._requests : requests // ignore: cast_nullable_to_non_nullable
+as List<AdoptionRequest>,null == myRequests ? _self._myRequests : myRequests // ignore: cast_nullable_to_non_nullable
 as List<AdoptionRequest>,
   ));
 }

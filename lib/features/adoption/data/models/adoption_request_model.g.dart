@@ -11,6 +11,7 @@ _AdoptionRequestModel _$AdoptionRequestModelFromJson(
 ) => _AdoptionRequestModel(
   id: json['id'] as String,
   petId: json['petId'] as String,
+  petOwnerId: json['petOwnerId'] as String,
   petName: json['petName'] as String,
   petImageUrl: json['petImageUrl'] as String,
   adopterId: json['adopterId'] as String,
@@ -30,6 +31,7 @@ Map<String, dynamic> _$AdoptionRequestModelToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'petId': instance.petId,
+  'petOwnerId': instance.petOwnerId,
   'petName': instance.petName,
   'petImageUrl': instance.petImageUrl,
   'adopterId': instance.adopterId,

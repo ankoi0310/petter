@@ -7,12 +7,13 @@ import 'package:petter/features/adoption/domain/usecases/update_adoption_request
 
 abstract class AdoptionRemoteDataSource {
   Future<List<AdoptionRequestModel>> getAdoptionRequests();
+  Future<List<AdoptionRequestModel>> getUserAdoptionRequests();
 
   Future<AdoptionRequestModel> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   );
 
-  Future<void> updateAdoptionRequest(
+  Future<AdoptionRequestModel> updateAdoptionRequest(
     UpdateAdoptionRequestParams params,
   );
 }
@@ -36,6 +37,22 @@ class AdoptionRemoteDataSourceImpl
 
   @override
   Future<List<AdoptionRequestModel>> getAdoptionRequests() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw const AuthException('User not sign in');
+    }
+
+    final snapshot = await _adoptionRequestsCollection
+        .where('petOwnerId', isEqualTo: currentUser.uid)
+        .orderBy('createdAt', descending: true)
+        .get();
+
+    return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  @override
+  Future<List<AdoptionRequestModel>> getUserAdoptionRequests() async {
     final currentUser = _auth.currentUser;
 
     if (currentUser == null) {
@@ -76,6 +93,7 @@ class AdoptionRemoteDataSourceImpl
         final request = AdoptionRequestModel(
           id: adoptionReqRef.id,
           petId: params.pet.id,
+          petOwnerId: params.pet.uid,
           petName: params.pet.name,
           petImageUrl: params.pet.imageUrl,
           adopterId: params.adopter.id,
@@ -98,16 +116,37 @@ class AdoptionRemoteDataSourceImpl
   }
 
   @override
-  Future<void> updateAdoptionRequest(
+  Future<AdoptionRequestModel> updateAdoptionRequest(
     UpdateAdoptionRequestParams params,
   ) async {
     try {
-      await _adoptionRequestsCollection.doc(params.id).update({
-        'status': params.status,
+      final docRef = _adoptionRequestsCollection.doc(params.id);
+
+      await docRef.update({
+        'status': params.status.name,
         if (params.rejectionReason != null)
           'rejectionReason': params.rejectionReason,
+        'updatedAt': FieldValue.serverTimestamp(),
       });
+
+      final updatedDoc = await docRef.get();
+
+      if (!updatedDoc.exists) {
+        throw const ServerException(
+          'Yêu cầu nhận nuôi không tồn tại.',
+        );
+      }
+
+      print(updatedDoc.data());
+
+      return updatedDoc.data()!;
+    } on FirebaseException catch (e) {
+      print(e);
+      throw ServerException('Lỗi Firebase: ${e.message}');
+    } on ServerException {
+      rethrow;
     } catch (e) {
+      print(e);
       throw ServerException('Update adoption request failed: $e');
     }
   }

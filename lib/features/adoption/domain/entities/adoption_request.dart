@@ -8,6 +8,7 @@ abstract class AdoptionRequest with _$AdoptionRequest {
   const factory AdoptionRequest({
     required String id,
     required String petId,
+    required String petOwnerId,
     required String petName,
     required String petImageUrl,
     required String adopterId,

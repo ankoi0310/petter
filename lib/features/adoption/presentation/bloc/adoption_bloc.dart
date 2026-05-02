@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 import 'package:petter/features/adoption/domain/usecases/create_adoption_request_use_case.dart';
 import 'package:petter/features/adoption/domain/usecases/get_adoption_requests_use_case.dart';
+import 'package:petter/features/adoption/domain/usecases/get_my_adoption_requests_use_case.dart';
 import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
 
 part 'adoption_event.dart';
@@ -16,48 +16,58 @@ part 'adoption_bloc.freezed.dart';
 class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
   AdoptionBloc({
     required GetAdoptionRequestsUseCase getAdoptionRequests,
+    required GetMyAdoptionRequestsUseCase getMyAdoptionRequests,
     required CreateAdoptionRequestUseCase createAdoptionRequest,
     required UpdateAdoptionRequestUseCase updateAdoptionRequest,
   }) : _getAdoptionRequests = getAdoptionRequests,
+       _getMyAdoptionRequests = getMyAdoptionRequests,
        _createAdoptionRequest = createAdoptionRequest,
        _updateAdoptionRequest = updateAdoptionRequest,
        super(const AdoptionState.initial()) {
     on<_GetAdoptionRequests>(_onGetAdoptionRequests);
+    on<_GetMyAdoptionRequests>(_onGetMyAdoptionRequests);
     on<_CreateAdoptionRequest>(_onCreateAdoptionRequest);
     on<_UpdateAdoptionRequest>(_onUpdateAdoptionRequest);
   }
 
   final GetAdoptionRequestsUseCase _getAdoptionRequests;
+  final GetMyAdoptionRequestsUseCase _getMyAdoptionRequests;
   final CreateAdoptionRequestUseCase _createAdoptionRequest;
   final UpdateAdoptionRequestUseCase _updateAdoptionRequest;
 
-  List<AdoptionRequest> _requests = <AdoptionRequest>[];
+  List<AdoptionRequest> _requests = [];
+  List<AdoptionRequest> _myRequests = [];
 
   Future<void> _onGetAdoptionRequests(
     _GetAdoptionRequests event,
     Emitter<AdoptionState> emit,
   ) async {
-    emit(const AdoptionState.loading());
+    emit(const .loading());
 
     final result = await _getAdoptionRequests(NoParams());
 
-    result.fold(
-      (failure) => emit(
-        AdoptionState.error(
-          failure.when(
-            auth: (message) => message,
-            chat: (message) => message,
-            server: (message) => message,
-            unknown: (message) => message,
-          ),
-        ),
-      ),
-      (adoptionRequests) {
-        print(adoptionRequests);
-        _requests = adoptionRequests;
-        emit(AdoptionState.loaded(_requests));
-      },
-    );
+    result.fold((failure) => emit(.error(failure.message)), (
+      adoptionRequests,
+    ) {
+      _requests = adoptionRequests;
+      emit(.loaded(_requests, _myRequests));
+    });
+  }
+
+  Future<void> _onGetMyAdoptionRequests(
+    _GetMyAdoptionRequests event,
+    Emitter<AdoptionState> emit,
+  ) async {
+    emit(const .loading());
+
+    final result = await _getMyAdoptionRequests(NoParams());
+
+    result.fold((failure) => emit(.error(failure.message)), (
+      myRequests,
+    ) {
+      _myRequests = myRequests;
+      emit(.loaded(_requests, _myRequests));
+    });
   }
 
   Future<void> _onCreateAdoptionRequest(
@@ -72,10 +82,9 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
         emit(.error(failure.message));
       },
       (adoptionRequest) {
-        print('Create success');
         emit(const .createRequestSuccess());
         _requests = [adoptionRequest, ..._requests];
-        emit(.loaded(_requests));
+        emit(.loaded(_requests, _myRequests));
       },
     );
   }
@@ -86,21 +95,18 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
   ) async {
     final result = await _updateAdoptionRequest(event.params);
 
-    result.fold(
-      (failure) => emit(
-        .error(
-          failure.when(
-            auth: (message) => message,
-            chat: (message) => message,
-            server: (message) => message,
-            unknown: (message) => message,
-          ),
-        ),
-      ),
-      (_) {
-        emit(const .updateRequestSuccess());
-        // emit(AdoptionState.loaded(_requests));
-      },
-    );
+    result.fold((failure) => emit(.error(failure.message)), (
+      request,
+    ) {
+      final index = _requests.indexWhere((r) => r.id == request.id);
+
+      if (index != -1) {
+        _requests[index] = request;
+      }
+
+      emit(const .updateRequestSuccess());
+
+      emit(AdoptionState.loaded(List.from(_requests), _myRequests));
+    });
   }
 }

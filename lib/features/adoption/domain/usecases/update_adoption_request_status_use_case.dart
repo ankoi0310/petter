@@ -1,6 +1,7 @@
 import 'package:petter/core/enums/request_status.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
+import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 import 'package:petter/features/adoption/domain/repositories/adoption_repository.dart';
 
 class UpdateAdoptionRequestParams {
@@ -16,13 +17,13 @@ class UpdateAdoptionRequestParams {
 }
 
 class UpdateAdoptionRequestUseCase
-    implements UseCase<void, UpdateAdoptionRequestParams> {
+    implements UseCase<AdoptionRequest, UpdateAdoptionRequestParams> {
   const UpdateAdoptionRequestUseCase(this._repository);
 
   final AdoptionRepository _repository;
 
   @override
-  ResultFuture<void> call(UpdateAdoptionRequestParams params) {
+  ResultFuture<AdoptionRequest> call(UpdateAdoptionRequestParams params) {
     return _repository.updateAdoptionRequest(params);
   }
 }

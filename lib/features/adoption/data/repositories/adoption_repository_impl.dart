@@ -27,6 +27,20 @@ class AdoptionRepositoryImpl implements AdoptionRepository {
   }
 
   @override
+  ResultFuture<List<AdoptionRequest>>
+  getUserAdoptionRequests() async {
+    try {
+      final models = await _remoteDataSource
+          .getUserAdoptionRequests();
+      return right(models.map((model) => model.toEntity()).toList());
+    } on AuthException catch (e) {
+      return left(Failure.auth(e.message));
+    } on ServerException catch (e) {
+      return left(Failure.server(e.message));
+    }
+  }
+
+  @override
   ResultFuture<AdoptionRequest> createAdoptionRequest(
     CreateAdoptionRequestParams params,
   ) async {
@@ -41,12 +55,14 @@ class AdoptionRepositoryImpl implements AdoptionRepository {
   }
 
   @override
-  VoidFuture updateAdoptionRequest(
+  ResultFuture<AdoptionRequest> updateAdoptionRequest(
     UpdateAdoptionRequestParams params,
   ) async {
     try {
-      await _remoteDataSource.updateAdoptionRequest(params);
-      return right(unit);
+      final model = await _remoteDataSource.updateAdoptionRequest(
+        params,
+      );
+      return right(model.toEntity());
     } on ServerException catch (e) {
       return left(Failure.server(e.message));
     }

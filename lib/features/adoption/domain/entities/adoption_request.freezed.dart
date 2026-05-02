@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AdoptionRequest {
 
- String get id; String get petId; String get petName; String get petImageUrl; String get adopterId; String get adopterName; String get adopterAvatar; String get adopterPhone; DateTime get createdAt; DateTime get updatedAt; RequestStatus get status; String? get rejectionReason;
+ String get id; String get petId; String get petOwnerId; String get petName; String get petImageUrl; String get adopterId; String get adopterName; String get adopterAvatar; String get adopterPhone; DateTime get createdAt; DateTime get updatedAt; RequestStatus get status; String? get rejectionReason;
 /// Create a copy of AdoptionRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AdoptionRequestCopyWith<AdoptionRequest> get copyWith => _$AdoptionRequestCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdoptionRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.petId, petId) || other.petId == petId)&&(identical(other.petName, petName) || other.petName == petName)&&(identical(other.petImageUrl, petImageUrl) || other.petImageUrl == petImageUrl)&&(identical(other.adopterId, adopterId) || other.adopterId == adopterId)&&(identical(other.adopterName, adopterName) || other.adopterName == adopterName)&&(identical(other.adopterAvatar, adopterAvatar) || other.adopterAvatar == adopterAvatar)&&(identical(other.adopterPhone, adopterPhone) || other.adopterPhone == adopterPhone)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.rejectionReason, rejectionReason) || other.rejectionReason == rejectionReason));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdoptionRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.petId, petId) || other.petId == petId)&&(identical(other.petOwnerId, petOwnerId) || other.petOwnerId == petOwnerId)&&(identical(other.petName, petName) || other.petName == petName)&&(identical(other.petImageUrl, petImageUrl) || other.petImageUrl == petImageUrl)&&(identical(other.adopterId, adopterId) || other.adopterId == adopterId)&&(identical(other.adopterName, adopterName) || other.adopterName == adopterName)&&(identical(other.adopterAvatar, adopterAvatar) || other.adopterAvatar == adopterAvatar)&&(identical(other.adopterPhone, adopterPhone) || other.adopterPhone == adopterPhone)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.rejectionReason, rejectionReason) || other.rejectionReason == rejectionReason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,petId,petName,petImageUrl,adopterId,adopterName,adopterAvatar,adopterPhone,createdAt,updatedAt,status,rejectionReason);
+int get hashCode => Object.hash(runtimeType,id,petId,petOwnerId,petName,petImageUrl,adopterId,adopterName,adopterAvatar,adopterPhone,createdAt,updatedAt,status,rejectionReason);
 
 @override
 String toString() {
-  return 'AdoptionRequest(id: $id, petId: $petId, petName: $petName, petImageUrl: $petImageUrl, adopterId: $adopterId, adopterName: $adopterName, adopterAvatar: $adopterAvatar, adopterPhone: $adopterPhone, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, rejectionReason: $rejectionReason)';
+  return 'AdoptionRequest(id: $id, petId: $petId, petOwnerId: $petOwnerId, petName: $petName, petImageUrl: $petImageUrl, adopterId: $adopterId, adopterName: $adopterName, adopterAvatar: $adopterAvatar, adopterPhone: $adopterPhone, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, rejectionReason: $rejectionReason)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AdoptionRequestCopyWith<$Res>  {
   factory $AdoptionRequestCopyWith(AdoptionRequest value, $Res Function(AdoptionRequest) _then) = _$AdoptionRequestCopyWithImpl;
 @useResult
 $Res call({
- String id, String petId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
+ String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
 });
 
 
@@ -62,10 +62,11 @@ class _$AdoptionRequestCopyWithImpl<$Res>
 
 /// Create a copy of AdoptionRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? petId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,petId: null == petId ? _self.petId : petId // ignore: cast_nullable_to_non_nullable
+as String,petOwnerId: null == petOwnerId ? _self.petOwnerId : petOwnerId // ignore: cast_nullable_to_non_nullable
 as String,petName: null == petName ? _self.petName : petName // ignore: cast_nullable_to_non_nullable
 as String,petImageUrl: null == petImageUrl ? _self.petImageUrl : petImageUrl // ignore: cast_nullable_to_non_nullable
 as String,adopterId: null == adopterId ? _self.adopterId : adopterId // ignore: cast_nullable_to_non_nullable
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String petId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdoptionRequest() when $default != null:
-return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
+return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopt
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String petId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)  $default,) {final _that = this;
 switch (_that) {
 case _AdoptionRequest():
-return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
+return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopt
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String petId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,) {final _that = this;
 switch (_that) {
 case _AdoptionRequest() when $default != null:
-return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
+return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
   return null;
 
 }
@@ -217,11 +218,12 @@ return $default(_that.id,_that.petId,_that.petName,_that.petImageUrl,_that.adopt
 
 
 class _AdoptionRequest implements AdoptionRequest {
-  const _AdoptionRequest({required this.id, required this.petId, required this.petName, required this.petImageUrl, required this.adopterId, required this.adopterName, required this.adopterAvatar, required this.adopterPhone, required this.createdAt, required this.updatedAt, required this.status, this.rejectionReason});
+  const _AdoptionRequest({required this.id, required this.petId, required this.petOwnerId, required this.petName, required this.petImageUrl, required this.adopterId, required this.adopterName, required this.adopterAvatar, required this.adopterPhone, required this.createdAt, required this.updatedAt, required this.status, this.rejectionReason});
   
 
 @override final  String id;
 @override final  String petId;
+@override final  String petOwnerId;
 @override final  String petName;
 @override final  String petImageUrl;
 @override final  String adopterId;
@@ -243,16 +245,16 @@ _$AdoptionRequestCopyWith<_AdoptionRequest> get copyWith => __$AdoptionRequestCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdoptionRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.petId, petId) || other.petId == petId)&&(identical(other.petName, petName) || other.petName == petName)&&(identical(other.petImageUrl, petImageUrl) || other.petImageUrl == petImageUrl)&&(identical(other.adopterId, adopterId) || other.adopterId == adopterId)&&(identical(other.adopterName, adopterName) || other.adopterName == adopterName)&&(identical(other.adopterAvatar, adopterAvatar) || other.adopterAvatar == adopterAvatar)&&(identical(other.adopterPhone, adopterPhone) || other.adopterPhone == adopterPhone)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.rejectionReason, rejectionReason) || other.rejectionReason == rejectionReason));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdoptionRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.petId, petId) || other.petId == petId)&&(identical(other.petOwnerId, petOwnerId) || other.petOwnerId == petOwnerId)&&(identical(other.petName, petName) || other.petName == petName)&&(identical(other.petImageUrl, petImageUrl) || other.petImageUrl == petImageUrl)&&(identical(other.adopterId, adopterId) || other.adopterId == adopterId)&&(identical(other.adopterName, adopterName) || other.adopterName == adopterName)&&(identical(other.adopterAvatar, adopterAvatar) || other.adopterAvatar == adopterAvatar)&&(identical(other.adopterPhone, adopterPhone) || other.adopterPhone == adopterPhone)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.rejectionReason, rejectionReason) || other.rejectionReason == rejectionReason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,petId,petName,petImageUrl,adopterId,adopterName,adopterAvatar,adopterPhone,createdAt,updatedAt,status,rejectionReason);
+int get hashCode => Object.hash(runtimeType,id,petId,petOwnerId,petName,petImageUrl,adopterId,adopterName,adopterAvatar,adopterPhone,createdAt,updatedAt,status,rejectionReason);
 
 @override
 String toString() {
-  return 'AdoptionRequest(id: $id, petId: $petId, petName: $petName, petImageUrl: $petImageUrl, adopterId: $adopterId, adopterName: $adopterName, adopterAvatar: $adopterAvatar, adopterPhone: $adopterPhone, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, rejectionReason: $rejectionReason)';
+  return 'AdoptionRequest(id: $id, petId: $petId, petOwnerId: $petOwnerId, petName: $petName, petImageUrl: $petImageUrl, adopterId: $adopterId, adopterName: $adopterName, adopterAvatar: $adopterAvatar, adopterPhone: $adopterPhone, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, rejectionReason: $rejectionReason)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$AdoptionRequestCopyWith<$Res> implements $AdoptionRequest
   factory _$AdoptionRequestCopyWith(_AdoptionRequest value, $Res Function(_AdoptionRequest) _then) = __$AdoptionRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String petId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
+ String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
 });
 
 
@@ -280,10 +282,11 @@ class __$AdoptionRequestCopyWithImpl<$Res>
 
 /// Create a copy of AdoptionRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? petId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
   return _then(_AdoptionRequest(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,petId: null == petId ? _self.petId : petId // ignore: cast_nullable_to_non_nullable
+as String,petOwnerId: null == petOwnerId ? _self.petOwnerId : petOwnerId // ignore: cast_nullable_to_non_nullable
 as String,petName: null == petName ? _self.petName : petName // ignore: cast_nullable_to_non_nullable
 as String,petImageUrl: null == petImageUrl ? _self.petImageUrl : petImageUrl // ignore: cast_nullable_to_non_nullable
 as String,adopterId: null == adopterId ? _self.adopterId : adopterId // ignore: cast_nullable_to_non_nullable

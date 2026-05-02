@@ -6,6 +6,7 @@ extension AdoptionRequestMapper on AdoptionRequestModel {
     return AdoptionRequest(
       id: id,
       petId: petId,
+      petOwnerId: petOwnerId,
       petName: petName,
       petImageUrl: petImageUrl,
       adopterId: adopterId,
