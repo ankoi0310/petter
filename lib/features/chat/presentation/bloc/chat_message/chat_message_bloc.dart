@@ -40,7 +40,6 @@ class ChatMessageBloc
     _SubscriptionRequested event,
     Emitter<ChatMessageState> emit,
   ) async {
-    print('Đang lắng nghe phòng: $_roomId');
     emit(const ChatMessageState.loading());
 
     await _messagesSubscription?.cancel();
@@ -55,7 +54,6 @@ class ChatMessageBloc
     _MessagesReceived event,
     Emitter<ChatMessageState> emit,
   ) {
-    print('Receive data: ${event.result}');
     event.result.fold(
       (failure) => emit(ChatMessageState.failure(failure)),
       (messages) => emit(ChatMessageState.loaded(messages)),

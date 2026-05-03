@@ -47,7 +47,6 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   ResultStreamList<Message> watchMessages(String roomId) {
-    print('Bắt đầu map dữ liệu từ Firestore');
     return _remoteDataSource
         .watchMessages(roomId)
         .map<Either<Failure, List<Message>>>((models) {
