@@ -49,7 +49,7 @@ class NotificationBloc
     result.fold((failure) => emit(.error(failure.message)), (
       notifications,
     ) {
-      _notifications = List.from(notifications);
+      _notifications = notifications;
       emit(.loaded(_notifications));
     });
   }
@@ -72,20 +72,21 @@ class NotificationBloc
     _ReadNotification event,
     Emitter<NotificationState> emit,
   ) async {
+    final currentNotifications = (state as _Loaded).notifications;
+
     final result = await _readNotification(event.id);
 
     result.fold((failure) => emit(.error(failure.message)), (_) {
-      final index = _notifications.indexWhere(
-        (noti) => noti.id == event.id,
-      );
+      final updatedNotifications = currentNotifications.map((noti) {
+        if (noti.id == event.id) {
+          return noti.copyWith(isRead: true);
+        }
+        return noti;
+      }).toList();
 
-      if (index != -1) {
-        _notifications[index] = _notifications[index].copyWith(
-          isRead: true,
-        );
-      }
+      _notifications = updatedNotifications;
 
-      emit(NotificationState.loaded(List.from(_notifications)));
+      emit(NotificationState.loaded(updatedNotifications));
     });
   }
 
@@ -96,10 +97,12 @@ class NotificationBloc
     final result = await _readAllNotifications(NoParams());
 
     result.fold((failure) => emit(.error(failure.message)), (_) {
-      _notifications = _notifications
+      final updatedNotifications = _notifications
           .map((n) => n.copyWith(isRead: true))
           .toList();
-      emit(.loaded(List.from(_notifications)));
+
+      _notifications = updatedNotifications;
+      emit(.loaded(updatedNotifications));
     });
   }
 }

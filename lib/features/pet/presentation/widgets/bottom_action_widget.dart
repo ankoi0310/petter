@@ -10,6 +10,8 @@ import 'package:petter/features/adoption/domain/usecases/create_adoption_request
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
+import 'package:petter/features/notification/domain/usecases/create_notification_use_case.dart';
+import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 
 class BottomActionWidget extends StatelessWidget {
@@ -105,6 +107,19 @@ class BottomActionWidget extends StatelessWidget {
                             CreateAdoptionRequestParams(
                               pet: pet,
                               adopter: currentUser,
+                            ),
+                          ),
+                        );
+
+                        context.read<NotificationBloc>().add(
+                          .createNotification(
+                            CreateNotificationParams(
+                              receiverId: pet.uid,
+                              title: 'Yêu cầu nhận nuôi mới 🐾',
+                              body:
+                                  '🐾	${currentUser.name} muốn nhận nuôi bé ${pet.name}. '
+                                  'Hãy xem yêu cầu của họ ngay!',
+                              type: .adoptionRequest,
                             ),
                           ),
                         );

@@ -10,6 +10,9 @@ import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 import 'package:petter/features/adoption/domain/usecases/update_adoption_request_status_use_case.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
+import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/notification/domain/usecases/create_notification_use_case.dart';
+import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 
 class AdoptionRequestDetailBottomBar extends StatelessWidget {
   const AdoptionRequestDetailBottomBar({
@@ -21,13 +24,21 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (request.status == .rejected || request.status == .approved) {
+    final currentUser = context.read<AuthBloc>().state.maybeWhen(
+      authenticated: (user) => user,
+      orElse: () => null,
+    );
+
+    if (request.status == .rejected ||
+        request.status == .approved ||
+        request.status == .cancelled) {
       return Container(
         padding: const .all(12),
         decoration: BoxDecoration(
           color: switch (request.status) {
-            RequestStatus.rejected => context.colors.errorContainer,
-            RequestStatus.approved => context.colors.primaryContainer,
+            .rejected => context.colors.errorContainer,
+            .cancelled => context.colors.errorContainer,
+            .approved => context.colors.primaryContainer,
             _ => context.colors.tertiaryContainer,
           },
           borderRadius: .circular(16),
@@ -38,8 +49,9 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
           spacing: 8,
           children: [
             Icon(switch (request.status) {
-              RequestStatus.rejected => Iconsax.close_circle_copy,
-              RequestStatus.approved => Iconsax.tick_circle_copy,
+              .rejected => Iconsax.close_circle_copy,
+              .cancelled => Iconsax.close_circle_copy,
+              .approved => Iconsax.tick_circle_copy,
               _ => Iconsax.info_circle_copy,
             }),
             Text(
@@ -50,6 +62,13 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
             ),
           ],
         ),
+      );
+    }
+
+    if (currentUser?.id == request.adopterId) {
+      return Row(
+        spacing: 16,
+        children: [Expanded(child: _buildCancelButton(context))],
       );
     }
 
@@ -73,6 +92,48 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
     );
   }
 
+  AppTextButton _buildCancelButton(BuildContext context) {
+    return AppTextButton(
+      onTap: () async {
+        context.read<AdoptionBloc>().add(
+          AdoptionEvent.updateAdoptionRequest(
+            UpdateAdoptionRequestParams(
+              id: request.id,
+              status: .cancelled,
+            ),
+          ),
+        );
+
+        context.read<NotificationBloc>().add(
+          .createNotification(
+            CreateNotificationParams(
+              receiverId: request.petOwnerId,
+              title: 'Yêu cầu đã bị hủy',
+              body:
+                  '${request.adopterName} đã rút lại yêu cầu nhận nuôi bé ${request.petName}.',
+              type: .adoptionRequest,
+            ),
+          ),
+        );
+      },
+      text: 'Từ chối',
+      padding: const .all(12),
+      borderRadius: .circular(16),
+      border: Border.all(),
+      backgroundColor: context.colors.errorContainer,
+      textStyle: context.textTheme.bodyLarge!.copyWith(
+        color: context.colors.onErrorContainer,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: context.colors.onErrorContainer,
+          blurRadius: 2,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    );
+  }
+
   AppTextButton _buildRejectButton(BuildContext context) {
     return AppTextButton(
       onTap: () async {
@@ -85,6 +146,19 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
                 id: request.id,
                 status: RequestStatus.rejected,
                 rejectionReason: rejectionReason,
+              ),
+            ),
+          );
+
+          context.read<NotificationBloc>().add(
+            .createNotification(
+              CreateNotificationParams(
+                receiverId: request.adopterId,
+                title: 'Cập nhật về yêu cầu nhận nuôi',
+                body:
+                    'Yêu cầu nhận nuôi bé ${request.petName} không thành công. '
+                    'Lý do: ${rejectionReason}.',
+                type: .adoptionRequest,
               ),
             ),
           );
@@ -119,6 +193,19 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
             ),
           ),
         );
+
+        context.read<NotificationBloc>().add(
+          .createNotification(
+            CreateNotificationParams(
+              receiverId: request.adopterId,
+              title: 'Yêu cầu đang được xem xét',
+              body:
+                  'Chủ nuôi đang xem xét hồ sơ của bạn cho bé ${request.petName}. '
+                  'Bạn sẽ sớm nhận được phản hồi.',
+              type: .adoptionRequest,
+            ),
+          ),
+        );
       },
       text: 'Xem xét',
       padding: const .all(12),
@@ -146,6 +233,19 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
             UpdateAdoptionRequestParams(
               id: request.id,
               status: RequestStatus.approved,
+            ),
+          ),
+        );
+
+        context.read<NotificationBloc>().add(
+          .createNotification(
+            CreateNotificationParams(
+              receiverId: request.adopterId,
+              title: 'Xin chúc mừng! 🎉',
+              body:
+                  'Yêu cầu nhận nuôi bé ${request.petName} của bạn đã được chấp '
+                  'thuận. Hãy trao đổi thêm để gặp mặt và đón em về nhà mới nhé!',
+              type: .adoptionRequest,
             ),
           ),
         );
