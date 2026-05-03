@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/error/failure.dart';
+import 'package:petter/core/services/firebase_cloud_message_service.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/error_util.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
@@ -24,10 +25,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required SignInUseCase signIn,
     required SignOutUseCase signOut,
     required WatchAuthStateUseCase watchAuthState,
+    required NotificationService notificationService,
   }) : _signUp = signUp,
        _signIn = signIn,
        _signOut = signOut,
        _watchAuthState = watchAuthState,
+       _notificationService = notificationService,
        super(const AuthState.initial()) {
     on<_Started>(_onStarted);
     on<_SignUp>(_onSignUp);
@@ -43,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInUseCase _signIn;
   final SignOutUseCase _signOut;
   final WatchAuthStateUseCase _watchAuthState;
+  final NotificationService _notificationService;
   StreamSubscription<Either<Failure, User?>>? _subscription;
 
   Future<void> _onStarted(
@@ -50,9 +54,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final result = await _watchAuthState(NoParams()).first;
-    result.fold(
-      (failure) => emit(const AuthState.unauthenticated()),
-      (user) {
+    await result.fold(
+      (failure) async => emit(const AuthState.unauthenticated()),
+      (user) async {
+        await _notificationService.requestPermission();
+        await _notificationService.setFcmToken();
         emit(
           user != null
               ? AuthState.authenticated(user)

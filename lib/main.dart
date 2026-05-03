@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:petter/app.dart';
 import 'package:petter/core/constant/app_constants.dart';
 import 'package:petter/core/di/di.dart';
+import 'package:petter/core/services/firebase_cloud_message_service.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
@@ -20,7 +21,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await initializeDateFormatting('vi_VN', null);
+  await initializeDateFormatting('vi_VN');
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -39,6 +40,8 @@ void main() async {
   PaintingBinding.instance.imageCache.maximumSizeBytes =
       100 * 1024 * 1024;
   PaintingBinding.instance.imageCache.maximumSize = 1000;
+
+  sl<NotificationService>().init();
 
   runApp(
     MultiBlocProvider(

@@ -23,7 +23,7 @@ class AccountPage extends StatelessWidget {
               spacing: 20,
               children: [
                 const AccountOverview(),
-                const PremiumAccountBadge(),
+                // const PremiumAccountBadge(),
                 const AccountSection(),
                 const AppSection(),
                 ListTile(

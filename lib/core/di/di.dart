@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:petter/core/services/firebase_cloud_message_service.dart';
 import 'package:petter/core/services/supabase_storage_service.dart';
 import 'package:petter/features/adoption/data/datasources/adoption_remote_data_source.dart';
 import 'package:petter/features/adoption/data/repositories/adoption_repository_impl.dart';
@@ -63,6 +64,9 @@ void initInjection() {
   sl
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(
+      () => NotificationService(auth: sl(), database: sl()),
+    )
+    ..registerLazySingleton(
       () => FirebaseFirestore.instanceFor(
         app: Firebase.app(),
         databaseId: 'petter',
@@ -100,6 +104,7 @@ void _initAuth(GetIt sl) {
         signIn: sl(),
         signOut: sl(),
         watchAuthState: sl(),
+        notificationService: sl(),
       ),
     );
 }
