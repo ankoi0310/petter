@@ -137,16 +137,12 @@ class AdoptionRemoteDataSourceImpl
         );
       }
 
-      print(updatedDoc.data());
-
       return updatedDoc.data()!;
     } on FirebaseException catch (e) {
-      print(e);
       throw ServerException('Lỗi Firebase: ${e.message}');
     } on ServerException {
       rethrow;
     } catch (e) {
-      print(e);
       throw ServerException('Update adoption request failed: $e');
     }
   }

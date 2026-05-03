@@ -67,7 +67,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     Emitter<ChatRoomState> emit,
   ) async {
     final currentUser = event.currentUser;
-    final userResult = await _getProfile(event.ownerId);
+    final userResult = await _getProfile(event.otherUserId);
 
     await userResult.fold(
       (failure) async => emit(ChatRoomState.failure(failure)),

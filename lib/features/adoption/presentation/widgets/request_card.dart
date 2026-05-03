@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/extensions/date_time_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/widgets/positioned_bottom_shadow.dart';
 import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 
 class RequestCard extends StatelessWidget {
@@ -31,37 +32,45 @@ class RequestCard extends StatelessWidget {
               child: Row(
                 spacing: 8,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: .all(
-                        color: context.colors.primary,
-                        width: 2,
-                      ),
-                      borderRadius: .circular(12),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: .circular(12),
-                      child: Assets.images.pets.pet0.image(
+                  Stack(
+                    children: [
+                      Container(
                         width: 120,
                         height: 120,
-                        fit: .cover,
+                        decoration: BoxDecoration(
+                          border: .all(
+                            color: context.colors.primary,
+                            width: 2,
+                          ),
+                          borderRadius: .circular(12),
+                          image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                              request.petImageUrl,
+                            ),
+                            fit: .cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      PositionedBottomShadow(
+                        padding: const .symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        child: Text(
+                          request.petName,
+                          style: context.textTheme.bodyLarge
+                              ?.copyWith(
+                                color:
+                                    context.colors.tertiaryContainer,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(
                     child: Column(
                       spacing: 4,
                       children: [
-                        Row(
-                          spacing: 4,
-                          children: [
-                            Text(
-                              request.petName,
-                              style: context.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: .bold),
-                            ),
-                          ],
-                        ),
                         Row(
                           spacing: 4,
                           mainAxisAlignment: .spaceBetween,

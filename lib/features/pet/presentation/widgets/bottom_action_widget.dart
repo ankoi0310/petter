@@ -81,7 +81,7 @@ class BottomActionWidget extends StatelessWidget {
                       context.read<ChatRoomBloc>().add(
                         ChatRoomEvent.roomCreated(
                           currentUser: currentUser,
-                          ownerId: pet.uid,
+                          otherUserId: pet.uid,
                         ),
                       );
                     },

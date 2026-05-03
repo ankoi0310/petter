@@ -98,11 +98,11 @@ class AdoptionBloc extends Bloc<AdoptionEvent, AdoptionState> {
     result.fold((failure) => emit(.error(failure.message)), (
       request,
     ) {
-      final index = _requests.indexWhere((r) => r.id == request.id);
+      final updatedRequests = _requests.map((r) {
+        return r.id == request.id ? request : r;
+      }).toList();
 
-      if (index != -1) {
-        _requests[index] = request;
-      }
+      _requests = updatedRequests;
 
       emit(const .updateRequestSuccess());
 

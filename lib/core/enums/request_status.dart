@@ -8,9 +8,7 @@ enum RequestStatus {
   @JsonValue('approved')
   approved('Đã chấp nhận'),
   @JsonValue('rejected')
-  rejected('Đã từ chối'),
-  @JsonValue('cancelled')
-  cancelled('Đã huỷ');
+  rejected('Đã từ chối');
 
   const RequestStatus(this.label);
 

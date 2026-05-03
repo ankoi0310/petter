@@ -11,6 +11,6 @@ class ChatRoomEvent with _$ChatRoomEvent {
 
   const factory ChatRoomEvent.roomCreated({
     required User currentUser,
-    required String ownerId,
+    required String otherUserId,
   }) = _RoomCreated;
 }
