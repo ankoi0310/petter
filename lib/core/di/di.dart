@@ -41,6 +41,14 @@ import 'package:petter/features/favorite/domain/usecases/add_to_favorite_use_cas
 import 'package:petter/features/favorite/domain/usecases/remove_from_favorite_use_case.dart';
 import 'package:petter/features/favorite/domain/usecases/watch_favorites_use_case.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:petter/features/notification/data/datasources/notification_remote_data_source.dart';
+import 'package:petter/features/notification/data/repositories/notification_repository_impl.dart';
+import 'package:petter/features/notification/domain/repositories/notification_repository.dart';
+import 'package:petter/features/notification/domain/usecases/create_notification_use_case.dart';
+import 'package:petter/features/notification/domain/usecases/get_notifications_use_case.dart';
+import 'package:petter/features/notification/domain/usecases/read_all_notifications_use_case.dart';
+import 'package:petter/features/notification/domain/usecases/read_notification_use_case.dart';
+import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart';
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
@@ -84,6 +92,7 @@ void initInjection() {
   _initAdoption(sl);
   _initFavorite(sl);
   _initChat(sl);
+  _initNotification(sl);
 }
 
 void _initAuth(GetIt sl) {
@@ -227,6 +236,28 @@ void _initChat(GetIt sl) {
         watchMessages: sl(),
         sendMessage: sl(),
         roomId: roomId,
+      ),
+    );
+}
+
+void _initNotification(GetIt sl) {
+  sl
+    ..registerLazySingleton<NotificationRemoteDataSource>(
+      () => NotificationRemoteDataSourceImpl(sl(), sl()),
+    )
+    ..registerLazySingleton<NotificationRepository>(
+      () => NotificationRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton(() => GetNotificationsUseCase(sl()))
+    ..registerLazySingleton(() => CreateNotificationUseCase(sl()))
+    ..registerLazySingleton(() => ReadNotificationUseCase(sl()))
+    ..registerLazySingleton(() => ReadAllNotificationsUseCase(sl()))
+    ..registerLazySingleton(
+      () => NotificationBloc(
+        getNotifications: sl(),
+        createNotification: sl(),
+        readNotification: sl(),
+        readAllNotifications: sl(),
       ),
     );
 }

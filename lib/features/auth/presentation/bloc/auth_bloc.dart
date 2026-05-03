@@ -57,8 +57,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await result.fold(
       (failure) async => emit(const AuthState.unauthenticated()),
       (user) async {
-        await _notificationService.requestPermission();
-        await _notificationService.setFcmToken();
+        // await _notificationService.requestPermission();
+        // await _notificationService.setFcmToken();
         emit(
           user != null
               ? AuthState.authenticated(user)
