@@ -11,6 +11,6 @@ class PetDetailDescriptionViewMore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(description, style: context.textTheme.titleMedium);
+    return Text(description, style: context.textTheme.bodyLarge);
   }
 }

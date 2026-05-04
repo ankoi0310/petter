@@ -51,6 +51,7 @@ class ChatPage extends StatelessWidget {
                       // ),
                       Expanded(
                         child: ListView.separated(
+                          padding: .symmetric(horizontal: 16),
                           itemCount: rooms.length,
                           itemBuilder: (context, index) {
                             return ChatRoomTile(room: rooms[index]);

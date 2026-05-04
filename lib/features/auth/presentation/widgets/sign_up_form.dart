@@ -125,29 +125,16 @@ class _SignUpFormState extends State<SignUpForm> {
               _signUp();
             },
           ),
+          Text(
+            'Bằng việc đăng ký, bạn đồng ý với điều khoản dịch vụ '
+            'và chính sách bảo mật của chúng tôi.',
+            style: context.textTheme.bodyMedium,
+          ),
           Padding(
-            padding: const .only(top: 32),
+            padding: const .only(top: 24),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                textStyle: context.textTheme.titleLarge,
-                backgroundColor: context.colors.primary,
-                foregroundColor: context.colors.onPrimary,
-                shadowColor: context.colors.shadow,
-                splashFactory: NoSplash.splashFactory,
-                shape: RoundedRectangleBorder(
-                  borderRadius: .circular(16),
-                  side: BorderSide(
-                    color: context.colors.secondary,
-                    width: 2,
-                  ),
-                ),
-                padding: const .symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-              ),
               onPressed: _signUp,
-              child: const Text('Sign In'),
+              child: const Text('Sign Up'),
             ),
           ),
         ],

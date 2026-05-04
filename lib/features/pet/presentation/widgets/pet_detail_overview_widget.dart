@@ -31,7 +31,7 @@ class PetDetailOverviewWidget extends StatelessWidget {
                       Assets.icons.mapPin.svg(width: 16),
                       Text(
                         pet.address,
-                        style: context.textTheme.bodySmall,
+                        style: context.textTheme.titleSmall,
                       ),
                     ],
                   ),

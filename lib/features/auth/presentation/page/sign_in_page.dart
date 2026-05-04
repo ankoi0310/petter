@@ -40,7 +40,7 @@ class SignInPage extends StatelessWidget {
                                       'Sign In',
                                       style: context
                                           .textTheme
-                                          .displaySmall
+                                          .displayMedium
                                           ?.copyWith(
                                             color: context
                                                 .colors
@@ -53,7 +53,7 @@ class SignInPage extends StatelessWidget {
                                       'Welcome back, your pets are missing you!',
                                       style: context
                                           .textTheme
-                                          .titleMedium!
+                                          .bodySmall!
                                           .copyWith(
                                             color: context
                                                 .colors

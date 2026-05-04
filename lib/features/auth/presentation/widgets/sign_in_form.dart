@@ -90,30 +90,14 @@ class _SignInFormState extends State<SignInForm> {
                   showSnackBar(context, content: 'Forgot password');
                 },
             ),
-            style: TextStyle(color: context.colors.error),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: context.colors.error,
+            ),
             textAlign: .right,
           ),
           Padding(
             padding: const .only(top: 16),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                textStyle: context.textTheme.titleLarge,
-                backgroundColor: context.colors.primary,
-                foregroundColor: context.colors.onPrimary,
-                shadowColor: context.colors.shadow,
-                splashFactory: NoSplash.splashFactory,
-                shape: RoundedRectangleBorder(
-                  borderRadius: .circular(16),
-                  side: BorderSide(
-                    color: context.colors.secondary,
-                    width: 2,
-                  ),
-                ),
-                padding: const .symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-              ),
               onPressed: _signIn,
               child: const Text('Sign In'),
             ),

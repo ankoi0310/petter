@@ -34,42 +34,27 @@ class AppTextFormField extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(title, style: context.textTheme.bodyLarge),
+            Text(title, style: context.textTheme.titleMedium),
             if (required)
               Text(
                 '*',
-                style: context.textTheme.bodyLarge?.copyWith(
+                style: context.textTheme.titleMedium?.copyWith(
                   color: context.colors.error,
                 ),
               ),
           ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: .circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: focusNode.hasFocus
-                    ? context.colors.primary
-                    : context.colors.outline,
-                offset: const Offset(2, 2),
-              ),
-            ],
-          ),
-          child: TextFormField(
-            enabled: enabled,
-            controller: controller,
-            focusNode: focusNode,
-            maxLines: maxLines ?? 1,
-            decoration: InputDecoration(
-              hintText: hintText,
-              filled: true,
-              fillColor: context.colors.primaryContainer,
-              border: OutlineInputBorder(borderRadius: .circular(16)),
-            ),
-            validator: validator,
-            onFieldSubmitted: onFieldSubmitted,
-          ),
+        TextFormField(
+          enabled: enabled,
+          controller: controller,
+          focusNode: focusNode,
+          maxLines: maxLines ?? 1,
+          decoration: InputDecoration(hintText: hintText),
+          validator: validator,
+          onFieldSubmitted: onFieldSubmitted,
+          onTapOutside: (_) {
+            focusNode.unfocus();
+          },
         ),
       ],
     );
@@ -106,50 +91,38 @@ class _AppPasswordFormFieldState extends State<AppPasswordFormField> {
       children: [
         Row(
           children: [
-            Text('Password', style: context.textTheme.bodyLarge),
+            Text('Password', style: context.textTheme.titleMedium),
             Text(
               '*',
-              style: context.textTheme.bodyLarge?.copyWith(
+              style: context.textTheme.titleMedium?.copyWith(
                 color: context.colors.error,
               ),
             ),
           ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: .circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: widget.focusNode.hasFocus
-                    ? context.colors.primary
-                    : context.colors.outline,
-                offset: const Offset(2, 2),
-              ),
-            ],
-          ),
-          child: TextFormField(
-            controller: widget.controller,
-            focusNode: widget.focusNode,
-            obscureText: _obscureText,
-            decoration: InputDecoration(
-              hintText: 'Enter your password',
-              filled: true,
-              fillColor: context.colors.primaryContainer,
-              border: OutlineInputBorder(borderRadius: .circular(16)),
-              suffixIcon: GestureDetector(
-                onTap: () => setState(() {
-                  _obscureText = !_obscureText;
-                }),
-                child: Icon(
-                  _obscureText
-                      ? Iconsax.eye_slash_copy
-                      : Iconsax.eye_copy,
-                ),
+        TextFormField(
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            hintText: 'Enter your password',
+            border: OutlineInputBorder(borderRadius: .circular(16)),
+            suffixIcon: GestureDetector(
+              onTap: () => setState(() {
+                _obscureText = !_obscureText;
+              }),
+              child: Icon(
+                _obscureText
+                    ? Iconsax.eye_slash_copy
+                    : Iconsax.eye_copy,
               ),
             ),
-            validator: widget.validator,
-            onFieldSubmitted: widget.onFieldSubmitted,
           ),
+          validator: widget.validator,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          onTapOutside: (_) {
+            widget.focusNode.unfocus();
+          },
         ),
       ],
     );
