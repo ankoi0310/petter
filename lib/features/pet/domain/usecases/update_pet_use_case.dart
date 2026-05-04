@@ -9,8 +9,7 @@ import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
 class UpdatePetParams {
   const UpdatePetParams({
     required this.id,
-    required this.uid,
-    required this.currentImageUrl,
+    this.currentImageUrl,
     this.name,
     this.address,
     this.gender,
@@ -20,10 +19,10 @@ class UpdatePetParams {
     this.species,
     this.description,
     this.imageFile,
+    this.isAdopted,
   });
 
   final String id;
-  final String uid;
   final String? name;
   final String? address;
   final Gender? gender;
@@ -32,8 +31,9 @@ class UpdatePetParams {
   final String? categoryId;
   final String? species;
   final String? description;
-  final String currentImageUrl;
+  final String? currentImageUrl;
   final File? imageFile;
+  final bool? isAdopted;
 
   JsonData toJson() => {
     if (name != null && name!.isNotEmpty) 'name': name,
@@ -46,6 +46,7 @@ class UpdatePetParams {
     if (species != null && species!.isNotEmpty) 'species': species,
     if (description != null && description!.isNotEmpty)
       'description': description,
+    if (isAdopted != null) 'isAdopted': isAdopted,
   };
 }
 

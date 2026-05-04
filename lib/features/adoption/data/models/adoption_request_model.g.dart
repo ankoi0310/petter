@@ -49,4 +49,5 @@ const _$RequestStatusEnumMap = {
   RequestStatus.reviewing: 'reviewing',
   RequestStatus.approved: 'approved',
   RequestStatus.rejected: 'rejected',
+  RequestStatus.cancelled: 'cancelled',
 };

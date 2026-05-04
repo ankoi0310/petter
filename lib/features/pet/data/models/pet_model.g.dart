@@ -20,9 +20,7 @@ _PetModel _$PetModelFromJson(Map<String, dynamic> json) => _PetModel(
   imageUrl: json['imageUrl'] as String,
   createdAt: const TimestampConverter().fromJson(json['createdAt']),
   updatedAt: const TimestampConverter().fromJson(json['updatedAt']),
-  status:
-      $enumDecodeNullable(_$PetStatusEnumMap, json['status']) ??
-      PetStatus.available,
+  isAdopted: json['isAdopted'] as bool? ?? false,
   isDeleted: json['isDeleted'] as bool? ?? false,
 );
 
@@ -40,14 +38,8 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
   'imageUrl': instance.imageUrl,
   'createdAt': const TimestampConverter().toJson(instance.createdAt),
   'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
-  'status': _$PetStatusEnumMap[instance.status]!,
+  'isAdopted': instance.isAdopted,
   'isDeleted': instance.isDeleted,
 };
 
 const _$GenderEnumMap = {Gender.male: 'male', Gender.female: 'female'};
-
-const _$PetStatusEnumMap = {
-  PetStatus.available: 'available',
-  PetStatus.pending: 'pending',
-  PetStatus.adopted: 'adopted',
-};

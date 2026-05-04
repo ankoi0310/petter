@@ -101,36 +101,43 @@ class BottomActionWidget extends StatelessWidget {
                   ),
                   Expanded(
                     child: AppIconButton(
-                      onTap: () {
-                        context.read<AdoptionBloc>().add(
-                          AdoptionEvent.createAdoptionRequest(
-                            CreateAdoptionRequestParams(
-                              pet: pet,
-                              adopter: currentUser,
-                            ),
-                          ),
-                        );
+                      onTap: pet.isAdopted
+                          ? null
+                          : () {
+                              context.read<AdoptionBloc>().add(
+                                AdoptionEvent.createAdoptionRequest(
+                                  CreateAdoptionRequestParams(
+                                    pet: pet,
+                                    adopter: currentUser,
+                                  ),
+                                ),
+                              );
 
-                        context.read<NotificationBloc>().add(
-                          .createNotification(
-                            CreateNotificationParams(
-                              receiverId: pet.uid,
-                              title: 'Yêu cầu nhận nuôi mới 🐾',
-                              body:
-                                  '🐾	${currentUser.name} muốn nhận nuôi bé ${pet.name}. '
-                                  'Hãy xem yêu cầu của họ ngay!',
-                              type: .adoptionRequest,
-                            ),
-                          ),
-                        );
-                      },
+                              context.read<NotificationBloc>().add(
+                                .createNotification(
+                                  CreateNotificationParams(
+                                    receiverId: pet.uid,
+                                    title: 'Yêu cầu nhận nuôi mới 🐾',
+                                    body:
+                                        '🐾	${currentUser.name} muốn nhận nuôi bé ${pet.name}. '
+                                        'Hãy xem yêu cầu của họ ngay!',
+                                    type: .adoptionRequest,
+                                  ),
+                                ),
+                              );
+                            },
+                      backgroundColor: pet.isAdopted
+                          ? context.colors.outlineVariant
+                          : null,
                       icon: Iconsax.pet_copy,
                       padding: const .all(12),
                       borderRadius: .circular(16),
                       border: Border.all(),
                       boxShadow: [
                         BoxShadow(
-                          color: context.colors.onPrimaryContainer,
+                          color: pet.isAdopted
+                              ? context.colors.outline
+                              : context.colors.onPrimaryContainer,
                           blurRadius: 2,
                           offset: const Offset(0, 4),
                         ),

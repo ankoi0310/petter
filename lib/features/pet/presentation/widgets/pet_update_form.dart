@@ -11,7 +11,6 @@ import 'package:petter/core/widgets/button.dart';
 import 'package:petter/core/widgets/category_dropdown_field.dart';
 import 'package:petter/core/widgets/gender_dropdown_field.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
-import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
@@ -73,15 +72,9 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
     FocusScope.of(context).unfocus();
 
     if (!_formKey.currentState!.validate()) return;
-    final authState = context.read<AuthBloc>().state;
-    final uid = authState.mapOrNull(
-      authenticated: (state) => state.user.id,
-    );
-    if (uid == null) return;
 
     final params = UpdatePetParams(
       id: widget.id,
-      uid: uid,
       name: _nameController.text.trim(),
       categoryId: categoryListenable.value,
       species: _speciesController.text.trim(),

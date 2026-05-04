@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
 
 class CategoryDropdownField extends StatelessWidget {
   const CategoryDropdownField({
@@ -14,18 +16,16 @@ class CategoryDropdownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = ['Dog', 'Cat', 'Rabbit', 'Bird'];
-
     return Column(
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
         Row(
           children: [
-            Text('Category', style: context.textTheme.bodyLarge),
+            Text('Danh mục', style: context.textTheme.titleMedium),
             Text(
               '*',
-              style: context.textTheme.bodyLarge?.copyWith(
+              style: context.textTheme.titleMedium?.copyWith(
                 color: context.colors.error,
               ),
             ),
@@ -43,24 +43,47 @@ class CategoryDropdownField extends StatelessWidget {
               ),
             ],
           ),
-          child: DropdownButtonFormField2<String>(
-            focusNode: focusNode,
-            valueListenable: valueListenable,
-            onChanged: (value) {
-              valueListenable.value = value;
-            },
-            decoration: InputDecoration(
-              contentPadding: const .symmetric(vertical: 16),
-              filled: true,
-              fillColor: context.colors.primaryContainer,
-              border: OutlineInputBorder(borderRadius: .circular(16)),
-            ),
-            items: list.map((item) {
-              return DropdownItem<String>(
-                value: item,
-                child: Text(item),
+          child: BlocBuilder<CategoryBloc, CategoryState>(
+            builder: (context, state) {
+              // Lấy danh sách items dựa trên state
+              final dropdownItems = state.maybeWhen(
+                loaded: (categories) => categories.map((category) {
+                  return DropdownItem<String>(
+                    value: category.id,
+                    child: Text(category.name),
+                  );
+                }).toList(),
+                orElse: () => [
+                  const DropdownItem<String>(
+                    child: Text('Đang tải hoặc lỗi...'),
+                  ),
+                ],
               );
-            }).toList(),
+
+              return DropdownButtonFormField2<String>(
+                focusNode: focusNode,
+                valueListenable: valueListenable,
+                hint: const Text('Chọn danh mục'),
+                items: dropdownItems,
+                onChanged: (value) {
+                  valueListenable.value = value;
+                },
+                decoration: InputDecoration(
+                  contentPadding: const .symmetric(vertical: 16),
+                  filled: true,
+                  fillColor: context.colors.primaryContainer,
+                  border: OutlineInputBorder(
+                    borderRadius: .circular(16),
+                    borderSide: .none,
+                  ),
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(16),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],

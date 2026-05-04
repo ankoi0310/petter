@@ -13,6 +13,8 @@ import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/notification/domain/usecases/create_notification_use_case.dart';
 import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
+import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
+import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
 class AdoptionRequestDetailBottomBar extends StatelessWidget {
   const AdoptionRequestDetailBottomBar({
@@ -229,11 +231,17 @@ class AdoptionRequestDetailBottomBar extends StatelessWidget {
     return AppTextButton(
       onTap: () {
         context.read<AdoptionBloc>().add(
-          AdoptionEvent.updateAdoptionRequest(
+          .updateAdoptionRequest(
             UpdateAdoptionRequestParams(
               id: request.id,
               status: RequestStatus.approved,
             ),
+          ),
+        );
+
+        context.read<PetBloc>().add(
+          .updatePet(
+            UpdatePetParams(id: request.petId, isAdopted: true),
           ),
         );
 

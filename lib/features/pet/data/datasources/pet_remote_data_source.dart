@@ -162,19 +162,20 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     try {
       final updateData = params.toJson();
 
-      if (params.imageFile != null) {
+      if (params.imageFile != null &&
+          params.currentImageUrl != null) {
         final uploadedUrl = await _uploadPetImage(
           params.id,
           params.imageFile!,
         );
         if (uploadedUrl != null) {
           await CachedNetworkImage.evictFromCache(
-            params.currentImageUrl,
+            params.currentImageUrl!,
             cacheKey: params.id,
           );
 
-          if (params.currentImageUrl.isNotEmpty) {
-            final oldPath = _extractPath(params.currentImageUrl);
+          if (params.currentImageUrl!.isNotEmpty) {
+            final oldPath = _extractPath(params.currentImageUrl!);
             await _storageService.deleteFile(
               bucket: 'images',
               path: oldPath,

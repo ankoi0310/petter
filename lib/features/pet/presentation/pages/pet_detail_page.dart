@@ -29,7 +29,7 @@ class PetDetailPage extends StatelessWidget {
             crossAxisAlignment: .stretch,
             spacing: 32,
             children: [
-              PetDetailImageView(id: pet.id, imageUrl: pet.imageUrl),
+              PetDetailImageView(pet: pet),
               PetDetailOverviewWidget(pet: pet),
               PetDetailDescriptionViewMore(
                 description: pet.description,

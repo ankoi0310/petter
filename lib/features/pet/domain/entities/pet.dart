@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/enums/gender.dart';
-import 'package:petter/core/enums/pet_status.dart';
 
 part 'pet.freezed.dart';
 
@@ -20,7 +19,7 @@ abstract class Pet with _$Pet {
     required String imageUrl,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required PetStatus status,
+    required bool isAdopted,
     required bool isDeleted,
   }) = _Pet;
 }

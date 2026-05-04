@@ -17,7 +17,7 @@ extension PetMapper on PetModel {
       imageUrl: imageUrl,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      status: status,
+      isAdopted: isAdopted,
       isDeleted: isDeleted,
     );
   }
