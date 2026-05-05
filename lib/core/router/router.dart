@@ -6,6 +6,7 @@ import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
 import 'package:petter/features/adoption/presentation/pages/adoption_request_detail_page.dart';
 import 'package:petter/features/adoption/presentation/pages/adoption_request_page.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:petter/features/auth/presentation/page/reset_password_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_in_page.dart';
 import 'package:petter/features/auth/presentation/page/sign_up_page.dart';
 import 'package:petter/features/chat/domain/entities/chat_room.dart';
@@ -30,8 +31,11 @@ import 'package:petter/features/user/presentation/pages/terms_of_service_page.da
 import 'package:petter/features/user/presentation/pages/user_profile_page.dart';
 
 final List<String> publicRoutes = [
-  AppRoutes.signIn.path,
   AppRoutes.signUp.path,
+  AppRoutes.signIn.path,
+  AppRoutes.resetPassword.path,
+  AppRoutes.termsOfService.path,
+  AppRoutes.privacyPolicy.path,
 ];
 
 final routerConfig = GoRouter(
@@ -77,6 +81,11 @@ final routerConfig = GoRouter(
       name: AppRoutes.signIn.name,
       path: AppRoutes.signIn.path,
       builder: (context, state) => const SignInPage(),
+    ),
+    GoRoute(
+      name: AppRoutes.resetPassword.name,
+      path: AppRoutes.resetPassword.path,
+      builder: (context, state) => const ResetPasswordPage(),
     ),
     GoRoute(
       name: AppRoutes.home.name,
@@ -219,6 +228,7 @@ enum AppRoutes {
   onboarding(name: 'onboarding', path: '/onboarding'),
   signUp(name: 'signUp', path: '/sign-up'),
   signIn(name: 'signIn', path: '/sign-in'),
+  resetPassword(name: 'resetPassword', path: '/reset-password'),
   home(name: 'home', path: '/home'),
   notification(name: 'notification', path: '/notification'),
   chat(name: 'conversation', path: '/conversation'),

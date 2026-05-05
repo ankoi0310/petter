@@ -10,6 +10,8 @@ abstract class AuthRepository {
     required String password,
   });
 
+  VoidFuture resetPassword(String email);
+
   VoidFuture signOut();
   ResultStream<User?> get user;
 }

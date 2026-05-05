@@ -37,7 +37,7 @@ class SignInPage extends StatelessWidget {
                                 Column(
                                   children: [
                                     Text(
-                                      'Sign In',
+                                      'Đăng nhập',
                                       style: context
                                           .textTheme
                                           .displayMedium
@@ -50,7 +50,8 @@ class SignInPage extends StatelessWidget {
                                           ),
                                     ),
                                     Text(
-                                      'Welcome back, your pets are missing you!',
+                                      'Mừng bạn trở lại, '
+                                      'các bé đang nhớ bạn lắm!',
                                       style: context
                                           .textTheme
                                           .bodySmall!
@@ -73,14 +74,14 @@ class SignInPage extends StatelessWidget {
                                     MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    'Wanna see your paw longer? ',
+                                    'Bạn muốn nhận nuôi thú cưng? ',
                                   ),
                                   GestureDetector(
                                     onTap: () => context.goNamed(
                                       AppRoutes.signUp.name,
                                     ),
                                     child: Text(
-                                      'Sign up now',
+                                      'Đăng ký ngay',
                                       style: TextStyle(
                                         color: context.colors.primary,
                                         fontWeight: FontWeight.bold,

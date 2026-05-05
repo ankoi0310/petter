@@ -12,6 +12,8 @@ abstract class AuthRemoteDataSource {
     required String password,
   });
 
+  Future<void> resetPassword(String email);
+
   Future<void> signOut();
 
   Stream<UserModel?> get authStateChange;
@@ -92,6 +94,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw _mapError(e);
+    } catch (e) {
+      print(e);
+      throw ServerException('Cấp lại mật khẩu không thành công: $e');
+    }
+  }
+
+  @override
   Future<void> signOut() => _auth.signOut();
 
   @override
@@ -108,17 +124,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     if (error is FirebaseAuthException) {
       return switch (error.code) {
         'user-not-found' => const AuthException(
-          'Account is not exist',
+          'Tài khoản không tồn tại',
         ),
-        'wrong-password' => const AuthException('Wrong password'),
+        'wrong-password' => const AuthException('Sai mật khẩu'),
         'email-already-in-use' => const AuthException(
-          'Email already in use',
+          'Email đã được sử dụng',
         ),
-        'invalid-email' => const AuthException('Email is invalid'),
-        'weak-password' => const AuthException(
-          'Password is too weak',
-        ),
-        _ => AuthException(error.message ?? 'Authentication Error'),
+        'invalid-email' => const AuthException('Email không hợp lệ'),
+        'weak-password' => const AuthException('Mật khẩu quá yếu'),
+        _ => AuthException(error.message ?? 'Lỗi xác thực'),
       };
     }
 

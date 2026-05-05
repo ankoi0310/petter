@@ -15,6 +15,7 @@ import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:petter/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:petter/features/auth/domain/repositories/auth_repository.dart';
+import 'package:petter/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
@@ -105,12 +106,14 @@ void _initAuth(GetIt sl) {
     )
     ..registerLazySingleton(() => SignUpUseCase(sl()))
     ..registerLazySingleton(() => SignInUseCase(sl()))
+    ..registerLazySingleton(() => ResetPasswordUseCase(sl()))
     ..registerLazySingleton(() => SignOutUseCase(sl()))
     ..registerLazySingleton(() => WatchAuthStateUseCase(sl()))
     ..registerLazySingleton(
       () => AuthBloc(
         signUp: sl(),
         signIn: sl(),
+        resetPassword: sl(),
         signOut: sl(),
         watchAuthState: sl(),
         notificationService: sl(),

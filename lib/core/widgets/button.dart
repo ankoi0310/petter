@@ -115,13 +115,15 @@ class AppTextButton extends StatelessWidget {
     required String text,
     void Function()? onTap,
     List<BoxShadow>? boxShadow,
+    EdgeInsets? padding,
   }) {
     return AppTextButton(
       text: text,
       onTap: onTap,
+      padding: padding ?? const .all(8),
       backgroundColor: context.colors.surface,
       border: Border.all(color: context.colors.primary),
-      textStyle: context.textTheme.bodyLarge!.copyWith(
+      textStyle: context.textTheme.headlineSmall!.copyWith(
         color: context.colors.primary,
       ),
       boxShadow:
@@ -170,7 +172,7 @@ class AppTextButton extends StatelessWidget {
           textAlign: .center,
           style:
               textStyle ??
-              context.textTheme.bodyLarge?.copyWith(
+              context.textTheme.headlineSmall?.copyWith(
                 color: context.colors.onPrimary,
               ),
         ),

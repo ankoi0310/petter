@@ -7,6 +7,7 @@ import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/services/firebase_cloud_message_service.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/error_util.dart';
+import 'package:petter/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:petter/features/auth/domain/usecases/sign_up_use_case.dart';
@@ -23,18 +24,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required SignUpUseCase signUp,
     required SignInUseCase signIn,
+    required ResetPasswordUseCase resetPassword,
     required SignOutUseCase signOut,
     required WatchAuthStateUseCase watchAuthState,
     required NotificationService notificationService,
   }) : _signUp = signUp,
        _signIn = signIn,
+       _resetPassword = resetPassword,
        _signOut = signOut,
        _watchAuthState = watchAuthState,
        _notificationService = notificationService,
-       super(const AuthState.initial()) {
+       super(const .initial()) {
     on<_Started>(_onStarted);
     on<_SignUp>(_onSignUp);
     on<_SignIn>(_onSignIn);
+    on<_ResetPassword>(_onResetPassword);
     on<_SignOut>(_onSignOut);
 
     _subscription = _watchAuthState(NoParams()).listen((user) {
@@ -44,6 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   final SignUpUseCase _signUp;
   final SignInUseCase _signIn;
+  final ResetPasswordUseCase _resetPassword;
   final SignOutUseCase _signOut;
   final WatchAuthStateUseCase _watchAuthState;
   final NotificationService _notificationService;
@@ -55,14 +60,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     final result = await _watchAuthState(NoParams()).first;
     await result.fold(
-      (failure) async => emit(const AuthState.unauthenticated()),
+      (failure) async => emit(const .unauthenticated()),
       (user) async {
         // await _notificationService.requestPermission();
         // await _notificationService.setFcmToken();
         emit(
           user != null
-              ? AuthState.authenticated(user)
-              : const AuthState.unauthenticated(),
+              ? .authenticated(user)
+              : const .unauthenticated(),
         );
       },
     );
@@ -72,7 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _SignUp event,
     Emitter<AuthState> emit,
   ) async {
-    emit(const AuthState.loading());
+    emit(const .loading());
 
     final result = await _signUp(
       SignUpParams(
@@ -84,8 +89,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     result.fold(
-      (failure) => emit(AuthState.error(mapFailureMessage(failure))),
-      (user) => emit(AuthState.authenticated(user)),
+      (failure) => emit(.error(mapFailureMessage(failure))),
+      (user) => emit(.authenticated(user)),
     );
   }
 
@@ -93,15 +98,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _SignIn event,
     Emitter<AuthState> emit,
   ) async {
-    emit(const AuthState.loading());
+    emit(const .loading());
 
     final result = await _signIn(
       SignInParams(email: event.email, password: event.password),
     );
 
     result.fold(
-      (failure) => emit(AuthState.error(mapFailureMessage(failure))),
-      (user) => emit(AuthState.authenticated(user)),
+      (failure) => emit(.error(mapFailureMessage(failure))),
+      (user) => emit(.authenticated(user)),
+    );
+  }
+
+  Future<void> _onResetPassword(
+    _ResetPassword event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const .loading());
+
+    final result = await _resetPassword(event.email);
+
+    result.fold(
+      (failure) => emit(.error(failure.message)),
+      (_) => emit(.resetPasswordSuccess()),
     );
   }
 
@@ -111,8 +130,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     final result = await _signOut(NoParams());
     result.fold(
-      (failure) => emit(AuthState.error(mapFailureMessage(failure))),
-      (_) => emit(const AuthState.unauthenticated()),
+      (failure) => emit(.error(mapFailureMessage(failure))),
+      (_) => emit(const .unauthenticated()),
     );
   }
 

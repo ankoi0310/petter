@@ -48,7 +48,7 @@ class AppTheme {
       border: OutlineInputBorder(borderRadius: .circular(16)),
       iconColor: colorScheme.primary,
       prefixIconColor: colorScheme.primary,
-      hintStyle: textTheme.bodySmall,
+      hintStyle: textTheme.bodyMedium,
       errorStyle: textTheme.bodySmall,
       filled: true,
       fillColor: colorScheme.primaryContainer,

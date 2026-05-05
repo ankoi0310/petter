@@ -35,7 +35,7 @@ class SignUpPage extends StatelessWidget {
                               spacing: 24,
                               children: [
                                 Text(
-                                  'Create Account',
+                                  'Đăng ký tài khoản',
                                   style: context
                                       .textTheme
                                       .displaySmall
@@ -54,15 +54,13 @@ class SignUpPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.center,
                                 children: [
-                                  const Text(
-                                    'Already have an account? ',
-                                  ),
+                                  const Text('Đã có tài khoản? '),
                                   GestureDetector(
                                     onTap: () => context.goNamed(
                                       AppRoutes.signIn.name,
                                     ),
                                     child: Text(
-                                      'Sign in',
+                                      'Đăng nhập',
                                       style: TextStyle(
                                         color: context.colors.primary,
                                         fontWeight: FontWeight.bold,

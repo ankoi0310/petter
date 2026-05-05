@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/extensions/string_extension.dart';
-import 'package:petter/core/utils/show_snack_bar.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 
@@ -55,14 +56,14 @@ class _SignInFormState extends State<SignInForm> {
             controller: _emailController,
             focusNode: _emailFocusNode,
             title: 'Email',
-            hintText: 'Enter your email',
+            hintText: 'Nhập email của bạn',
             validator: (value) {
               if (value == null) {
-                return 'Email must not empty';
+                return 'Email không được để trống';
               }
 
               if (!value.isEmail) {
-                return 'Email is invalid';
+                return 'Email không hợp lệ';
               }
 
               return null;
@@ -75,7 +76,7 @@ class _SignInFormState extends State<SignInForm> {
             focusNode: _passwordFocusNode,
             validator: (value) {
               if (value == null) {
-                return 'Password must not empty';
+                return 'Mật khẩu không được để trống';
               }
 
               return null;
@@ -84,11 +85,10 @@ class _SignInFormState extends State<SignInForm> {
           ),
           Text.rich(
             TextSpan(
-              text: 'Forgot you password?',
+              text: 'Quên mật khẩu?',
               recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  showSnackBar(context, content: 'Forgot password');
-                },
+                ..onTap = () =>
+                    context.pushNamed(AppRoutes.resetPassword.name),
             ),
             style: context.textTheme.bodyMedium?.copyWith(
               color: context.colors.error,
@@ -99,7 +99,7 @@ class _SignInFormState extends State<SignInForm> {
             padding: const .only(top: 16),
             child: ElevatedButton(
               onPressed: _signIn,
-              child: const Text('Sign In'),
+              child: const Text('Đăng nhập'),
             ),
           ),
         ],

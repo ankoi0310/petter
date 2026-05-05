@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:fpdart/fpdart.dart';
+import 'package:petter/core/error/exception.dart';
 import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/auth/data/datasources/auth_remote_data_source.dart';
@@ -33,6 +34,18 @@ class AuthRepositoryImpl implements AuthRepository {
       ),
       (error, _) => _mapError(error),
     ).map((user) => user.toEntity()).run();
+  }
+
+  @override
+  VoidFuture resetPassword(String email) async {
+    try {
+      await _remoteDataSource.resetPassword(email);
+      return right(unit);
+    } on AuthException catch (e) {
+      return left(.auth(e.message));
+    } on ServerException catch (e) {
+      return left(.server(e.message));
+    }
   }
 
   @override

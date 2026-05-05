@@ -61,11 +61,11 @@ class _SignUpFormState extends State<SignUpForm> {
           AppTextFormField(
             controller: _displayNameController,
             focusNode: _displayNameFocusNode,
-            title: 'Your name or organization',
-            hintText: 'What should we call you?',
+            title: 'Tên của bạn hoặc tổ chức',
+            hintText: 'Chúng tôi nên gọi bạn là..',
             validator: (value) {
               if (value == null) {
-                return 'Name must not empty';
+                return 'Tên không được để trống';
               }
 
               return null;
@@ -77,14 +77,14 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: _phoneNumberController,
             focusNode: _phoneNumberFocusNode,
             title: 'Phone',
-            hintText: 'Enter your phone number',
+            hintText: 'Vui lòng nhập số điện thoại',
             validator: (value) {
               if (value == null) {
-                return 'Phone must not empty';
+                return 'Số điện thoại không được để trống';
               }
 
               if (!value.isPhone) {
-                return 'Phone is invalid';
+                return 'Số điện thoại không hợp lệ';
               }
 
               return null;
@@ -96,10 +96,10 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: _emailController,
             focusNode: _emailFocusNode,
             title: 'Email',
-            hintText: 'Enter your email',
+            hintText: 'Nhập email của bạn',
             validator: (value) {
               if (value == null) {
-                return 'Email must not empty';
+                return 'Email không được để trống';
               }
 
               if (!value.isEmail) {
@@ -116,7 +116,7 @@ class _SignUpFormState extends State<SignUpForm> {
             focusNode: _passwordFocusNode,
             validator: (value) {
               if (value == null) {
-                return 'Password must not empty';
+                return 'Mật khẩu không được để trống';
               }
 
               return null;
@@ -134,7 +134,7 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const .only(top: 24),
             child: ElevatedButton(
               onPressed: _signUp,
-              child: const Text('Sign Up'),
+              child: const Text('Đăng ký'),
             ),
           ),
         ],
