@@ -59,16 +59,13 @@ class AccountOverview extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 32,
-            child: ClipRRect(
-              borderRadius: .circular(32),
-              child:
-                  user?.avatar == null ||
-                      user?.avatar?.isEmpty == true
-                  ? pickDefaultAvatar(
-                      user?.id ?? '',
-                    ).image(fit: .cover)
-                  : CachedNetworkImage(imageUrl: user?.avatar ?? ''),
-            ),
+            backgroundImage:
+                user?.avatar == null || user?.avatar?.isEmpty == true
+                ? pickDefaultAvatar(user?.id ?? '').provider()
+                : CachedNetworkImageProvider(
+                    cacheKey: user?.id,
+                    user?.avatar ?? '',
+                  ),
           ),
           Expanded(
             child: Column(
