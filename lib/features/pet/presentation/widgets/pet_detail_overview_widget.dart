@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
@@ -13,26 +14,31 @@ class PetDetailOverviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 32,
+      spacing: 24,
       children: [
         Row(
           mainAxisAlignment: .spaceBetween,
+          crossAxisAlignment: .start,
           children: [
             Expanded(
               child: Column(
                 crossAxisAlignment: .stretch,
                 mainAxisAlignment: .center,
-                spacing: 4,
+                spacing: 8,
                 children: [
                   Text(pet.name, style: context.textTheme.titleLarge),
                   Row(
-                    spacing: 4,
+                    spacing: 8,
                     children: [
-                      Assets.icons.mapPin.svg(width: 16),
-                      Text(
-                        pet.address,
-                        style: context.textTheme.titleSmall,
-                      ),
+                      const Icon(Iconsax.pet_copy),
+                      Text(pet.bleed),
+                    ],
+                  ),
+                  Row(
+                    spacing: 8,
+                    children: [
+                      const Icon(Iconsax.location_copy),
+                      Text(pet.address),
                     ],
                   ),
                 ],
@@ -75,29 +81,10 @@ class PetDetailOverviewWidget extends StatelessWidget {
                     spacing: 4,
                     children: [
                       Text(
-                        'Loài',
-                        style: context.textTheme.bodyLarge,
+                        'Tuổi',
+                        style: context.textTheme.titleMedium,
                       ),
-                      Text(
-                        pet.bleed,
-                        style: context.textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                ),
-                VerticalDivider(
-                  thickness: 2,
-                  color: context.colors.onSurface,
-                ),
-                Expanded(
-                  child: Column(
-                    spacing: 4,
-                    children: [
-                      Text('Age', style: context.textTheme.bodyLarge),
-                      Text(
-                        pet.age,
-                        style: context.textTheme.bodySmall,
-                      ),
+                      Text(pet.age.isEmpty ? '-' : pet.age),
                     ],
                   ),
                 ),
@@ -110,13 +97,10 @@ class PetDetailOverviewWidget extends StatelessWidget {
                     spacing: 4,
                     children: [
                       Text(
-                        'Weight',
-                        style: context.textTheme.bodyLarge,
+                        'Cân nặng',
+                        style: context.textTheme.titleMedium,
                       ),
-                      Text(
-                        pet.weight,
-                        style: context.textTheme.bodySmall,
-                      ),
+                      Text(pet.weight.isEmpty ? '-' : pet.weight),
                     ],
                   ),
                 ),
