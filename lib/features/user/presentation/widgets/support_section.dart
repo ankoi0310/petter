@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
-class AppSection extends StatelessWidget {
-  const AppSection({super.key});
+class SupportSection extends StatelessWidget {
+  const SupportSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,10 @@ class AppSection extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Text('Về ứng dụng', style: context.textTheme.titleLarge),
+        Text(
+          'Hỗ trợ người dùng',
+          style: context.textTheme.titleLarge,
+        ),
         Column(
           spacing: 4,
           children: [
@@ -22,8 +25,8 @@ class AppSection extends StatelessWidget {
                 side: BorderSide(color: context.colors.outline),
               ),
               onTap: () {},
-              leading: const Icon(Icons.policy_outlined),
-              title: const Text('Chính sách bảo mật'),
+              leading: const Icon(Icons.question_answer_outlined),
+              title: const Text('Câu hỏi thường gặp'),
             ),
             ListTile(
               tileColor: context.colors.primaryContainer,
@@ -32,8 +35,8 @@ class AppSection extends StatelessWidget {
                 side: BorderSide(color: context.colors.outline),
               ),
               onTap: () {},
-              leading: const Icon(Icons.shield_outlined),
-              title: const Text('Điều khoản sử dụng'),
+              leading: const Icon(Icons.report_outlined),
+              title: const Text('Báo lỗi'),
             ),
             ListTile(
               tileColor: context.colors.primaryContainer,
@@ -42,22 +45,8 @@ class AppSection extends StatelessWidget {
                 side: BorderSide(color: context.colors.outline),
               ),
               onTap: () {},
-              leading: const Icon(Icons.info_outline),
-              title: const Text('Giới thiệu'),
-            ),
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
-              onTap: () {},
-              leading: const Icon(Icons.verified_outlined),
-              title: const Text('Phiên bản'),
-              trailing: Text(
-                '1.0.0',
-                style: context.textTheme.bodySmall,
-              ),
+              leading: const Icon(Icons.feedback_outlined),
+              title: const Text('Đánh giá ứng dụng'),
             ),
           ],
         ),

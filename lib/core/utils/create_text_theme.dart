@@ -11,14 +11,12 @@ TextTheme createTextTheme(
       fontSize: 40,
       fontWeight: .w800,
       height: 1.1,
-      letterSpacing: -0.5,
     ),
     displayMedium: TextStyle(
       fontFamily: display,
       fontSize: 32,
       fontWeight: .w800,
       height: 1.1,
-      letterSpacing: -0.3,
     ),
     displaySmall: TextStyle(
       fontFamily: display,

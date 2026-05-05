@@ -136,7 +136,7 @@ class AppTheme {
     // ── ListTile ────────────────────────────────────────────────────────
     listTileTheme: ListTileThemeData(
       minTileHeight: 0,
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const .symmetric(horizontal: 16),
       iconColor: colorScheme.primary,
       titleTextStyle: textTheme.titleMedium?.copyWith(
         color: colorScheme.onSurface,
@@ -144,6 +144,7 @@ class AppTheme {
       subtitleTextStyle: textTheme.bodySmall?.copyWith(
         color: colorScheme.onSurface,
       ),
+      minVerticalPadding: 16,
     ),
 
     // ── Divider — hairline, Threads-style ───────────────────────────────
