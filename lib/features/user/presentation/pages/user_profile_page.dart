@@ -29,7 +29,7 @@ class UserProfilePage extends StatelessWidget {
           children: [
             Scaffold(
               appBar: AppBar(
-                title: const Text('User Profile'),
+                title: const Text('Hồ sơ người dùng'),
                 titleSpacing: 0,
               ),
               body: SafeArea(child: UserProfileForm(user: user)),

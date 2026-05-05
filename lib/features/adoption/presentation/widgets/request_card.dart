@@ -35,8 +35,8 @@ class RequestCard extends StatelessWidget {
                   Stack(
                     children: [
                       Container(
-                        width: 120,
-                        height: 120,
+                        width: 140,
+                        height: 140,
                         decoration: BoxDecoration(
                           border: .all(
                             color: context.colors.primary,
@@ -58,7 +58,7 @@ class RequestCard extends StatelessWidget {
                         ),
                         child: Text(
                           request.petName,
-                          style: context.textTheme.bodyLarge
+                          style: context.textTheme.titleMedium
                               ?.copyWith(
                                 color:
                                     context.colors.tertiaryContainer,
@@ -71,6 +71,17 @@ class RequestCard extends StatelessWidget {
                     child: Column(
                       spacing: 4,
                       children: [
+                        Row(
+                          spacing: 4,
+                          mainAxisAlignment: .end,
+                          children: [
+                            Text(
+                              request.createdAt.fullTimeDate,
+                              style: context.textTheme.bodyMedium!
+                                  .copyWith(fontWeight: .bold),
+                            ),
+                          ],
+                        ),
                         Row(
                           spacing: 4,
                           mainAxisAlignment: .spaceBetween,
@@ -90,18 +101,6 @@ class RequestCard extends StatelessWidget {
                             const Text('Phone:'),
                             Text(
                               request.adopterPhone,
-                              style: context.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: .bold),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          spacing: 4,
-                          mainAxisAlignment: .spaceBetween,
-                          children: [
-                            const Text('Created at:'),
-                            Text(
-                              request.createdAt.fullTimeDate,
                               style: context.textTheme.bodyMedium!
                                   .copyWith(fontWeight: .bold),
                             ),

@@ -8,9 +8,11 @@ class SpeciesDropdownField extends StatelessWidget {
   const SpeciesDropdownField({
     required this.focusNode,
     required this.valueListenable,
+    this.showTitle = true,
     super.key,
   });
 
+  final bool showTitle;
   final FocusNode focusNode;
   final ValueNotifier<String?> valueListenable;
 
@@ -20,17 +22,18 @@ class SpeciesDropdownField extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Row(
-          children: [
-            Text('Danh mục', style: context.textTheme.titleMedium),
-            Text(
-              '*',
-              style: context.textTheme.titleMedium?.copyWith(
-                color: context.colors.error,
+        if (showTitle)
+          Row(
+            children: [
+              Text('Danh mục', style: context.textTheme.titleMedium),
+              Text(
+                '*',
+                style: context.textTheme.titleMedium?.copyWith(
+                  color: context.colors.error,
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
         Container(
           decoration: BoxDecoration(
             borderRadius: .circular(16),

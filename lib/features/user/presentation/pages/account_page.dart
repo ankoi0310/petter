@@ -14,7 +14,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 0, title: const Text('Account')),
+      appBar: AppBar(titleSpacing: 0, title: const Text('Tài khoản')),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -32,7 +32,10 @@ class AccountPage extends StatelessWidget {
                     borderRadius: .circular(16),
                     side: BorderSide(color: context.colors.error),
                   ),
-                  contentPadding: const .symmetric(horizontal: 16),
+                  contentPadding: const .symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
                   onTap: () => context.read<AuthBloc>().add(
                     const AuthEvent.signOut(),
                   ),
@@ -41,8 +44,10 @@ class AccountPage extends StatelessWidget {
                     color: context.colors.error,
                   ),
                   title: Text(
-                    'Sign Out',
-                    style: TextStyle(color: context.colors.error),
+                    'Đăng xuất',
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: context.colors.error,
+                    ),
                   ),
                 ),
               ],

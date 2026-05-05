@@ -9,7 +9,7 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorite'), titleSpacing: 0),
+      appBar: AppBar(title: const Text('Yêu thích'), titleSpacing: 0),
       body: SafeArea(
         child: Column(
           children: [
@@ -24,7 +24,14 @@ class FavoritePage extends StatelessWidget {
                     },
                     loaded: (pets) {
                       if (pets.isEmpty) {
-                        return const Center(child: Text('empty'));
+                        return const Padding(
+                          padding: .all(16),
+                          child: Center(
+                            child: Text(
+                              'Bạn chưa thêm bé nào vào danh sách yêu thích',
+                            ),
+                          ),
+                        );
                       }
 
                       return GridView.builder(

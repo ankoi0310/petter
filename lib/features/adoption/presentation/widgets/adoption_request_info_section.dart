@@ -27,7 +27,7 @@ class AdoptionRequestInfoSection extends StatelessWidget {
             children: [
               Text(
                 'Ngày tạo yêu cầu',
-                style: context.textTheme.bodyMedium?.copyWith(
+                style: context.textTheme.titleMedium?.copyWith(
                   fontWeight: .bold,
                 ),
               ),
@@ -39,7 +39,7 @@ class AdoptionRequestInfoSection extends StatelessWidget {
             children: [
               Text(
                 'Lần cập nhật cuối',
-                style: context.textTheme.bodyMedium?.copyWith(
+                style: context.textTheme.titleMedium?.copyWith(
                   fontWeight: .bold,
                 ),
               ),
@@ -51,7 +51,7 @@ class AdoptionRequestInfoSection extends StatelessWidget {
             children: [
               Text(
                 'Trạng thái',
-                style: context.textTheme.bodyMedium?.copyWith(
+                style: context.textTheme.titleMedium?.copyWith(
                   fontWeight: .bold,
                 ),
               ),
@@ -65,7 +65,7 @@ class AdoptionRequestInfoSection extends StatelessWidget {
               children: [
                 Text(
                   'Lý do từ chối',
-                  style: context.textTheme.bodyMedium?.copyWith(
+                  style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: .bold,
                   ),
                 ),

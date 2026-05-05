@@ -150,7 +150,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           crossAxisAlignment: .start,
           children: [
             Text(name, style: context.textTheme.bodyLarge),
-            Text('Online', style: context.textTheme.bodySmall),
+            Text('Trực tuyến', style: context.textTheme.bodySmall),
           ],
         ),
       ],
@@ -179,9 +179,9 @@ class _MessageListState extends State<_MessageList> {
     super.didUpdateWidget(oldWidget);
     // Scroll xuống cuối khi có tin nhắn mới
     if (widget.messages.length != oldWidget.messages.length) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (widget.scrollController.hasClients) {
-          widget.scrollController.animateTo(
+          await widget.scrollController.animateTo(
             widget.scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeOut,

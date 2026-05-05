@@ -20,7 +20,7 @@ class AccountSection extends StatelessWidget {
       spacing: 8,
       children: [
         Text(
-          'Account',
+          'Tài khoản',
           style: context.textTheme.titleLarge?.copyWith(
             color: context.colors.outline,
           ),

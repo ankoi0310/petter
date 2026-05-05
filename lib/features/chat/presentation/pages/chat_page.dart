@@ -16,7 +16,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat'),
+        title: const Text('Cuộc trò chuyện'),
         titleSpacing: 0,
         scrolledUnderElevation: 0,
       ),
@@ -38,33 +38,24 @@ class ChatPage extends StatelessWidget {
                 const Center(child: CircularProgressIndicator()),
             loaded: (rooms) {
               if (rooms.isEmpty) {
-                return const Center(
-                  child: Text("You don't have any conversation"),
+                return const Padding(
+                  padding: .all(16),
+                  child: Center(
+                    child: Text('Bạn chưa có cuộc trò chuyện nào'),
+                  ),
                 );
               } else {
                 return SafeArea(
-                  child: Column(
-                    children: [
-                      // SliverPersistentHeader(
-                      //   pinned: true,
-                      //   delegate: SearchSliverDelegate(),
-                      // ),
-                      Expanded(
-                        child: ListView.separated(
-                          padding: .symmetric(horizontal: 16),
-                          itemCount: rooms.length,
-                          itemBuilder: (context, index) {
-                            return ChatRoomTile(room: rooms[index]);
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Divider(
-                              height: 1,
-                              thickness: 2,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                  child: ListView.separated(
+                    padding: const .symmetric(horizontal: 16),
+                    shrinkWrap: true,
+                    itemCount: rooms.length,
+                    itemBuilder: (context, index) {
+                      return ChatRoomTile(room: rooms[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider(height: 1, thickness: 2);
+                    },
                   ),
                 );
               }
@@ -102,7 +93,6 @@ class ChatRoomTile extends StatelessWidget {
         pathParameters: {'id': room.id},
         extra: room,
       ),
-      horizontalTitleGap: 12,
       leading: Container(
         decoration: BoxDecoration(shape: .circle, border: .all()),
         child: CircleAvatar(

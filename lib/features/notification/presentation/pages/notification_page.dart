@@ -11,10 +11,7 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notifications'),
-        titleSpacing: 0,
-      ),
+      appBar: AppBar(title: const Text('Thông báo'), titleSpacing: 0),
       body: SafeArea(
         child: RefreshIndicator(
           triggerMode: .anywhere,
@@ -40,23 +37,24 @@ class NotificationPage extends StatelessWidget {
 
                   return SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const .symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                    padding: const .symmetric(vertical: 12),
                     child: Column(
                       crossAxisAlignment: .stretch,
                       spacing: 8,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            context.read<NotificationBloc>().add(
-                              const .readAllNotifications(),
-                            );
-                          },
-                          child: const Text(
-                            'Đánh dấu đã xem tất cả',
-                            textAlign: .end,
+                        Padding(
+                          padding: const .only(right: 16),
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<NotificationBloc>().add(
+                                const .readAllNotifications(),
+                              );
+                            },
+                            child: Text(
+                              'Đánh dấu đã xem tất cả',
+                              textAlign: .end,
+                              style: context.textTheme.labelMedium,
+                            ),
                           ),
                         ),
                         ListView.separated(
@@ -68,7 +66,6 @@ class NotificationPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final notification = notifications[index];
                             return ListTile(
-                              dense: true,
                               splashColor: Colors.transparent,
                               contentPadding: const .symmetric(
                                 horizontal: 16,
@@ -89,11 +86,15 @@ class NotificationPage extends StatelessWidget {
                                     context.colors.tertiaryContainer,
                                 borderRadius: .circular(32),
                               ),
-                              title: Text(notification.title),
+                              title: Text(
+                                notification.title,
+                                style: context.textTheme.titleSmall,
+                              ),
                               subtitle: Text(
                                 notification.body,
                                 maxLines: 2,
                                 overflow: .ellipsis,
+                                style: context.textTheme.bodySmall,
                               ),
                               onTap: () {
                                 if (notification.isRead) return;

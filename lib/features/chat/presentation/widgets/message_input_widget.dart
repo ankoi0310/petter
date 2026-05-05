@@ -31,7 +31,7 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
             child: TextField(
               controller: widget.controller,
               decoration: InputDecoration(
-                hintText: 'Messages',
+                hintText: 'Tin nhắn...',
                 hintStyle: TextStyle(color: context.colors.outline),
                 filled: true,
                 fillColor: context.colors.surface,
@@ -46,11 +46,13 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
                 });
               },
               onTapOutside: (event) {
+                FocusScope.of(context).unfocus();
                 setState(() {
                   _isFocus = false;
                 });
               },
               onSubmitted: (value) {
+                FocusScope.of(context).unfocus();
                 setState(() {
                   _isFocus = false;
                 });
@@ -59,13 +61,12 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
           ),
           IconButton.filled(
             onPressed: widget.onSend,
-            icon: const Icon(Iconsax.send_1_copy),
+            icon: Icon(
+              Iconsax.send_1_copy,
+              color: context.colors.onPrimary,
+            ),
           ),
-          if (!_isFocus) ...[
-            const Icon(Iconsax.gallery_copy),
-            const Icon(Iconsax.camera_copy),
-            const Icon(Iconsax.microphone_2_copy),
-          ],
+          if (!_isFocus) const Icon(Iconsax.gallery_copy),
         ],
       ),
     );

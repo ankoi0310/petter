@@ -21,7 +21,7 @@ class PetInfoSection extends StatelessWidget {
             padding: const .only(left: 16),
             child: Text(
               'Thông tin thú cưng',
-              style: context.textTheme.bodyLarge,
+              style: context.textTheme.titleLarge,
             ),
           ),
           Container(
@@ -60,7 +60,7 @@ class PetInfoSection extends StatelessWidget {
                 PositionedBottomShadow(
                   child: Text(
                     request.petName,
-                    style: context.textTheme.bodyLarge?.copyWith(
+                    style: context.textTheme.titleMedium?.copyWith(
                       color: context.colors.tertiaryContainer,
                     ),
                   ),

@@ -17,17 +17,12 @@ abstract class NavItem with _$NavItem {
 final List<NavItem> accountNavItems = [
   NavItem(
     icon: Iconsax.user_copy,
-    title: 'Account Information',
+    title: 'Hồ sơ người dùng',
     routeName: AppRoutes.userProfile.name,
   ),
   NavItem(
     icon: Iconsax.key_copy,
-    title: 'Change Password',
-    routeName: AppRoutes.accountChangePassword.name,
-  ),
-  NavItem(
-    icon: Iconsax.mobile_copy,
-    title: 'Devices',
+    title: 'Đổi mật khẩu',
     routeName: AppRoutes.accountChangePassword.name,
   ),
 ];
@@ -35,27 +30,27 @@ final List<NavItem> accountNavItems = [
 const List<NavItem> appNavItems = [
   NavItem(
     icon: Iconsax.setting_2_copy,
-    title: 'Appearance',
+    title: 'Hiển thị',
     routeName: '',
   ),
   NavItem(
     icon: Iconsax.notification_1_copy,
-    title: 'Notifications',
+    title: 'Thông báo',
     routeName: '',
   ),
   NavItem(
     icon: Iconsax.warning_2_copy,
-    title: 'Report issue',
+    title: 'Báo lỗi ứng dụng',
     routeName: '',
   ),
   NavItem(
     icon: Iconsax.info_circle_copy,
-    title: 'About',
+    title: 'Về ứng dụng',
     routeName: '',
   ),
   NavItem(
     icon: Iconsax.message_question_copy,
-    title: 'FAQ',
+    title: 'Câu hỏi thường gặp',
     routeName: '',
   ),
 ];

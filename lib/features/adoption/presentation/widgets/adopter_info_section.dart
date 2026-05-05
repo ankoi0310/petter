@@ -46,7 +46,7 @@ class AdopterInfoSection extends StatelessWidget {
               padding: const .only(right: 16),
               child: Text(
                 'Thông tin người nhận nuôi',
-                style: context.textTheme.bodyLarge,
+                style: context.textTheme.titleLarge,
               ),
             ),
             Container(
@@ -92,14 +92,20 @@ class AdopterInfoSection extends StatelessWidget {
                           Row(
                             mainAxisAlignment: .spaceBetween,
                             children: [
-                              const Text('Tên:'),
+                              Text(
+                                'Tên:',
+                                style: context.textTheme.titleMedium,
+                              ),
                               Text(request.adopterName),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: .spaceBetween,
                             children: [
-                              const Text('Số điện thoại: '),
+                              Text(
+                                'SĐT:',
+                                style: context.textTheme.titleMedium,
+                              ),
                               Text(request.adopterPhone),
                             ],
                           ),

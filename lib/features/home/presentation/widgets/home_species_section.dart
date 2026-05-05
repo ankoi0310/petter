@@ -19,7 +19,10 @@ class HomeSpeciesSection extends StatelessWidget {
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
-              Text('Species', style: context.textTheme.titleLarge),
+              Text(
+                'Phân loại thú cưng',
+                style: context.textTheme.titleLarge,
+              ),
               GestureDetector(
                 onTap: () => context.pushNamed(AppRoutes.search.name),
                 child: const Icon(Iconsax.arrow_right_2_copy),

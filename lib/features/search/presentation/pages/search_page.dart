@@ -6,6 +6,7 @@ import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/extensions/string_extension.dart';
 import 'package:petter/core/widgets/pet_card.dart';
+import 'package:petter/core/widgets/species_dropdown_field.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
 class SearchPage extends StatefulWidget {
@@ -28,9 +29,10 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<PetBloc>().state;
+    final petState = context.watch<PetBloc>().state;
+    final valueListenable = ValueNotifier<String?>(null);
     return Scaffold(
-      appBar: AppBar(title: const Text('Search'), titleSpacing: 0),
+      appBar: AppBar(title: const Text('Khám phá'), titleSpacing: 0),
       body: SafeArea(
         child: Column(
           children: [
@@ -53,7 +55,8 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search pet...',
+                      hintText: 'Tìm thú cưng theo tên, đặc điểm...',
+                      hintStyle: context.textTheme.bodySmall,
                       suffixIcon: const Icon(
                         Iconsax.search_normal_copy,
                       ),
@@ -65,38 +68,18 @@ class _SearchPageState extends State<SearchPage> {
                   Row(
                     spacing: 8,
                     children: [
-                      // Expanded(
-                      //   child: DropdownButtonFormField2<String>(
-                      //     valueListenable: speciesListenable,
-                      //     hint: const Text('Species'),
-                      //     onChanged: (value) {
-                      //       speciesListenable.value =
-                      //           value ?? speciesListenable.value;
-                      //     },
-                      //     decoration: InputDecoration(
-                      //       contentPadding: const .symmetric(
-                      //         vertical: 16,
-                      //       ),
-                      //       filled: true,
-                      //       fillColor:
-                      //           context.colors.primaryContainer,
-                      //       border: OutlineInputBorder(
-                      //         borderRadius: .circular(16),
-                      //       ),
-                      //     ),
-                      //     items: Gender.values.map((item) {
-                      //       return DropdownItem<String>(
-                      //         value: item,
-                      //         child: Text(item.name.toTitleCase),
-                      //       );
-                      //     }).toList(),
-                      //   ),
-                      // ),
+                      Expanded(
+                        child: SpeciesDropdownField(
+                          focusNode: FocusNode(),
+                          valueListenable: valueListenable,
+                          showTitle: false,
+                        ),
+                      ),
                       Expanded(
                         child: DropdownButtonFormField2<Gender>(
                           valueListenable: genderListenable,
                           hint: Text(
-                            'Gender',
+                            'Giới tính',
                             style: context.textTheme.bodyLarge,
                           ),
                           onChanged: (value) {
@@ -128,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             Expanded(
-              child: state.maybeWhen(
+              child: petState.maybeWhen(
                 loaded: (pets, userPets, _) {
                   return GridView.builder(
                     padding: const .symmetric(

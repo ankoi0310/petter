@@ -138,10 +138,10 @@ class AppTheme {
       minTileHeight: 0,
       contentPadding: EdgeInsets.zero,
       iconColor: colorScheme.primary,
-      titleTextStyle: textTheme.titleLarge?.copyWith(
+      titleTextStyle: textTheme.titleMedium?.copyWith(
         color: colorScheme.onSurface,
       ),
-      subtitleTextStyle: textTheme.bodyMedium?.copyWith(
+      subtitleTextStyle: textTheme.bodySmall?.copyWith(
         color: colorScheme.onSurface,
       ),
     ),

@@ -14,7 +14,7 @@ import 'package:petter/features/chat/presentation/pages/chat_detail_page.dart';
 import 'package:petter/features/chat/presentation/pages/chat_page.dart';
 import 'package:petter/features/favorite/presentation/pages/favorite_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
-import 'package:petter/features/home/presentation/pages/notification_page.dart';
+import 'package:petter/features/notification/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';

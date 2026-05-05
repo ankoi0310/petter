@@ -117,14 +117,14 @@ class _UserProfileFormState extends State<UserProfileForm> {
                   AppTextFormField(
                     controller: _nameController,
                     focusNode: _nameFocusNode,
-                    title: 'Your name or organization',
+                    title: 'Tên của bạn hoặc tổ chức',
                   ),
                   AppTextFormField(
                     enabled: false,
                     required: false,
                     controller: _phoneController,
                     focusNode: _phoneFocusNode,
-                    title: 'Phone',
+                    title: 'Số điện thoại',
                   ),
                   AppTextFormField(
                     enabled: false,
@@ -156,7 +156,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
                         ),
                       ),
                       onPressed: _submit,
-                      child: const Text('Submit'),
+                      child: const Text('Xác nhận'),
                     ),
                   ),
                 ],

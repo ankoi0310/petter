@@ -14,7 +14,7 @@ class AppSection extends StatelessWidget {
       spacing: 8,
       children: [
         Text(
-          'App Settings',
+          'Ứng dụng',
           style: context.textTheme.titleLarge?.copyWith(
             color: context.colors.outline,
           ),
