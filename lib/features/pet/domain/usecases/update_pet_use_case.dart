@@ -15,8 +15,8 @@ class UpdatePetParams {
     this.gender,
     this.age,
     this.weight,
-    this.categoryId,
-    this.species,
+    this.speciesId,
+    this.bleed,
     this.description,
     this.imageFile,
     this.isAdopted,
@@ -28,8 +28,8 @@ class UpdatePetParams {
   final Gender? gender;
   final String? age;
   final String? weight;
-  final String? categoryId;
-  final String? species;
+  final String? speciesId;
+  final String? bleed;
   final String? description;
   final String? currentImageUrl;
   final File? imageFile;
@@ -41,9 +41,9 @@ class UpdatePetParams {
     if (gender != null) 'gender': gender?.name,
     if (age != null) 'age': age,
     if (weight != null) 'weight': weight,
-    if (categoryId != null && categoryId!.isNotEmpty)
-      'categoryId': categoryId,
-    if (species != null && species!.isNotEmpty) 'species': species,
+    if (speciesId != null && speciesId!.isNotEmpty)
+      'speciesId': speciesId,
+    if (bleed != null && bleed!.isNotEmpty) 'species': bleed,
     if (description != null && description!.isNotEmpty)
       'description': description,
     if (isAdopted != null) 'isAdopted': isAdopted,

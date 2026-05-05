@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/features/category/domain/entities/category.dart';
+import 'package:petter/features/species/domain/entities/species.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({required this.category, super.key});
+class SpeciesCard extends StatelessWidget {
+  const SpeciesCard({required this.species, super.key});
 
-  final Category category;
+  final Species species;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class CategoryCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: .circular(32),
           child: CachedNetworkImage(
-            cacheKey: category.id,
-            imageUrl: category.imageUrl,
+            cacheKey: species.id,
+            imageUrl: species.imageUrl,
             memCacheHeight: 200,
             memCacheWidth: 200,
             fadeInDuration: const Duration(milliseconds: 300),

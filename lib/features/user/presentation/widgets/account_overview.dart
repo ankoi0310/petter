@@ -60,7 +60,7 @@ class AccountOverview extends StatelessWidget {
             radius: 32,
             child: ClipRRect(
               borderRadius: .circular(32),
-              child: Assets.images.categories.cat.image(fit: .cover),
+              child: Assets.images.species.cat.image(fit: .cover),
             ),
           ),
           Expanded(

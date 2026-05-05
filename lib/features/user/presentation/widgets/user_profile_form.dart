@@ -32,8 +32,8 @@ class _UserProfileFormState extends State<UserProfileForm> {
     super.initState();
 
     _uidController.text = widget.user.id;
-    _nameController.text = widget.user.name ?? '';
-    _phoneController.text = widget.user.phone ?? '';
+    _nameController.text = widget.user.name;
+    _phoneController.text = widget.user.phone;
     _emailController.text = widget.user.email;
   }
 
@@ -85,7 +85,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
                     radius: 64,
                     child: ClipRRect(
                       borderRadius: .circular(64),
-                      child: Assets.images.categories.cat.image(),
+                      child: Assets.images.species.cat.image(),
                     ),
                   ),
                   Positioned(

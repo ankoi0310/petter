@@ -36,9 +36,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/banner.jpg
   AssetGenImage get banner => const AssetGenImage('assets/images/banner.jpg');
 
-  /// Directory path: assets/images/categories
-  $AssetsImagesCategoriesGen get categories =>
-      const $AssetsImagesCategoriesGen();
+  /// Directory path: assets/images/species
+  $AssetsImagesSpeciesGen get species =>
+      const $AssetsImagesSpeciesGen();
 
   /// File path: assets/images/empty_message.svg
   SvgGenImage get emptyMessage =>
@@ -71,24 +71,24 @@ class $AssetsImagesGen {
   ];
 }
 
-class $AssetsImagesCategoriesGen {
-  const $AssetsImagesCategoriesGen();
+class $AssetsImagesSpeciesGen {
+  const $AssetsImagesSpeciesGen();
 
-  /// File path: assets/images/categories/bird.jpg
+  /// File path: assets/images/species/bird.jpg
   AssetGenImage get bird =>
-      const AssetGenImage('assets/images/categories/bird.jpg');
+      const AssetGenImage('assets/images/species/bird.jpg');
 
-  /// File path: assets/images/categories/cat.jpg
+  /// File path: assets/images/species/cat.jpg
   AssetGenImage get cat =>
-      const AssetGenImage('assets/images/categories/cat.jpg');
+      const AssetGenImage('assets/images/species/cat.jpg');
 
-  /// File path: assets/images/categories/dog.jpg
+  /// File path: assets/images/species/dog.jpg
   AssetGenImage get dog =>
-      const AssetGenImage('assets/images/categories/dog.jpg');
+      const AssetGenImage('assets/images/species/dog.jpg');
 
-  /// File path: assets/images/categories/rabbit.jpg
+  /// File path: assets/images/species/rabbit.jpg
   AssetGenImage get rabbit =>
-      const AssetGenImage('assets/images/categories/rabbit.jpg');
+      const AssetGenImage('assets/images/species/rabbit.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [bird, cat, dog, rabbit];

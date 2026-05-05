@@ -2,10 +2,10 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
+import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 
-class CategoryDropdownField extends StatelessWidget {
-  const CategoryDropdownField({
+class SpeciesDropdownField extends StatelessWidget {
+  const SpeciesDropdownField({
     required this.focusNode,
     required this.valueListenable,
     super.key,
@@ -43,14 +43,14 @@ class CategoryDropdownField extends StatelessWidget {
               ),
             ],
           ),
-          child: BlocBuilder<CategoryBloc, CategoryState>(
+          child: BlocBuilder<SpeciesBloc, SpeciesState>(
             builder: (context, state) {
               // Lấy danh sách items dựa trên state
               final dropdownItems = state.maybeWhen(
-                loaded: (categories) => categories.map((category) {
+                loaded: (species) => species.map((species) {
                   return DropdownItem<String>(
-                    value: category.id,
-                    child: Text(category.name),
+                    value: species.id,
+                    child: Text(species.name),
                   );
                 }).toList(),
                 orElse: () => [

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category_model.dart';
+part of 'species.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -11,41 +11,38 @@ part of 'category_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
-mixin _$CategoryModel {
+mixin _$Species {
 
  String get id; String get name; String get imageUrl; bool get isActive;
-/// Create a copy of CategoryModel
+/// Create a copy of Species
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$CategoryModelCopyWith<CategoryModel> get copyWith => _$CategoryModelCopyWithImpl<CategoryModel>(this as CategoryModel, _$identity);
+$SpeciesCopyWith<Species> get copyWith => _$SpeciesCopyWithImpl<Species>(this as Species, _$identity);
 
-  /// Serializes this CategoryModel to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.isActive, isActive) || other.isActive == isActive));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Species&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.isActive, isActive) || other.isActive == isActive));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,name,imageUrl,isActive);
 
 @override
 String toString() {
-  return 'CategoryModel(id: $id, name: $name, imageUrl: $imageUrl, isActive: $isActive)';
+  return 'Species(id: $id, name: $name, imageUrl: $imageUrl, isActive: $isActive)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $CategoryModelCopyWith<$Res>  {
-  factory $CategoryModelCopyWith(CategoryModel value, $Res Function(CategoryModel) _then) = _$CategoryModelCopyWithImpl;
+abstract mixin class $SpeciesCopyWith<$Res>  {
+  factory $SpeciesCopyWith(Species value, $Res Function(Species) _then) = _$SpeciesCopyWithImpl;
 @useResult
 $Res call({
  String id, String name, String imageUrl, bool isActive
@@ -56,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$CategoryModelCopyWithImpl<$Res>
-    implements $CategoryModelCopyWith<$Res> {
-  _$CategoryModelCopyWithImpl(this._self, this._then);
+class _$SpeciesCopyWithImpl<$Res>
+    implements $SpeciesCopyWith<$Res> {
+  _$SpeciesCopyWithImpl(this._self, this._then);
 
-  final CategoryModel _self;
-  final $Res Function(CategoryModel) _then;
+  final Species _self;
+  final $Res Function(Species) _then;
 
-/// Create a copy of CategoryModel
+/// Create a copy of Species
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? imageUrl = null,Object? isActive = null,}) {
   return _then(_self.copyWith(
@@ -78,8 +75,8 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [CategoryModel].
-extension CategoryModelPatterns on CategoryModel {
+/// Adds pattern-matching-related methods to [Species].
+extension SpeciesPatterns on Species {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -92,10 +89,10 @@ extension CategoryModelPatterns on CategoryModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CategoryModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Species value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _CategoryModel() when $default != null:
+case _Species() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -114,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CategoryModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Species value)  $default,){
 final _that = this;
 switch (_that) {
-case _CategoryModel():
+case _Species():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -135,10 +132,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CategoryModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Species value)?  $default,){
 final _that = this;
 switch (_that) {
-case _CategoryModel() when $default != null:
+case _Species() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -158,7 +155,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String imageUrl,  bool isActive)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _CategoryModel() when $default != null:
+case _Species() when $default != null:
 return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
   return orElse();
 
@@ -179,7 +176,7 @@ return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String imageUrl,  bool isActive)  $default,) {final _that = this;
 switch (_that) {
-case _CategoryModel():
+case _Species():
 return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
   throw StateError('Unexpected subclass');
 
@@ -199,7 +196,7 @@ return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String imageUrl,  bool isActive)?  $default,) {final _that = this;
 switch (_that) {
-case _CategoryModel() when $default != null:
+case _Species() when $default != null:
 return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
   return null;
 
@@ -209,48 +206,45 @@ return $default(_that.id,_that.name,_that.imageUrl,_that.isActive);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
 
-class _CategoryModel implements CategoryModel {
-  const _CategoryModel({required this.id, required this.name, required this.imageUrl, required this.isActive});
-  factory _CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
+
+class _Species implements Species {
+  const _Species({required this.id, required this.name, required this.imageUrl, required this.isActive});
+  
 
 @override final  String id;
 @override final  String name;
 @override final  String imageUrl;
 @override final  bool isActive;
 
-/// Create a copy of CategoryModel
+/// Create a copy of Species
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$CategoryModelCopyWith<_CategoryModel> get copyWith => __$CategoryModelCopyWithImpl<_CategoryModel>(this, _$identity);
+_$SpeciesCopyWith<_Species> get copyWith => __$SpeciesCopyWithImpl<_Species>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$CategoryModelToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.isActive, isActive) || other.isActive == isActive));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Species&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.isActive, isActive) || other.isActive == isActive));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,name,imageUrl,isActive);
 
 @override
 String toString() {
-  return 'CategoryModel(id: $id, name: $name, imageUrl: $imageUrl, isActive: $isActive)';
+  return 'Species(id: $id, name: $name, imageUrl: $imageUrl, isActive: $isActive)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$CategoryModelCopyWith<$Res> implements $CategoryModelCopyWith<$Res> {
-  factory _$CategoryModelCopyWith(_CategoryModel value, $Res Function(_CategoryModel) _then) = __$CategoryModelCopyWithImpl;
+abstract mixin class _$SpeciesCopyWith<$Res> implements $SpeciesCopyWith<$Res> {
+  factory _$SpeciesCopyWith(_Species value, $Res Function(_Species) _then) = __$SpeciesCopyWithImpl;
 @override @useResult
 $Res call({
  String id, String name, String imageUrl, bool isActive
@@ -261,17 +255,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$CategoryModelCopyWithImpl<$Res>
-    implements _$CategoryModelCopyWith<$Res> {
-  __$CategoryModelCopyWithImpl(this._self, this._then);
+class __$SpeciesCopyWithImpl<$Res>
+    implements _$SpeciesCopyWith<$Res> {
+  __$SpeciesCopyWithImpl(this._self, this._then);
 
-  final _CategoryModel _self;
-  final $Res Function(_CategoryModel) _then;
+  final _Species _self;
+  final $Res Function(_Species) _then;
 
-/// Create a copy of CategoryModel
+/// Create a copy of Species
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? imageUrl = null,Object? isActive = null,}) {
-  return _then(_CategoryModel(
+  return _then(_Species(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable

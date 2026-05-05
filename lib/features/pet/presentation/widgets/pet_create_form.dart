@@ -7,15 +7,18 @@ import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/core/widgets/button.dart';
-import 'package:petter/core/widgets/category_dropdown_field.dart';
 import 'package:petter/core/widgets/gender_dropdown_field.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
+import 'package:petter/core/widgets/species_dropdown_field.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
+import 'package:petter/features/species/domain/entities/species.dart';
 
 class PetCreateForm extends StatefulWidget {
-  const PetCreateForm({super.key});
+  const PetCreateForm({required this.species, super.key});
+
+  final List<Species> species;
 
   @override
   State<PetCreateForm> createState() => _PetCreateFormState();
@@ -24,15 +27,23 @@ class PetCreateForm extends StatefulWidget {
 class _PetCreateFormState extends State<PetCreateForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _speciesController = TextEditingController();
+  final _bleedController = TextEditingController();
   final _addressController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   File? selectedImage;
-  final categoryListenable = ValueNotifier<String>('Dog');
-  final genderListenable = ValueNotifier<Gender>(Gender.male);
+  late ValueNotifier<String> speciesListenable;
+  late ValueNotifier<Gender> genderListenable;
+
+  @override
+  void initState() {
+    super.initState();
+
+    speciesListenable.value = widget.species.first.id;
+    genderListenable.value = Gender.values.first;
+  }
 
   void _submit() {
     FocusScope.of(context).unfocus();
@@ -47,8 +58,8 @@ class _PetCreateFormState extends State<PetCreateForm> {
     final params = CreatePetParams(
       uid: uid,
       name: _nameController.text.trim(),
-      categoryId: categoryListenable.value,
-      species: _speciesController.text.trim(),
+      speciesId: speciesListenable.value,
+      bleed: _bleedController.text.trim(),
       address: _addressController.text.trim(),
       gender: genderListenable.value,
       age: _ageController.text.trim(),
@@ -63,7 +74,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
   @override
   void dispose() {
     _nameController.dispose();
-    _speciesController.dispose();
+    _bleedController.dispose();
     _addressController.dispose();
     _ageController.dispose();
     _weightController.dispose();
@@ -145,12 +156,12 @@ class _PetCreateFormState extends State<PetCreateForm> {
               focusNode: FocusNode(),
               title: 'Name',
             ),
-            CategoryDropdownField(
+            SpeciesDropdownField(
               focusNode: FocusNode(),
-              valueListenable: categoryListenable,
+              valueListenable: speciesListenable,
             ),
             AppTextFormField(
-              controller: _speciesController,
+              controller: _bleedController,
               focusNode: FocusNode(),
               title: 'Species',
             ),

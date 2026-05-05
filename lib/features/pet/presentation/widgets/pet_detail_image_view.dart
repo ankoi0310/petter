@@ -13,31 +13,20 @@ class PetDetailImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CachedNetworkImage(
-          cacheKey: pet.imageUrl,
-          imageUrl: pet.imageUrl,
-          imageBuilder: (context, imageProvider) {
-            return Container(
-              height: context.width - 16 * 2,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: context.colors.primary,
-                  width: 2,
-                ),
-                borderRadius: .circular(32),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: .cover,
-                ),
-              ),
-            );
-          },
-          placeholder: (context, url) {
-            return const Center(child: CircularProgressIndicator());
-          },
-          errorWidget: (context, url, error) {
-            return const Icon(Icons.error);
-          },
+        Container(
+          width: context.width,
+          height: context.width - 16 * 2,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: context.colors.primary,
+              width: 4,
+            ),
+            borderRadius: .circular(32),
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(pet.imageUrl),
+              fit: .cover,
+            ),
+          ),
         ),
         if (pet.isAdopted)
           Positioned(

@@ -21,6 +21,9 @@ class PetImageContainer extends StatelessWidget {
       child: CachedNetworkImage(
         cacheKey: pet.imageUrl,
         imageUrl: pet.imageUrl,
+        memCacheHeight: 300,
+        memCacheWidth: 300,
+        fit: .cover,
         imageBuilder: (context, imageProvider) {
           return Container(
             decoration: BoxDecoration(

@@ -10,11 +10,11 @@ import 'package:petter/core/di/di.dart';
 import 'package:petter/core/services/firebase_cloud_message_service.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:petter/features/category/presentation/bloc/category_bloc.dart';
 import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
+import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:petter/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,7 +49,7 @@ void main() async {
       providers: [
         BlocProvider.value(value: sl<AuthBloc>()),
         BlocProvider(create: (_) => sl<UserBloc>()),
-        BlocProvider(create: (_) => sl<CategoryBloc>()),
+        BlocProvider(create: (_) => sl<SpeciesBloc>()),
         BlocProvider(create: (_) => sl<PetBloc>()),
         BlocProvider(create: (_) => sl<AdoptionBloc>()),
         BlocProvider(create: (_) => sl<FavoriteBloc>()),

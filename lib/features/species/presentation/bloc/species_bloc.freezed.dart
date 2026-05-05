@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category_bloc.dart';
+part of 'species_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'category_bloc.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$CategoryEvent {
+mixin _$SpeciesEvent {
 
 
 
@@ -20,7 +20,7 @@ mixin _$CategoryEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpeciesEvent);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CategoryEvent()';
+  return 'SpeciesEvent()';
 }
 
 
 }
 
 /// @nodoc
-class $CategoryEventCopyWith<$Res>  {
-$CategoryEventCopyWith(CategoryEvent _, $Res Function(CategoryEvent) __);
+class $SpeciesEventCopyWith<$Res>  {
+$SpeciesEventCopyWith(SpeciesEvent _, $Res Function(SpeciesEvent) __);
 }
 
 
-/// Adds pattern-matching-related methods to [CategoryEvent].
-extension CategoryEventPatterns on CategoryEvent {
+/// Adds pattern-matching-related methods to [SpeciesEvent].
+extension SpeciesEventPatterns on SpeciesEvent {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,12 +55,12 @@ extension CategoryEventPatterns on CategoryEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _CategoriesUpdated value)?  categoriesUpdated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _SpeciesUpdated value)?  speciesUpdated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
-return started(_that);case _CategoriesUpdated() when categoriesUpdated != null:
-return categoriesUpdated(_that);case _:
+return started(_that);case _SpeciesUpdated() when speciesUpdated != null:
+return speciesUpdated(_that);case _:
   return orElse();
 
 }
@@ -78,12 +78,12 @@ return categoriesUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _CategoriesUpdated value)  categoriesUpdated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _SpeciesUpdated value)  speciesUpdated,}){
 final _that = this;
 switch (_that) {
 case _Started():
-return started(_that);case _CategoriesUpdated():
-return categoriesUpdated(_that);case _:
+return started(_that);case _SpeciesUpdated():
+return speciesUpdated(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +100,12 @@ return categoriesUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _CategoriesUpdated value)?  categoriesUpdated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _SpeciesUpdated value)?  speciesUpdated,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
-return started(_that);case _CategoriesUpdated() when categoriesUpdated != null:
-return categoriesUpdated(_that);case _:
+return started(_that);case _SpeciesUpdated() when speciesUpdated != null:
+return speciesUpdated(_that);case _:
   return null;
 
 }
@@ -122,11 +122,11 @@ return categoriesUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( List<Category> categories)?  categoriesUpdated,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( List<Species> species)?  speciesUpdated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
-return started();case _CategoriesUpdated() when categoriesUpdated != null:
-return categoriesUpdated(_that.categories);case _:
+return started();case _SpeciesUpdated() when speciesUpdated != null:
+return speciesUpdated(_that.species);case _:
   return orElse();
 
 }
@@ -144,11 +144,11 @@ return categoriesUpdated(_that.categories);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( List<Category> categories)  categoriesUpdated,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( List<Species> species)  speciesUpdated,}) {final _that = this;
 switch (_that) {
 case _Started():
-return started();case _CategoriesUpdated():
-return categoriesUpdated(_that.categories);case _:
+return started();case _SpeciesUpdated():
+return speciesUpdated(_that.species);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +165,11 @@ return categoriesUpdated(_that.categories);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( List<Category> categories)?  categoriesUpdated,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( List<Species> species)?  speciesUpdated,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
-return started();case _CategoriesUpdated() when categoriesUpdated != null:
-return categoriesUpdated(_that.categories);case _:
+return started();case _SpeciesUpdated() when speciesUpdated != null:
+return speciesUpdated(_that.species);case _:
   return null;
 
 }
@@ -180,7 +180,7 @@ return categoriesUpdated(_that.categories);case _:
 /// @nodoc
 
 
-class _Started implements CategoryEvent {
+class _Started implements SpeciesEvent {
   const _Started();
   
 
@@ -200,7 +200,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CategoryEvent.started()';
+  return 'SpeciesEvent.started()';
 }
 
 
@@ -212,49 +212,49 @@ String toString() {
 /// @nodoc
 
 
-class _CategoriesUpdated implements CategoryEvent {
-  const _CategoriesUpdated(final  List<Category> categories): _categories = categories;
+class _SpeciesUpdated implements SpeciesEvent {
+  const _SpeciesUpdated(final  List<Species> species): _species = species;
   
 
- final  List<Category> _categories;
- List<Category> get categories {
-  if (_categories is EqualUnmodifiableListView) return _categories;
+ final  List<Species> _species;
+ List<Species> get species {
+  if (_species is EqualUnmodifiableListView) return _species;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_categories);
+  return EqualUnmodifiableListView(_species);
 }
 
 
-/// Create a copy of CategoryEvent
+/// Create a copy of SpeciesEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$CategoriesUpdatedCopyWith<_CategoriesUpdated> get copyWith => __$CategoriesUpdatedCopyWithImpl<_CategoriesUpdated>(this, _$identity);
+_$SpeciesUpdatedCopyWith<_SpeciesUpdated> get copyWith => __$SpeciesUpdatedCopyWithImpl<_SpeciesUpdated>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoriesUpdated&&const DeepCollectionEquality().equals(other._categories, _categories));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpeciesUpdated&&const DeepCollectionEquality().equals(other._species, _species));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_species));
 
 @override
 String toString() {
-  return 'CategoryEvent.categoriesUpdated(categories: $categories)';
+  return 'SpeciesEvent.speciesUpdated(species: $species)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$CategoriesUpdatedCopyWith<$Res> implements $CategoryEventCopyWith<$Res> {
-  factory _$CategoriesUpdatedCopyWith(_CategoriesUpdated value, $Res Function(_CategoriesUpdated) _then) = __$CategoriesUpdatedCopyWithImpl;
+abstract mixin class _$SpeciesUpdatedCopyWith<$Res> implements $SpeciesEventCopyWith<$Res> {
+  factory _$SpeciesUpdatedCopyWith(_SpeciesUpdated value, $Res Function(_SpeciesUpdated) _then) = __$SpeciesUpdatedCopyWithImpl;
 @useResult
 $Res call({
- List<Category> categories
+ List<Species> species
 });
 
 
@@ -262,19 +262,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$CategoriesUpdatedCopyWithImpl<$Res>
-    implements _$CategoriesUpdatedCopyWith<$Res> {
-  __$CategoriesUpdatedCopyWithImpl(this._self, this._then);
+class __$SpeciesUpdatedCopyWithImpl<$Res>
+    implements _$SpeciesUpdatedCopyWith<$Res> {
+  __$SpeciesUpdatedCopyWithImpl(this._self, this._then);
 
-  final _CategoriesUpdated _self;
-  final $Res Function(_CategoriesUpdated) _then;
+  final _SpeciesUpdated _self;
+  final $Res Function(_SpeciesUpdated) _then;
 
-/// Create a copy of CategoryEvent
+/// Create a copy of SpeciesEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? categories = null,}) {
-  return _then(_CategoriesUpdated(
-null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,
+@pragma('vm:prefer-inline') $Res call({Object? species = null,}) {
+  return _then(_SpeciesUpdated(
+null == species ? _self._species : species // ignore: cast_nullable_to_non_nullable
+as List<Species>,
   ));
 }
 
@@ -282,7 +282,7 @@ as List<Category>,
 }
 
 /// @nodoc
-mixin _$CategoryState {
+mixin _$SpeciesState {
 
 
 
@@ -290,7 +290,7 @@ mixin _$CategoryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpeciesState);
 }
 
 
@@ -299,20 +299,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CategoryState()';
+  return 'SpeciesState()';
 }
 
 
 }
 
 /// @nodoc
-class $CategoryStateCopyWith<$Res>  {
-$CategoryStateCopyWith(CategoryState _, $Res Function(CategoryState) __);
+class $SpeciesStateCopyWith<$Res>  {
+$SpeciesStateCopyWith(SpeciesState _, $Res Function(SpeciesState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [CategoryState].
-extension CategoryStatePatterns on CategoryState {
+/// Adds pattern-matching-related methods to [SpeciesState].
+extension SpeciesStatePatterns on SpeciesState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -398,12 +398,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Category> categories)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Species> species)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.categories);case _Error() when error != null:
+return loaded(_that.species);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -422,12 +422,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Category> categories)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Species> species)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.categories);case _Error():
+return loaded(_that.species);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -445,12 +445,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Category> categories)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Species> species)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.categories);case _Error() when error != null:
+return loaded(_that.species);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -462,7 +462,7 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Initial implements CategoryState {
+class _Initial implements SpeciesState {
   const _Initial();
   
 
@@ -482,7 +482,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CategoryState.initial()';
+  return 'SpeciesState.initial()';
 }
 
 
@@ -494,7 +494,7 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements CategoryState {
+class _Loading implements SpeciesState {
   const _Loading();
   
 
@@ -514,7 +514,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CategoryState.loading()';
+  return 'SpeciesState.loading()';
 }
 
 
@@ -526,19 +526,19 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements CategoryState {
-  const _Loaded(final  List<Category> categories): _categories = categories;
+class _Loaded implements SpeciesState {
+  const _Loaded(final  List<Species> species): _species = species;
   
 
- final  List<Category> _categories;
- List<Category> get categories {
-  if (_categories is EqualUnmodifiableListView) return _categories;
+ final  List<Species> _species;
+ List<Species> get species {
+  if (_species is EqualUnmodifiableListView) return _species;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_categories);
+  return EqualUnmodifiableListView(_species);
 }
 
 
-/// Create a copy of CategoryState
+/// Create a copy of SpeciesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -548,27 +548,27 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._categories, _categories));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._species, _species));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_species));
 
 @override
 String toString() {
-  return 'CategoryState.loaded(categories: $categories)';
+  return 'SpeciesState.loaded(species: $species)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
+abstract mixin class _$LoadedCopyWith<$Res> implements $SpeciesStateCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<Category> categories
+ List<Species> species
 });
 
 
@@ -583,12 +583,12 @@ class __$LoadedCopyWithImpl<$Res>
   final _Loaded _self;
   final $Res Function(_Loaded) _then;
 
-/// Create a copy of CategoryState
+/// Create a copy of SpeciesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? categories = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? species = null,}) {
   return _then(_Loaded(
-null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,
+null == species ? _self._species : species // ignore: cast_nullable_to_non_nullable
+as List<Species>,
   ));
 }
 
@@ -598,13 +598,13 @@ as List<Category>,
 /// @nodoc
 
 
-class _Error implements CategoryState {
+class _Error implements SpeciesState {
   const _Error(this.message);
   
 
  final  String message;
 
-/// Create a copy of CategoryState
+/// Create a copy of SpeciesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -623,14 +623,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'CategoryState.error(message: $message)';
+  return 'SpeciesState.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $SpeciesStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -649,7 +649,7 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
-/// Create a copy of CategoryState
+/// Create a copy of SpeciesState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(

@@ -1,20 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_model.dart';
+part of 'species_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
-    _CategoryModel(
+_SpeciesModel _$SpeciesModelFromJson(Map<String, dynamic> json) =>
+    _SpeciesModel(
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
       isActive: json['isActive'] as bool,
     );
 
-Map<String, dynamic> _$CategoryModelToJson(_CategoryModel instance) =>
+Map<String, dynamic> _$SpeciesModelToJson(_SpeciesModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

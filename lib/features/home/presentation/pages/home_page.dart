@@ -8,7 +8,7 @@ import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/home/presentation/widgets/home_bottom_nav.dart';
 import 'package:petter/features/home/presentation/widgets/home_carousel_slider.dart';
-import 'package:petter/features/home/presentation/widgets/home_category_section.dart';
+import 'package:petter/features/home/presentation/widgets/home_species_section.dart';
 import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const HomeCategorySection(),
+              const HomeSpeciesSection(),
               const Expanded(child: HomeCarouselSlider()),
               const HomeBottomNav(),
             ],

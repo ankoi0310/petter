@@ -8,9 +8,9 @@ import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/core/widgets/button.dart';
-import 'package:petter/core/widgets/category_dropdown_field.dart';
 import 'package:petter/core/widgets/gender_dropdown_field.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
+import 'package:petter/core/widgets/species_dropdown_field.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
@@ -32,14 +32,14 @@ class PetUpdateForm extends StatefulWidget {
 class _PetUpdateFormState extends State<PetUpdateForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _speciesController = TextEditingController();
+  final _bleedController = TextEditingController();
   final _addressController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   File? selectedImage;
-  late final ValueNotifier<String> categoryListenable;
+  late final ValueNotifier<String> speciesListenable;
   late final ValueNotifier<Gender> genderListenable;
 
   @override
@@ -47,19 +47,19 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
     super.initState();
 
     _nameController.text = widget.pet.name;
-    _speciesController.text = widget.pet.species;
+    _bleedController.text = widget.pet.bleed;
     _addressController.text = widget.pet.address;
     _ageController.text = widget.pet.age;
     _weightController.text = widget.pet.weight;
     _descriptionController.text = widget.pet.description;
-    categoryListenable = ValueNotifier<String>(widget.pet.categoryId);
+    speciesListenable = ValueNotifier<String>(widget.pet.speciesId);
     genderListenable = ValueNotifier<Gender>(widget.pet.gender);
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _speciesController.dispose();
+    _bleedController.dispose();
     _addressController.dispose();
     _ageController.dispose();
     _weightController.dispose();
@@ -76,8 +76,8 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
     final params = UpdatePetParams(
       id: widget.id,
       name: _nameController.text.trim(),
-      categoryId: categoryListenable.value,
-      species: _speciesController.text.trim(),
+      speciesId: speciesListenable.value,
+      bleed: _bleedController.text.trim(),
       address: _addressController.text.trim(),
       gender: genderListenable.value,
       age: _ageController.text.trim(),
@@ -186,12 +186,12 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
               focusNode: FocusNode(),
               title: 'Name',
             ),
-            CategoryDropdownField(
+            SpeciesDropdownField(
               focusNode: FocusNode(),
-              valueListenable: categoryListenable,
+              valueListenable: speciesListenable,
             ),
             AppTextFormField(
-              controller: _speciesController,
+              controller: _bleedController,
               focusNode: FocusNode(),
               title: 'Species',
             ),

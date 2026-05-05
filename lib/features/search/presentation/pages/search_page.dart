@@ -16,7 +16,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final categoryListenable = ValueNotifier<String?>(null);
+  final speciesListenable = ValueNotifier<String?>(null);
   final genderListenable = ValueNotifier<Gender?>(null);
 
   @override
@@ -67,11 +67,11 @@ class _SearchPageState extends State<SearchPage> {
                     children: [
                       // Expanded(
                       //   child: DropdownButtonFormField2<String>(
-                      //     valueListenable: categoryListenable,
-                      //     hint: const Text('Category'),
+                      //     valueListenable: speciesListenable,
+                      //     hint: const Text('Species'),
                       //     onChanged: (value) {
-                      //       categoryListenable.value =
-                      //           value ?? categoryListenable.value;
+                      //       speciesListenable.value =
+                      //           value ?? speciesListenable.value;
                       //     },
                       //     decoration: InputDecoration(
                       //       contentPadding: const .symmetric(

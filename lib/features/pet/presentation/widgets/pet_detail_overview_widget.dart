@@ -58,18 +58,37 @@ class PetDetailOverviewWidget extends StatelessWidget {
           padding: const .symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
             color: context.colors.primaryContainer,
-            border: Border.all(),
+            border: .all(),
             borderRadius: .circular(20),
             boxShadow: [
               BoxShadow(
                 color: context.colors.shadow.withValues(alpha: .8),
-                offset: const Offset(4, 4),
+                offset: const Offset(2, 2),
               ),
             ],
           ),
           child: IntrinsicHeight(
             child: Row(
               children: [
+                Expanded(
+                  child: Column(
+                    spacing: 4,
+                    children: [
+                      Text(
+                        'Loài',
+                        style: context.textTheme.bodyLarge,
+                      ),
+                      Text(
+                        pet.bleed,
+                        style: context.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+                VerticalDivider(
+                  thickness: 2,
+                  color: context.colors.onSurface,
+                ),
                 Expanded(
                   child: Column(
                     spacing: 4,
