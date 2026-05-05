@@ -10,7 +10,7 @@ abstract class ChatRoom with _$ChatRoom {
     required String id,
     required List<String> memberIds,
     required Map<String, String> memberNames,
-    required Map<String, String> memberAvatars,
+    required Map<String, String?> memberAvatars,
     required Map<String, int> unreadCount,
     String? lastMessage,
     DateTime? lastMessageSent,

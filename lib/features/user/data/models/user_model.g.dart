@@ -11,7 +11,7 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   email: json['email'] as String,
   name: json['name'] as String,
   phone: json['phone'] as String,
-  avatar: json['avatar'] as String,
+  avatar: json['avatar'] as String?,
   createdAt: const TimestampConverter().fromJson(json['createdAt']),
 );
 

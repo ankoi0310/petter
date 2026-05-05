@@ -121,7 +121,7 @@ void _initAuth(GetIt sl) {
 void _initUser(GetIt sl) {
   sl
     ..registerLazySingleton<UserRemoteDataSource>(
-      () => UserRemoteDataSourceImpl(sl(), sl()),
+      () => UserRemoteDataSourceImpl(sl(), sl(), sl()),
     )
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(sl()),

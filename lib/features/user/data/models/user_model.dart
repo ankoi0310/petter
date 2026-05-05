@@ -14,7 +14,7 @@ abstract class UserModel with _$UserModel {
     required String email,
     required String name,
     required String phone,
-    required String avatar,
+    required String? avatar,
     required DateTime createdAt,
   }) = _UserModel;
 

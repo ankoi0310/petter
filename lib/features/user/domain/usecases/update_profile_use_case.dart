@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
@@ -5,16 +7,16 @@ import 'package:petter/features/user/domain/repositories/user_repository.dart';
 
 class UpdateProfileParams {
   const UpdateProfileParams({
-    required this.uid,
+    required this.id,
     this.name,
-    this.phone,
-    this.avatar,
+    this.currentImageUrl,
+    this.imageFile,
   });
 
-  final String uid;
+  final String id;
   final String? name;
-  final String? phone;
-  final String? avatar;
+  final String? currentImageUrl;
+  final File? imageFile;
 }
 
 class UpdateProfileUseCase

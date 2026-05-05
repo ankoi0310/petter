@@ -9,7 +9,7 @@ abstract class User with _$User {
     required String email,
     required String name,
     required String phone,
-    required String avatar,
+    required String? avatar,
     required DateTime createdAt,
   }) = _User;
 }

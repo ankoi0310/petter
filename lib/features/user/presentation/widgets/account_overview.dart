@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/utils/image_util.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
@@ -60,7 +61,13 @@ class AccountOverview extends StatelessWidget {
             radius: 32,
             child: ClipRRect(
               borderRadius: .circular(32),
-              child: Assets.images.species.cat.image(fit: .cover),
+              child:
+                  user?.avatar == null ||
+                      user?.avatar?.isEmpty == true
+                  ? pickDefaultAvatar(
+                      user?.id ?? '',
+                    ).image(fit: .cover)
+                  : CachedNetworkImage(imageUrl: user?.avatar ?? ''),
             ),
           ),
           Expanded(

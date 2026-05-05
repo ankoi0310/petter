@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/utils/image_util.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/adoption/domain/entities/adoption_request.dart';
@@ -77,9 +78,16 @@ class AdopterInfoSection extends StatelessWidget {
                         ),
                         borderRadius: .circular(16),
                         image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            request.adopterAvatar,
-                          ),
+                          image:
+                              request.adopterAvatar == null ||
+                                  request.adopterAvatar?.isEmpty ==
+                                      true
+                              ? pickDefaultAvatar(
+                                  request.adopterId,
+                                ).provider()
+                              : CachedNetworkImageProvider(
+                                  request.adopterAvatar!,
+                                ),
                           fit: .cover,
                         ),
                       ),

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mime/mime.dart';
 import 'package:petter/core/error/exception.dart';
 import 'package:petter/core/services/supabase_storage_service.dart';
+import 'package:petter/core/utils/image_util.dart';
 import 'package:petter/features/pet/data/models/pet_model.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
@@ -42,14 +44,16 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     try {
       if (!imageFile.existsSync()) return null;
 
-      final ext = imageFile.path.split('.').last.toLowerCase();
+      final contentType = lookupMimeType(imageFile.path);
+
+      if (contentType == null) {
+        throw const ServerException(
+          'Không tìm thấy định dạng của tệp',
+        );
+      }
+
+      final ext = extensionFromMime(contentType);
       final timestamp = DateTime.now().millisecondsSinceEpoch;
-      final contentType = switch (ext) {
-        'png' => 'image/png',
-        'webp' => 'image/webp',
-        'gif' => 'image/gif',
-        _ => 'image/jpeg',
-      };
 
       final fileName = '${id}_$timestamp.$ext';
       final path = 'pets/$fileName';
@@ -175,7 +179,9 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
           );
 
           if (params.currentImageUrl!.isNotEmpty) {
-            final oldPath = _extractPath(params.currentImageUrl!);
+            final oldPath = extractPathFromStorage(
+              params.currentImageUrl!,
+            );
             await _storageService.deleteFile(
               bucket: 'images',
               path: oldPath,
@@ -195,11 +201,5 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     } catch (e) {
       throw ServerException(e.toString());
     }
-  }
-
-  String _extractPath(String url) {
-    final uri = Uri.parse(url);
-    final cleanPath = uri.path;
-    return cleanPath.split('/object/public/images/').last;
   }
 }

@@ -16,7 +16,7 @@ _AdoptionRequestModel _$AdoptionRequestModelFromJson(
   petImageUrl: json['petImageUrl'] as String,
   adopterId: json['adopterId'] as String,
   adopterName: json['adopterName'] as String,
-  adopterAvatar: json['adopterAvatar'] as String,
+  adopterAvatar: json['adopterAvatar'] as String?,
   adopterPhone: json['adopterPhone'] as String,
   createdAt: const TimestampConverter().fromJson(json['createdAt']),
   updatedAt: const TimestampConverter().fromJson(json['updatedAt']),

@@ -13,7 +13,7 @@ _ChatRoomModel _$ChatRoomModelFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       memberNames: Map<String, String>.from(json['memberNames'] as Map),
-      memberAvatars: Map<String, String>.from(json['memberAvatars'] as Map),
+      memberAvatars: Map<String, String?>.from(json['memberAvatars'] as Map),
       unreadCount: Map<String, int>.from(json['unreadCount'] as Map),
       lastMessage: json['lastMessage'] as String?,
       lastMessageSent: const TimestampConverterNullable().fromJson(

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/utils/image_util.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/chat/domain/entities/chat_room.dart';
 import 'package:petter/features/chat/presentation/bloc/chat_room/chat_room_bloc.dart';
@@ -83,7 +84,7 @@ class ChatRoomTile extends StatelessWidget {
     final otherUserId = room.memberIds.firstWhere(
       (id) => id != currentUid,
     );
-    final avatar = room.memberAvatars[otherUserId] ?? '';
+    final avatar = room.memberAvatars[otherUserId];
     final name = room.memberNames[otherUserId] ?? 'Người dùng Petter';
     final unread = room.unreadCount[currentUid] ?? 0;
 
@@ -99,7 +100,9 @@ class ChatRoomTile extends StatelessWidget {
           radius: 24,
           child: ClipRRect(
             borderRadius: .circular(24),
-            child: CachedNetworkImage(imageUrl: avatar, fit: .cover),
+            child: avatar == null || avatar.isEmpty
+                ? pickDefaultAvatar(otherUserId).image(fit: .cover)
+                : CachedNetworkImage(imageUrl: avatar, fit: .cover),
           ),
         ),
       ),

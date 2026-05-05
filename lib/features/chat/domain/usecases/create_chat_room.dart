@@ -12,7 +12,7 @@ class CreateChatRoomParams {
 
   final List<String> memberIds;
   final Map<String, String> memberNames;
-  final Map<String, String> memberAvatars;
+  final Map<String, String?> memberAvatars;
 }
 
 class CreateChatRoomUseCase

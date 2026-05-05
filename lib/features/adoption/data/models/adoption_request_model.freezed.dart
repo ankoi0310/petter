@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AdoptionRequestModel {
 
- String get id; String get petId; String get petOwnerId; String get petName; String get petImageUrl; String get adopterId; String get adopterName; String get adopterAvatar; String get adopterPhone; DateTime get createdAt; DateTime get updatedAt; RequestStatus get status; String? get rejectionReason;
+ String get id; String get petId; String get petOwnerId; String get petName; String get petImageUrl; String get adopterId; String get adopterName; String? get adopterAvatar; String get adopterPhone; DateTime get createdAt; DateTime get updatedAt; RequestStatus get status; String? get rejectionReason;
 /// Create a copy of AdoptionRequestModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AdoptionRequestModelCopyWith<$Res>  {
   factory $AdoptionRequestModelCopyWith(AdoptionRequestModel value, $Res Function(AdoptionRequestModel) _then) = _$AdoptionRequestModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
+ String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String? adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
 });
 
 
@@ -65,7 +65,7 @@ class _$AdoptionRequestModelCopyWithImpl<$Res>
 
 /// Create a copy of AdoptionRequestModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = freezed,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,petId: null == petId ? _self.petId : petId // ignore: cast_nullable_to_non_nullable
@@ -74,8 +74,8 @@ as String,petName: null == petName ? _self.petName : petName // ignore: cast_nul
 as String,petImageUrl: null == petImageUrl ? _self.petImageUrl : petImageUrl // ignore: cast_nullable_to_non_nullable
 as String,adopterId: null == adopterId ? _self.adopterId : adopterId // ignore: cast_nullable_to_non_nullable
 as String,adopterName: null == adopterName ? _self.adopterName : adopterName // ignore: cast_nullable_to_non_nullable
-as String,adopterAvatar: null == adopterAvatar ? _self.adopterAvatar : adopterAvatar // ignore: cast_nullable_to_non_nullable
-as String,adopterPhone: null == adopterPhone ? _self.adopterPhone : adopterPhone // ignore: cast_nullable_to_non_nullable
+as String,adopterAvatar: freezed == adopterAvatar ? _self.adopterAvatar : adopterAvatar // ignore: cast_nullable_to_non_nullable
+as String?,adopterPhone: null == adopterPhone ? _self.adopterPhone : adopterPhone // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
@@ -165,7 +165,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String? adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdoptionRequestModel() when $default != null:
 return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
@@ -186,7 +186,7 @@ return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petIma
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String? adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)  $default,) {final _that = this;
 switch (_that) {
 case _AdoptionRequestModel():
 return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
@@ -206,7 +206,7 @@ return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petIma
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String petId,  String petOwnerId,  String petName,  String petImageUrl,  String adopterId,  String adopterName,  String? adopterAvatar,  String adopterPhone,  DateTime createdAt,  DateTime updatedAt,  RequestStatus status,  String? rejectionReason)?  $default,) {final _that = this;
 switch (_that) {
 case _AdoptionRequestModel() when $default != null:
 return $default(_that.id,_that.petId,_that.petOwnerId,_that.petName,_that.petImageUrl,_that.adopterId,_that.adopterName,_that.adopterAvatar,_that.adopterPhone,_that.createdAt,_that.updatedAt,_that.status,_that.rejectionReason);case _:
@@ -231,7 +231,7 @@ class _AdoptionRequestModel implements AdoptionRequestModel {
 @override final  String petImageUrl;
 @override final  String adopterId;
 @override final  String adopterName;
-@override final  String adopterAvatar;
+@override final  String? adopterAvatar;
 @override final  String adopterPhone;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
@@ -271,7 +271,7 @@ abstract mixin class _$AdoptionRequestModelCopyWith<$Res> implements $AdoptionRe
   factory _$AdoptionRequestModelCopyWith(_AdoptionRequestModel value, $Res Function(_AdoptionRequestModel) _then) = __$AdoptionRequestModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
+ String id, String petId, String petOwnerId, String petName, String petImageUrl, String adopterId, String adopterName, String? adopterAvatar, String adopterPhone, DateTime createdAt, DateTime updatedAt, RequestStatus status, String? rejectionReason
 });
 
 
@@ -288,7 +288,7 @@ class __$AdoptionRequestModelCopyWithImpl<$Res>
 
 /// Create a copy of AdoptionRequestModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = null,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? petId = null,Object? petOwnerId = null,Object? petName = null,Object? petImageUrl = null,Object? adopterId = null,Object? adopterName = null,Object? adopterAvatar = freezed,Object? adopterPhone = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? rejectionReason = freezed,}) {
   return _then(_AdoptionRequestModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,petId: null == petId ? _self.petId : petId // ignore: cast_nullable_to_non_nullable
@@ -297,8 +297,8 @@ as String,petName: null == petName ? _self.petName : petName // ignore: cast_nul
 as String,petImageUrl: null == petImageUrl ? _self.petImageUrl : petImageUrl // ignore: cast_nullable_to_non_nullable
 as String,adopterId: null == adopterId ? _self.adopterId : adopterId // ignore: cast_nullable_to_non_nullable
 as String,adopterName: null == adopterName ? _self.adopterName : adopterName // ignore: cast_nullable_to_non_nullable
-as String,adopterAvatar: null == adopterAvatar ? _self.adopterAvatar : adopterAvatar // ignore: cast_nullable_to_non_nullable
-as String,adopterPhone: null == adopterPhone ? _self.adopterPhone : adopterPhone // ignore: cast_nullable_to_non_nullable
+as String,adopterAvatar: freezed == adopterAvatar ? _self.adopterAvatar : adopterAvatar // ignore: cast_nullable_to_non_nullable
+as String?,adopterPhone: null == adopterPhone ? _self.adopterPhone : adopterPhone // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatRoomModel {
 
- String get id; List<String> get memberIds; Map<String, String> get memberNames; Map<String, String> get memberAvatars; Map<String, int> get unreadCount; String? get lastMessage; DateTime? get lastMessageSent;
+ String get id; List<String> get memberIds; Map<String, String> get memberNames; Map<String, String?> get memberAvatars; Map<String, int> get unreadCount; String? get lastMessage; DateTime? get lastMessageSent;
 /// Create a copy of ChatRoomModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ChatRoomModelCopyWith<$Res>  {
   factory $ChatRoomModelCopyWith(ChatRoomModel value, $Res Function(ChatRoomModel) _then) = _$ChatRoomModelCopyWithImpl;
 @useResult
 $Res call({
- String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
+ String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String?> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
 });
 
 
@@ -71,7 +71,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,memberIds: null == memberIds ? _self.memberIds : memberIds // ignore: cast_nullable_to_non_nullable
 as List<String>,memberNames: null == memberNames ? _self.memberNames : memberNames // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,memberAvatars: null == memberAvatars ? _self.memberAvatars : memberAvatars // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,unreadCount: null == unreadCount ? _self.unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
+as Map<String, String?>,unreadCount: null == unreadCount ? _self.unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageSent: freezed == lastMessageSent ? _self.lastMessageSent : lastMessageSent // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String?> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatRoomModel() when $default != null:
 return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String?> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)  $default,) {final _that = this;
 switch (_that) {
 case _ChatRoomModel():
 return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<String> memberIds,  Map<String, String> memberNames,  Map<String, String?> memberAvatars,  Map<String, int> unreadCount,  String? lastMessage,  DateTime? lastMessageSent)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatRoomModel() when $default != null:
 return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_that.unreadCount,_that.lastMessage,_that.lastMessageSent);case _:
@@ -215,7 +215,7 @@ return $default(_that.id,_that.memberIds,_that.memberNames,_that.memberAvatars,_
 @JsonSerializable()
 @TimestampConverterNullable()
 class _ChatRoomModel implements ChatRoomModel {
-  const _ChatRoomModel({required this.id, required final  List<String> memberIds, required final  Map<String, String> memberNames, required final  Map<String, String> memberAvatars, required final  Map<String, int> unreadCount, this.lastMessage, this.lastMessageSent}): _memberIds = memberIds,_memberNames = memberNames,_memberAvatars = memberAvatars,_unreadCount = unreadCount;
+  const _ChatRoomModel({required this.id, required final  List<String> memberIds, required final  Map<String, String> memberNames, required final  Map<String, String?> memberAvatars, required final  Map<String, int> unreadCount, this.lastMessage, this.lastMessageSent}): _memberIds = memberIds,_memberNames = memberNames,_memberAvatars = memberAvatars,_unreadCount = unreadCount;
   factory _ChatRoomModel.fromJson(Map<String, dynamic> json) => _$ChatRoomModelFromJson(json);
 
 @override final  String id;
@@ -233,8 +233,8 @@ class _ChatRoomModel implements ChatRoomModel {
   return EqualUnmodifiableMapView(_memberNames);
 }
 
- final  Map<String, String> _memberAvatars;
-@override Map<String, String> get memberAvatars {
+ final  Map<String, String?> _memberAvatars;
+@override Map<String, String?> get memberAvatars {
   if (_memberAvatars is EqualUnmodifiableMapView) return _memberAvatars;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_memberAvatars);
@@ -283,7 +283,7 @@ abstract mixin class _$ChatRoomModelCopyWith<$Res> implements $ChatRoomModelCopy
   factory _$ChatRoomModelCopyWith(_ChatRoomModel value, $Res Function(_ChatRoomModel) _then) = __$ChatRoomModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
+ String id, List<String> memberIds, Map<String, String> memberNames, Map<String, String?> memberAvatars, Map<String, int> unreadCount, String? lastMessage, DateTime? lastMessageSent
 });
 
 
@@ -306,7 +306,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,memberIds: null == memberIds ? _self._memberIds : memberIds // ignore: cast_nullable_to_non_nullable
 as List<String>,memberNames: null == memberNames ? _self._memberNames : memberNames // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,memberAvatars: null == memberAvatars ? _self._memberAvatars : memberAvatars // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,unreadCount: null == unreadCount ? _self._unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
+as Map<String, String?>,unreadCount: null == unreadCount ? _self._unreadCount : unreadCount // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageSent: freezed == lastMessageSent ? _self.lastMessageSent : lastMessageSent // ignore: cast_nullable_to_non_nullable
 as DateTime?,

@@ -13,7 +13,7 @@ abstract class AdoptionRequest with _$AdoptionRequest {
     required String petImageUrl,
     required String adopterId,
     required String adopterName,
-    required String adopterAvatar,
+    required String? adopterAvatar,
     required String adopterPhone,
     required DateTime createdAt,
     required DateTime updatedAt,

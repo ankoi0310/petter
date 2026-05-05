@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/gen/assets.gen.dart';
+import 'package:petter/core/utils/image_util.dart';
+import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
@@ -18,34 +23,51 @@ class UserProfileForm extends StatefulWidget {
 }
 
 class _UserProfileFormState extends State<UserProfileForm> {
+  final _picker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
-  final _uidController = TextEditingController();
   final _nameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _emailController = TextEditingController();
   final _nameFocusNode = FocusNode();
-  final _phoneFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
+
+  File? selectedImage;
 
   @override
   void initState() {
     super.initState();
 
-    _uidController.text = widget.user.id;
     _nameController.text = widget.user.name;
-    _phoneController.text = widget.user.phone;
-    _emailController.text = widget.user.email;
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();
     _nameFocusNode.dispose();
-    _phoneFocusNode.dispose();
-    _emailFocusNode.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(
+      source: .gallery,
+      imageQuality: 80,
+    );
+
+    if (pickedFile != null) {
+      final isValid = isImageFile(pickedFile.path);
+
+      if (!isValid) {
+        setState(() {
+          showSnackBar(
+            context,
+            content: 'Định dạng ảnh không phù hợp',
+          );
+        });
+
+        return;
+      }
+
+      setState(() {
+        selectedImage = File(pickedFile.path);
+      });
+    }
   }
 
   void _submit() {
@@ -53,9 +75,10 @@ class _UserProfileFormState extends State<UserProfileForm> {
       context.read<UserBloc>().add(
         UserEvent.updateProfile(
           UpdateProfileParams(
-            uid: _uidController.text.trim(),
+            id: widget.user.id,
             name: _nameController.text.trim(),
-            // phone: _phoneController.text.trim(),
+            currentImageUrl: widget.user.avatar,
+            imageFile: selectedImage,
           ),
         ),
       );
@@ -81,12 +104,33 @@ class _UserProfileFormState extends State<UserProfileForm> {
               child: Stack(
                 clipBehavior: .none,
                 children: [
-                  CircleAvatar(
-                    radius: 64,
-                    child: ClipRRect(
-                      borderRadius: .circular(64),
-                      child: Assets.images.species.cat.image(),
-                    ),
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: selectedImage != null
+                        ? CircleAvatar(
+                            radius: 64,
+                            backgroundImage: FileImage(
+                              selectedImage!,
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            child: ClipRRect(
+                              borderRadius: .circular(64),
+                              child:
+                                  widget.user.avatar == null ||
+                                      widget.user.avatar?.isEmpty ==
+                                          true
+                                  ? pickDefaultAvatar(
+                                      widget.user.id,
+                                    ).image(fit: .cover)
+                                  : CachedNetworkImage(
+                                      cacheKey: widget.user.id,
+                                      imageUrl:
+                                          widget.user.avatar ?? '',
+                                    ),
+                            ),
+                          ),
                   ),
                   Positioned(
                     right: 8,
@@ -122,15 +166,19 @@ class _UserProfileFormState extends State<UserProfileForm> {
                   AppTextFormField(
                     enabled: false,
                     required: false,
-                    controller: _phoneController,
-                    focusNode: _phoneFocusNode,
+                    controller: TextEditingController(
+                      text: widget.user.phone,
+                    ),
+                    focusNode: FocusNode(),
                     title: 'Số điện thoại',
                   ),
                   AppTextFormField(
                     enabled: false,
                     required: false,
-                    controller: _emailController,
-                    focusNode: _emailFocusNode,
+                    controller: TextEditingController(
+                      text: widget.user.email,
+                    ),
+                    focusNode: FocusNode(),
                     title: 'Email',
                   ),
                   const Spacer(),
