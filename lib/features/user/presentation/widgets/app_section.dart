@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
 
 class AppSection extends StatelessWidget {
   const AppSection({super.key});
@@ -21,9 +22,10 @@ class AppSection extends StatelessWidget {
                 borderRadius: .circular(8),
                 side: BorderSide(color: context.colors.outline),
               ),
-              onTap: () {},
-              leading: const Icon(Icons.policy_outlined),
-              title: const Text('Chính sách bảo mật'),
+              onTap: () =>
+                  context.pushNamed(AppRoutes.termsOfService.name),
+              leading: const Icon(Icons.shield_outlined),
+              title: const Text('Điều khoản sử dụng'),
             ),
             ListTile(
               tileColor: context.colors.primaryContainer,
@@ -31,9 +33,10 @@ class AppSection extends StatelessWidget {
                 borderRadius: .circular(8),
                 side: BorderSide(color: context.colors.outline),
               ),
-              onTap: () {},
-              leading: const Icon(Icons.shield_outlined),
-              title: const Text('Điều khoản sử dụng'),
+              onTap: () =>
+                  context.pushNamed(AppRoutes.privacyPolicy.name),
+              leading: const Icon(Icons.policy_outlined),
+              title: const Text('Chính sách bảo mật'),
             ),
             ListTile(
               tileColor: context.colors.primaryContainer,

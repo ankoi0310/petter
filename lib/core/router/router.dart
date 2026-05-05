@@ -25,6 +25,8 @@ import 'package:petter/features/search/presentation/pages/search_page.dart';
 import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
+import 'package:petter/features/user/presentation/pages/privacy_policy_page.dart';
+import 'package:petter/features/user/presentation/pages/terms_of_service_page.dart';
 import 'package:petter/features/user/presentation/pages/user_profile_page.dart';
 
 final List<String> publicRoutes = [
@@ -199,6 +201,16 @@ final routerConfig = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      name: AppRoutes.termsOfService.name,
+      path: AppRoutes.termsOfService.path,
+      builder: (context, state) => const TermsOfServicePage(),
+    ),
+    GoRoute(
+      name: AppRoutes.privacyPolicy.name,
+      path: AppRoutes.privacyPolicy.path,
+      builder: (context, state) => const PrivacyPolicyPage(),
+    ),
   ],
 );
 
@@ -228,7 +240,9 @@ enum AppRoutes {
   accountChangePassword(
     name: 'accountChangePassword',
     path: '/change-password',
-  );
+  ),
+  termsOfService(name: 'termsOfService', path: '/terms-of-service'),
+  privacyPolicy(name: 'privacyPolicy', path: '/privacy-policy');
 
   const AppRoutes({required this.name, required this.path});
 
