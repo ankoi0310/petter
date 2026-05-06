@@ -26,7 +26,7 @@ class PetUpdatePage extends StatelessWidget {
             context.pop();
             showSnackBar(
               context,
-              content: 'Pet updated successfully',
+              content: 'Cập nhật thú cưng thành công',
             );
           },
           error: (message) {
@@ -41,12 +41,10 @@ class PetUpdatePage extends StatelessWidget {
             Scaffold(
               appBar: AppBar(
                 titleSpacing: 0,
-                title: const Text('Update pet info'),
+                title: const Text('Cập nhật thú cưng'),
               ),
               body: SafeArea(
-                child: Stack(
-                  children: [PetUpdateForm(id: id, pet: pet)],
-                ),
+                child: PetUpdateForm(id: id, pet: pet),
               ),
             ),
             if (state.maybeWhen(

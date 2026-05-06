@@ -7,8 +7,9 @@ class PetState with _$PetState {
   const factory PetState.loading() = _Loading;
 
   const factory PetState.loaded({
-    required List<Pet> pets,
-    required List<Pet> userPets,
+    @Default([]) List<Pet> homePets,
+    @Default([]) List<Pet> searchPets,
+    @Default([]) List<Pet> userPets,
     Pet? pet,
   }) = _Loaded;
 

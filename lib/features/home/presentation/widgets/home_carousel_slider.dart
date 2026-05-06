@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/widgets/pet_card.dart';
+import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 
@@ -21,7 +23,9 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   @override
   void initState() {
     super.initState();
-    context.read<PetBloc>().add(const PetEvent.getPets());
+    context.read<PetBloc>().add(
+      .getPets(params: PetFilterParams(limit: _realCount)),
+    );
 
     final middle = _virtualCount ~/ 2;
     final initialPage = middle - (middle % _realCount);
@@ -85,13 +89,43 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
           loading: () {
             return const Center(child: CircularProgressIndicator());
           },
-          loaded: (pets, myPets, _) {
+          loaded: (homePets, searchPets, myPets, _) {
             return Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 8,
                 vertical: 32,
               ),
-              child: PetCard(pet: pets[index]),
+              child: Stack(
+                children: [
+                  PetCard(pet: homePets[index]),
+                  if (homePets[index].isAdopted)
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Container(
+                        padding: const .all(8),
+                        decoration: BoxDecoration(
+                          color: context.colors.primary,
+                          borderRadius: const .only(
+                            topLeft: .circular(16),
+                            bottomRight: .circular(16),
+                          ),
+                          border: Border.all(
+                            color: context.colors.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: Text(
+                          'Đã được nhận nuôi',
+                          style: context.textTheme.labelMedium
+                              ?.copyWith(
+                                color: context.colors.onPrimary,
+                              ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             );
           },
           orElse: () => const SizedBox.shrink(),

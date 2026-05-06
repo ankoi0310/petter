@@ -151,7 +151,7 @@ void _initSpecies(GetIt sl) {
 void _initPet(GetIt sl) {
   sl
     ..registerLazySingleton<PetRemoteDataSource>(
-      () => PetRemoteDataSourceImpl(sl(), sl()),
+      () => PetRemoteDataSourceImpl(sl(), sl(), sl()),
     )
     ..registerLazySingleton<PetRepository>(
       () => PetRepositoryImpl(sl()),

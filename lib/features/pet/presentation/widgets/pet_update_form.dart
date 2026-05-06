@@ -39,6 +39,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
   final _descriptionController = TextEditingController();
 
   File? selectedImage;
+  String? imageError;
   late final ValueNotifier<String> speciesListenable;
   late final ValueNotifier<Gender> genderListenable;
 
@@ -109,6 +110,12 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
                   onImageSelected: (image) {
                     setState(() {
                       selectedImage = image;
+                    });
+                  },
+                  imageError: imageError,
+                  onImageError: (error) {
+                    setState(() {
+                      imageError = error;
                     });
                   },
                 ),

@@ -34,8 +34,6 @@ final List<String> publicRoutes = [
   AppRoutes.signUp.path,
   AppRoutes.signIn.path,
   AppRoutes.resetPassword.path,
-  AppRoutes.termsOfService.path,
-  AppRoutes.privacyPolicy.path,
 ];
 
 final routerConfig = GoRouter(
@@ -56,6 +54,10 @@ final routerConfig = GoRouter(
         return null;
       },
       unauthenticated: () {
+        if (location == AppRoutes.termsOfService.path ||
+            location == AppRoutes.privacyPolicy.path) {
+          return null;
+        }
         return !isPublic ? AppRoutes.signIn.path : null;
       },
       orElse: () => null,

@@ -102,7 +102,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       throw _mapError(e);
     } catch (e) {
-      print(e);
       throw ServerException('Cấp lại mật khẩu không thành công: $e');
     }
   }

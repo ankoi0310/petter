@@ -1,12 +1,14 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/extensions/string_extension.dart';
+import 'package:petter/core/widgets/gender_dropdown_field.dart';
 import 'package:petter/core/widgets/pet_card.dart';
 import 'package:petter/core/widgets/species_dropdown_field.dart';
+import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
 class SearchPage extends StatefulWidget {
@@ -17,6 +19,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  PetFilterParams _params = const PetFilterParams();
+  Timer? _debounce;
+
+  final _searchController = TextEditingController();
+
   final speciesListenable = ValueNotifier<String?>(null);
   final genderListenable = ValueNotifier<Gender?>(null);
 
@@ -24,15 +31,33 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
 
-    context.read<PetBloc>().add(const PetEvent.getPets());
+    _onFilterChanged();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onFilterChanged() {
+    // Debounce 500ms để tránh spam query Firestore
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      context.read<PetBloc>().add(
+        PetEvent.getPets(params: _params, isSearch: true),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final petState = context.watch<PetBloc>().state;
-    final valueListenable = ValueNotifier<String?>(null);
     return Scaffold(
-      appBar: AppBar(title: const Text('Khám phá'), titleSpacing: 0),
+      appBar: AppBar(
+        title: const Text('Tìm kiếm thú cưng'),
+        titleSpacing: 0,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -54,6 +79,14 @@ class _SearchPageState extends State<SearchPage> {
                 spacing: 12,
                 children: [
                   TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchController.text = value;
+                      });
+                      _params = _params.copyWith(searchTerm: value);
+                      _onFilterChanged();
+                    },
                     decoration: InputDecoration(
                       hintText: 'Tìm thú cưng theo tên, đặc điểm...',
                       hintStyle: context.textTheme.bodySmall,
@@ -71,38 +104,29 @@ class _SearchPageState extends State<SearchPage> {
                       Expanded(
                         child: SpeciesDropdownField(
                           focusNode: FocusNode(),
-                          valueListenable: valueListenable,
+                          valueListenable: speciesListenable,
                           showTitle: false,
+                          onChanged: (speciesId) {
+                            speciesListenable.value = speciesId;
+                            _params = _params.copyWith(
+                              speciesId: speciesId,
+                            );
+                            _onFilterChanged();
+                          },
                         ),
                       ),
                       Expanded(
-                        child: DropdownButtonFormField2<Gender>(
+                        child: GenderDropdownField(
+                          focusNode: FocusNode(),
                           valueListenable: genderListenable,
-                          hint: Text(
-                            'Giới tính',
-                            style: context.textTheme.bodyLarge,
-                          ),
-                          onChanged: (value) {
-                            genderListenable.value =
-                                value ?? genderListenable.value;
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: const .symmetric(
-                              vertical: 16,
-                            ),
-                            filled: true,
-                            fillColor:
-                                context.colors.primaryContainer,
-                            border: OutlineInputBorder(
-                              borderRadius: .circular(16),
-                            ),
-                          ),
-                          items: Gender.values.map((item) {
-                            return DropdownItem<Gender>(
-                              value: item,
-                              child: Text(item.name.toTitleCase),
+                          showTitle: false,
+                          onChanged: (gender) {
+                            genderListenable.value = gender;
+                            _params = _params.copyWith(
+                              gender: gender,
                             );
-                          }).toList(),
+                            _onFilterChanged();
+                          },
                         ),
                       ),
                     ],
@@ -112,7 +136,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Expanded(
               child: petState.maybeWhen(
-                loaded: (pets, userPets, _) {
+                loaded: (homePets, searchPets, userPets, _) {
                   return GridView.builder(
                     padding: const .symmetric(
                       horizontal: 16,
@@ -126,9 +150,9 @@ class _SearchPageState extends State<SearchPage> {
                           crossAxisSpacing: 16,
                           childAspectRatio: 3 / 4,
                         ),
-                    itemCount: pets.length,
+                    itemCount: searchPets.length,
                     itemBuilder: (context, index) {
-                      final pet = pets[index];
+                      final pet = searchPets[index];
                       return PetCard(
                         pet: pet,
                         iconSize: 16,

@@ -134,10 +134,10 @@ return deletePet(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getPets,TResult Function( String uid)?  getUserPets,TResult Function( String id)?  getPet,TResult Function( CreatePetParams params)?  createPet,TResult Function( UpdatePetParams params)?  updatePet,TResult Function( String id)?  deletePet,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( PetFilterParams params,  bool isSearch)?  getPets,TResult Function( String uid)?  getUserPets,TResult Function( String id)?  getPet,TResult Function( CreatePetParams params)?  createPet,TResult Function( UpdatePetParams params)?  updatePet,TResult Function( String id)?  deletePet,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GetPets() when getPets != null:
-return getPets();case _GetUserPets() when getUserPets != null:
+return getPets(_that.params,_that.isSearch);case _GetUserPets() when getUserPets != null:
 return getUserPets(_that.uid);case _GetPet() when getPet != null:
 return getPet(_that.id);case _CreatePet() when createPet != null:
 return createPet(_that.params);case _UpdatePet() when updatePet != null:
@@ -160,10 +160,10 @@ return deletePet(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getPets,required TResult Function( String uid)  getUserPets,required TResult Function( String id)  getPet,required TResult Function( CreatePetParams params)  createPet,required TResult Function( UpdatePetParams params)  updatePet,required TResult Function( String id)  deletePet,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( PetFilterParams params,  bool isSearch)  getPets,required TResult Function( String uid)  getUserPets,required TResult Function( String id)  getPet,required TResult Function( CreatePetParams params)  createPet,required TResult Function( UpdatePetParams params)  updatePet,required TResult Function( String id)  deletePet,}) {final _that = this;
 switch (_that) {
 case _GetPets():
-return getPets();case _GetUserPets():
+return getPets(_that.params,_that.isSearch);case _GetUserPets():
 return getUserPets(_that.uid);case _GetPet():
 return getPet(_that.id);case _CreatePet():
 return createPet(_that.params);case _UpdatePet():
@@ -185,10 +185,10 @@ return deletePet(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getPets,TResult? Function( String uid)?  getUserPets,TResult? Function( String id)?  getPet,TResult? Function( CreatePetParams params)?  createPet,TResult? Function( UpdatePetParams params)?  updatePet,TResult? Function( String id)?  deletePet,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( PetFilterParams params,  bool isSearch)?  getPets,TResult? Function( String uid)?  getUserPets,TResult? Function( String id)?  getPet,TResult? Function( CreatePetParams params)?  createPet,TResult? Function( UpdatePetParams params)?  updatePet,TResult? Function( String id)?  deletePet,}) {final _that = this;
 switch (_that) {
 case _GetPets() when getPets != null:
-return getPets();case _GetUserPets() when getUserPets != null:
+return getPets(_that.params,_that.isSearch);case _GetUserPets() when getUserPets != null:
 return getUserPets(_that.uid);case _GetPet() when getPet != null:
 return getPet(_that.id);case _CreatePet() when createPet != null:
 return createPet(_that.params);case _UpdatePet() when updatePet != null:
@@ -205,33 +205,78 @@ return deletePet(_that.id);case _:
 
 
 class _GetPets implements PetEvent {
-  const _GetPets();
+  const _GetPets({required this.params, this.isSearch = false});
   
 
+ final  PetFilterParams params;
+@JsonKey() final  bool isSearch;
 
-
+/// Create a copy of PetEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$GetPetsCopyWith<_GetPets> get copyWith => __$GetPetsCopyWithImpl<_GetPets>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetPets);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetPets&&(identical(other.params, params) || other.params == params)&&(identical(other.isSearch, isSearch) || other.isSearch == isSearch));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,params,isSearch);
 
 @override
 String toString() {
-  return 'PetEvent.getPets()';
+  return 'PetEvent.getPets(params: $params, isSearch: $isSearch)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$GetPetsCopyWith<$Res> implements $PetEventCopyWith<$Res> {
+  factory _$GetPetsCopyWith(_GetPets value, $Res Function(_GetPets) _then) = __$GetPetsCopyWithImpl;
+@useResult
+$Res call({
+ PetFilterParams params, bool isSearch
+});
 
 
+$PetFilterParamsCopyWith<$Res> get params;
+
+}
+/// @nodoc
+class __$GetPetsCopyWithImpl<$Res>
+    implements _$GetPetsCopyWith<$Res> {
+  __$GetPetsCopyWithImpl(this._self, this._then);
+
+  final _GetPets _self;
+  final $Res Function(_GetPets) _then;
+
+/// Create a copy of PetEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? params = null,Object? isSearch = null,}) {
+  return _then(_GetPets(
+params: null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
+as PetFilterParams,isSearch: null == isSearch ? _self.isSearch : isSearch // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+/// Create a copy of PetEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PetFilterParamsCopyWith<$Res> get params {
+  
+  return $PetFilterParamsCopyWith<$Res>(_self.params, (value) {
+    return _then(_self.copyWith(params: value));
+  });
+}
+}
 
 /// @nodoc
 
@@ -692,12 +737,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult Function()?  creating,TResult Function()?  createPetSuccess,TResult Function()?  updating,TResult Function()?  updatePetSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Pet> homePets,  List<Pet> searchPets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult Function()?  creating,TResult Function()?  createPetSuccess,TResult Function()?  updating,TResult Function()?  updatePetSuccess,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.pets,_that.userPets,_that.pet);case _Creating() when creating != null:
+return loaded(_that.homePets,_that.searchPets,_that.userPets,_that.pet);case _Creating() when creating != null:
 return creating();case _CreatePetSuccess() when createPetSuccess != null:
 return createPetSuccess();case _Updating() when updating != null:
 return updating();case _UpdatePetSuccess() when updatePetSuccess != null:
@@ -720,12 +765,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)  loaded,required TResult Function()  creating,required TResult Function()  createPetSuccess,required TResult Function()  updating,required TResult Function()  updatePetSuccess,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Pet> homePets,  List<Pet> searchPets,  List<Pet> userPets,  Pet? pet)  loaded,required TResult Function()  creating,required TResult Function()  createPetSuccess,required TResult Function()  updating,required TResult Function()  updatePetSuccess,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.pets,_that.userPets,_that.pet);case _Creating():
+return loaded(_that.homePets,_that.searchPets,_that.userPets,_that.pet);case _Creating():
 return creating();case _CreatePetSuccess():
 return createPetSuccess();case _Updating():
 return updating();case _UpdatePetSuccess():
@@ -747,12 +792,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Pet> pets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult? Function()?  creating,TResult? Function()?  createPetSuccess,TResult? Function()?  updating,TResult? Function()?  updatePetSuccess,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Pet> homePets,  List<Pet> searchPets,  List<Pet> userPets,  Pet? pet)?  loaded,TResult? Function()?  creating,TResult? Function()?  createPetSuccess,TResult? Function()?  updating,TResult? Function()?  updatePetSuccess,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.pets,_that.userPets,_that.pet);case _Creating() when creating != null:
+return loaded(_that.homePets,_that.searchPets,_that.userPets,_that.pet);case _Creating() when creating != null:
 return creating();case _CreatePetSuccess() when createPetSuccess != null:
 return createPetSuccess();case _Updating() when updating != null:
 return updating();case _UpdatePetSuccess() when updatePetSuccess != null:
@@ -833,18 +878,25 @@ String toString() {
 
 
 class _Loaded implements PetState {
-  const _Loaded({required final  List<Pet> pets, required final  List<Pet> userPets, this.pet}): _pets = pets,_userPets = userPets;
+  const _Loaded({final  List<Pet> homePets = const [], final  List<Pet> searchPets = const [], final  List<Pet> userPets = const [], this.pet}): _homePets = homePets,_searchPets = searchPets,_userPets = userPets;
   
 
- final  List<Pet> _pets;
- List<Pet> get pets {
-  if (_pets is EqualUnmodifiableListView) return _pets;
+ final  List<Pet> _homePets;
+@JsonKey() List<Pet> get homePets {
+  if (_homePets is EqualUnmodifiableListView) return _homePets;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_pets);
+  return EqualUnmodifiableListView(_homePets);
+}
+
+ final  List<Pet> _searchPets;
+@JsonKey() List<Pet> get searchPets {
+  if (_searchPets is EqualUnmodifiableListView) return _searchPets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_searchPets);
 }
 
  final  List<Pet> _userPets;
- List<Pet> get userPets {
+@JsonKey() List<Pet> get userPets {
   if (_userPets is EqualUnmodifiableListView) return _userPets;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_userPets);
@@ -862,16 +914,16 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._pets, _pets)&&const DeepCollectionEquality().equals(other._userPets, _userPets)&&(identical(other.pet, pet) || other.pet == pet));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._homePets, _homePets)&&const DeepCollectionEquality().equals(other._searchPets, _searchPets)&&const DeepCollectionEquality().equals(other._userPets, _userPets)&&(identical(other.pet, pet) || other.pet == pet));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_pets),const DeepCollectionEquality().hash(_userPets),pet);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_homePets),const DeepCollectionEquality().hash(_searchPets),const DeepCollectionEquality().hash(_userPets),pet);
 
 @override
 String toString() {
-  return 'PetState.loaded(pets: $pets, userPets: $userPets, pet: $pet)';
+  return 'PetState.loaded(homePets: $homePets, searchPets: $searchPets, userPets: $userPets, pet: $pet)';
 }
 
 
@@ -882,7 +934,7 @@ abstract mixin class _$LoadedCopyWith<$Res> implements $PetStateCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<Pet> pets, List<Pet> userPets, Pet? pet
+ List<Pet> homePets, List<Pet> searchPets, List<Pet> userPets, Pet? pet
 });
 
 
@@ -899,9 +951,10 @@ class __$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of PetState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? pets = null,Object? userPets = null,Object? pet = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? homePets = null,Object? searchPets = null,Object? userPets = null,Object? pet = freezed,}) {
   return _then(_Loaded(
-pets: null == pets ? _self._pets : pets // ignore: cast_nullable_to_non_nullable
+homePets: null == homePets ? _self._homePets : homePets // ignore: cast_nullable_to_non_nullable
+as List<Pet>,searchPets: null == searchPets ? _self._searchPets : searchPets // ignore: cast_nullable_to_non_nullable
 as List<Pet>,userPets: null == userPets ? _self._userPets : userPets // ignore: cast_nullable_to_non_nullable
 as List<Pet>,pet: freezed == pet ? _self.pet : pet // ignore: cast_nullable_to_non_nullable
 as Pet?,

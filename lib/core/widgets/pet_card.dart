@@ -85,7 +85,7 @@ class PetCard extends StatelessWidget {
 
           Positioned(
             top: 8,
-            left: 8,
+            right: 8,
             child: Skeleton.keep(
               child: LikeButton(
                 petId: pet.id,
@@ -98,7 +98,7 @@ class PetCard extends StatelessWidget {
           if (editable)
             Positioned(
               top: 8,
-              right: 8,
+              left: 8,
               child: Skeleton.keep(
                 child: AppIconButton(
                   onTap: () => context.pushNamed(

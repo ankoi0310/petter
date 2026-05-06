@@ -120,7 +120,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold(
       (failure) => emit(.error(failure.message)),
-      (_) => emit(.resetPasswordSuccess()),
+      (_) => emit(const .resetPasswordSuccess()),
     );
   }
 

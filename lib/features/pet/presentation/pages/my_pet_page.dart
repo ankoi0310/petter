@@ -34,7 +34,7 @@ class _MyPetPageState extends State<MyPetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My pets'),
+        title: const Text('Thú cưng của tôi'),
         titleSpacing: 0,
         actionsPadding: const .only(right: 16),
         actions: [
@@ -48,8 +48,14 @@ class _MyPetPageState extends State<MyPetPage> {
         child: BlocBuilder<PetBloc, PetState>(
           builder: (context, state) {
             return state.maybeWhen(
-              loaded: (pets, userPets, _) {
-                return MyPetGridView(pets: userPets, editable: true);
+              loaded: (homePets, searchPets, userPets, _) {
+                if (userPets.isEmpty) {
+                  return const Center(
+                    child: Text('Bạn chưa đăng tải thú cưng nào'),
+                  );
+                }
+
+                return MyPetGridView(pets: userPets);
               },
               orElse: () {
                 return const Center(

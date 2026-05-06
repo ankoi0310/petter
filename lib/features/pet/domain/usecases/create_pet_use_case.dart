@@ -8,7 +8,6 @@ import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
 
 class CreatePetParams {
   const CreatePetParams({
-    required this.uid,
     required this.name,
     required this.address,
     required this.gender,
@@ -17,10 +16,9 @@ class CreatePetParams {
     required this.age,
     required this.weight,
     required this.description,
-    this.imageFile,
+    required this.imageFile,
   });
 
-  final String uid;
   final String name;
   final String address;
   final Gender gender;
@@ -29,7 +27,7 @@ class CreatePetParams {
   final String speciesId;
   final String bleed;
   final String description;
-  final File? imageFile;
+  final File imageFile;
 }
 
 class CreatePetUseCase implements UseCase<Pet, CreatePetParams> {

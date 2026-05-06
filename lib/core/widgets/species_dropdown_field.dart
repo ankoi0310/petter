@@ -9,12 +9,14 @@ class SpeciesDropdownField extends StatelessWidget {
     required this.focusNode,
     required this.valueListenable,
     this.showTitle = true,
+    this.onChanged,
     super.key,
   });
 
   final bool showTitle;
   final FocusNode focusNode;
   final ValueNotifier<String?> valueListenable;
+  final void Function(String?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -34,60 +36,49 @@ class SpeciesDropdownField extends StatelessWidget {
               ),
             ],
           ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: .circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: focusNode.hasFocus
-                    ? context.colors.primary
-                    : context.colors.outline,
-                offset: const Offset(2, 2),
-              ),
-            ],
-          ),
-          child: BlocBuilder<SpeciesBloc, SpeciesState>(
-            builder: (context, state) {
-              // Lấy danh sách items dựa trên state
-              final dropdownItems = state.maybeWhen(
-                loaded: (species) => species.map((species) {
-                  return DropdownItem<String>(
-                    value: species.id,
-                    child: Text(species.name),
-                  );
-                }).toList(),
-                orElse: () => [
-                  const DropdownItem<String>(
-                    child: Text('Đang tải hoặc lỗi...'),
-                  ),
-                ],
-              );
+        BlocBuilder<SpeciesBloc, SpeciesState>(
+          builder: (context, state) {
+            // Lấy danh sách items dựa trên state
+            final dropdownItems = state.maybeWhen(
+              loaded: (species) => species.map((species) {
+                return DropdownItem<String>(
+                  value: species.id,
+                  child: Text(species.name),
+                );
+              }).toList(),
+              orElse: () => [
+                const DropdownItem<String?>(
+                  child: Text('Đang tải hoặc lỗi...'),
+                ),
+              ],
+            );
 
-              return DropdownButtonFormField2<String>(
-                focusNode: focusNode,
-                valueListenable: valueListenable,
-                hint: const Text('Chọn danh mục'),
-                items: dropdownItems,
-                onChanged: (value) {
-                  valueListenable.value = value;
-                },
-                decoration: InputDecoration(
-                  contentPadding: const .symmetric(vertical: 16),
-                  filled: true,
-                  fillColor: context.colors.primaryContainer,
-                  border: OutlineInputBorder(
-                    borderRadius: .circular(16),
-                    borderSide: .none,
-                  ),
+            return DropdownButtonFormField2<String?>(
+              focusNode: focusNode,
+              valueListenable: valueListenable,
+              hint: const Text('Chọn danh mục'),
+              items: [
+                const DropdownItem<String?>(
+                  child: Text('Chọn danh mục'),
                 ),
-                dropdownStyleData: DropdownStyleData(
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(16),
-                  ),
+                ...dropdownItems,
+              ],
+              onChanged: onChanged,
+              decoration: InputDecoration(
+                contentPadding: const .symmetric(vertical: 16),
+                filled: true,
+                fillColor: context.colors.primaryContainer,
+                border: OutlineInputBorder(
+                  borderRadius: .circular(16),
                 ),
-              );
-            },
-          ),
+              ),
+              dropdownStyleData: DropdownStyleData(
+                decoration: BoxDecoration(
+                  borderRadius: .circular(16),
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

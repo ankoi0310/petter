@@ -19,7 +19,7 @@ class PetCreatePage extends StatelessWidget {
             context.pop();
             showSnackBar(
               context,
-              content: 'Pet created successfully',
+              content: 'Thêm thú cưng thành công',
             );
           },
           error: (message) {
@@ -39,13 +39,9 @@ class PetCreatePage extends StatelessWidget {
             Scaffold(
               appBar: AppBar(
                 titleSpacing: 0,
-                title: const Text('Create new pet'),
+                title: const Text('Thêm thú cưng'),
               ),
-              body: SafeArea(
-                child: Stack(
-                  children: [PetCreateForm(species: species)],
-                ),
-              ),
+              body: SafeArea(child: PetCreateForm(species: species)),
             ),
             if (state.maybeWhen(
               creating: () => true,

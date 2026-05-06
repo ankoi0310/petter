@@ -10,20 +10,22 @@ import 'package:petter/core/widgets/button.dart';
 class ImageUploadField extends StatefulWidget {
   const ImageUploadField({
     required this.onImageSelected,
+    required this.onImageError,
     this.selectedImage,
+    this.imageError,
     super.key,
   });
 
   final File? selectedImage;
+  final String? imageError;
   final void Function(File?) onImageSelected;
+  final void Function(String?) onImageError;
 
   @override
   State<ImageUploadField> createState() => _ImageUploadFieldState();
 }
 
 class _ImageUploadFieldState extends State<ImageUploadField> {
-  String? _retrieveDataError;
-
   final ImagePicker _picker = ImagePicker();
 
   Future<void> pickImage() async {
@@ -36,9 +38,7 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       final isValid = isImageFile(pickedFile.path);
 
       if (!isValid) {
-        setState(() {
-          _retrieveDataError = "Incorrect image's format";
-        });
+        widget.onImageError('Định dạng không hợp lệ');
       }
 
       final selectedImage = File(pickedFile.path);
@@ -48,9 +48,13 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
   }
 
   Text? _getRetrieveErrorWidget() {
-    if (_retrieveDataError != null) {
-      final result = Text(_retrieveDataError!);
-      _retrieveDataError = null;
+    if (widget.imageError != null) {
+      final result = Text(
+        widget.imageError!,
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: context.colors.error,
+        ),
+      );
       return result;
     }
 
@@ -65,10 +69,10 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       children: [
         Row(
           children: [
-            Text('Image', style: context.textTheme.bodyLarge),
+            Text('Ảnh', style: context.textTheme.titleMedium),
             Text(
               '*',
-              style: context.textTheme.bodyLarge?.copyWith(
+              style: context.textTheme.titleMedium?.copyWith(
                 color: context.colors.error,
               ),
             ),
@@ -87,16 +91,14 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
             borderRadius: .circular(32),
           ),
           title: Text(
-            'Choose image to upload',
+            'Chọn ảnh thú cưng',
             style: context.textTheme.bodyMedium?.copyWith(
               fontWeight: .bold,
             ),
           ),
           subtitle: Text(
-            'Make sure they look beauty',
-            style: context.textTheme.labelMedium?.copyWith(
-              color: context.colors.onPrimaryContainer,
-            ),
+            'Vui lòng đăng ảnh rõ nét',
+            style: context.textTheme.bodySmall,
           ),
         ),
         ?_getRetrieveErrorWidget(),

@@ -3,14 +3,9 @@ import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/core/widgets/pet_card.dart';
 
 class MyPetGridView extends StatelessWidget {
-  const MyPetGridView({
-    required this.pets,
-    this.editable = false,
-    super.key,
-  });
+  const MyPetGridView({required this.pets, super.key});
 
   final List<Pet> pets;
-  final bool editable;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,7 @@ class MyPetGridView extends StatelessWidget {
         final pet = pets[index];
         return PetCard(
           pet: pet,
-          editable: editable,
+          editable: true,
           iconSize: 16,
           borderRadius: .circular(12),
         );
