@@ -20,7 +20,9 @@ class MyRequestListView extends StatelessWidget {
             loaded: (_, myRequests) {
               if (myRequests.isEmpty) {
                 return const Center(
-                  child: Text("You don't have any adoption request"),
+                  child: Text(
+                    'Bạn chưa tạo yêu cầu nhận nuôi nào cả',
+                  ),
                 );
               }
 

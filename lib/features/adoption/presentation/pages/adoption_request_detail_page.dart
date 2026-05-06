@@ -33,7 +33,9 @@ class AdoptionRequestDetailPage extends StatelessWidget {
         );
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Adoption Request Detail')),
+        appBar: AppBar(
+          title: const Text('Chi tiết yêu cầu nhận nuôi'),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const .symmetric(vertical: 8),

@@ -86,11 +86,20 @@ class RequestCard extends StatelessWidget {
                           spacing: 4,
                           mainAxisAlignment: .spaceBetween,
                           children: [
-                            const Text('Adopter:'),
-                            Text(
-                              request.adopterName,
-                              style: context.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: .bold),
+                            Expanded(
+                              child: Text(
+                                'Tên',
+                                style: context.textTheme.titleMedium,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                request.adopterName,
+                                textAlign: .right,
+                                maxLines: 1,
+                                overflow: .ellipsis,
+                              ),
                             ),
                           ],
                         ),
@@ -98,11 +107,18 @@ class RequestCard extends StatelessWidget {
                           spacing: 4,
                           mainAxisAlignment: .spaceBetween,
                           children: [
-                            const Text('Phone:'),
-                            Text(
-                              request.adopterPhone,
-                              style: context.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: .bold),
+                            Expanded(
+                              child: Text(
+                                'SĐT',
+                                style: context.textTheme.titleMedium,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                request.adopterPhone,
+                                textAlign: .right,
+                              ),
                             ),
                           ],
                         ),
