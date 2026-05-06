@@ -13,7 +13,9 @@ import 'package:petter/features/user/data/models/user_model.dart';
 import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
 
 abstract class UserRemoteDataSource {
-  Future<UserModel> getProfile(String uid);
+  Future<UserModel> getUserProfile(String uid);
+
+  Future<UserModel> getMyProfile();
 
   Future<UserModel> updateProfile(UpdateProfileParams params);
 }
@@ -32,16 +34,38 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   CollectionReference<UserModel> get _usersCollection => _firestore
       .collection('users')
       .withConverter<UserModel>(
-        fromFirestore: (snapshot, _) =>
-            UserModel.fromJson(snapshot.data()!),
+        fromFirestore: (snapshot, _) => .fromJson(snapshot.data()!),
         toFirestore: (user, _) => user.toJson(),
       );
 
   @override
-  Future<UserModel> getProfile(String uid) async {
+  Future<UserModel> getUserProfile(String uid) async {
     final doc = await _usersCollection.doc(uid).get();
 
-    if (!doc.exists) throw const ServerException('User not found');
+    if (!doc.exists) {
+      throw const ServerException(
+        'Không tìm thấy dữ liệu người dùng',
+      );
+    }
+
+    return doc.data()!;
+  }
+
+  @override
+  Future<UserModel> getMyProfile() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw const AuthException('Người dùng chưa đăng nhập');
+    }
+
+    final doc = await _usersCollection.doc(currentUser.uid).get();
+
+    if (!doc.exists) {
+      throw const ServerException(
+        'Không tìm thấy dữ liệu người dùng',
+      );
+    }
 
     return doc.data()!;
   }

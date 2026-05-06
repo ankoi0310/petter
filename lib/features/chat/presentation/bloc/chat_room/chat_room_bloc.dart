@@ -9,7 +9,7 @@ import 'package:petter/features/chat/domain/entities/chat_room.dart';
 import 'package:petter/features/chat/domain/usecases/create_chat_room.dart';
 import 'package:petter/features/chat/domain/usecases/watch_chat_rooms.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
-import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/get_user_profile_use_case.dart';
 
 part 'chat_room_event.dart';
 
@@ -21,11 +21,11 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({
     required WatchChatRoomsUseCase watchChatRooms,
     required CreateChatRoomUseCase createChatRoom,
-    required GetProfileUseCase getProfile,
+    required GetUserProfileUseCase getUserProfile,
   }) : _watchChatRooms = watchChatRooms,
        _createChatRoom = createChatRoom,
-       _getProfile = getProfile,
-       super(const ChatRoomState.initial()) {
+       _getUserProfile = getUserProfile,
+       super(const .initial()) {
     on<_SubscriptionRequested>(_onSubscriptionRequested);
     on<_RoomsReceived>(_onRoomsReceived);
     on<_RoomCreated>(_onRoomCreated);
@@ -33,7 +33,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
 
   final WatchChatRoomsUseCase _watchChatRooms;
   final CreateChatRoomUseCase _createChatRoom;
-  final GetProfileUseCase _getProfile;
+  final GetUserProfileUseCase _getUserProfile;
 
   StreamSubscription<Either<Failure, List<ChatRoom>>>?
   _roomsSubscription;
@@ -42,14 +42,14 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     _SubscriptionRequested event,
     Emitter<ChatRoomState> emit,
   ) async {
-    emit(const ChatRoomState.loading());
+    emit(const .loading());
 
     await _roomsSubscription?.cancel();
 
     // Lắng nghe Stream danh sách phòng chat
     _roomsSubscription = _watchChatRooms(
       NoParams(),
-    ).listen((result) => add(ChatRoomEvent.roomsReceived(result)));
+    ).listen((result) => add(.roomsReceived(result)));
   }
 
   void _onRoomsReceived(
@@ -57,8 +57,8 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     Emitter<ChatRoomState> emit,
   ) {
     event.result.fold(
-      (failure) => emit(ChatRoomState.failure(failure)),
-      (rooms) => emit(ChatRoomState.loaded(rooms)),
+      (failure) => emit(.failure(failure)),
+      (rooms) => emit(.loaded(rooms)),
     );
   }
 
@@ -67,10 +67,10 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     Emitter<ChatRoomState> emit,
   ) async {
     final currentUser = event.currentUser;
-    final userResult = await _getProfile(event.otherUserId);
+    final userResult = await _getUserProfile(event.otherUserId);
 
     await userResult.fold(
-      (failure) async => emit(ChatRoomState.failure(failure)),
+      (failure) async => emit(.failure(failure)),
       (owner) async {
         final roomResult = await _createChatRoom(
           CreateChatRoomParams(
@@ -87,8 +87,8 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
         );
 
         roomResult.fold(
-          (failure) => emit(ChatRoomState.failure(failure)),
-          (room) => emit(ChatRoomState.roomReady(room)),
+          (failure) => emit(.failure(failure)),
+          (room) => emit(.roomReady(room)),
         );
       },
     );

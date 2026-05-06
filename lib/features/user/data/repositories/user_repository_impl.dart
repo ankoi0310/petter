@@ -1,6 +1,5 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:petter/core/error/exception.dart';
-import 'package:petter/core/error/failure.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/user/data/datasources/user_remote_data_source.dart';
 import 'package:petter/features/user/data/mapper/user_mapper.dart';
@@ -14,12 +13,24 @@ class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSource _remoteDataSource;
 
   @override
-  ResultFuture<User> getProfile(String uid) async {
+  ResultFuture<User> getUserProfile(String uid) async {
     try {
-      final user = await _remoteDataSource.getProfile(uid);
+      final user = await _remoteDataSource.getUserProfile(uid);
       return right(user.toEntity());
     } on ServerException catch (e) {
-      return left(Failure.server(e.message));
+      return left(.server(e.message));
+    }
+  }
+
+  @override
+  ResultFuture<User> getMyProfile() async {
+    try {
+      final user = await _remoteDataSource.getMyProfile();
+      return right(user.toEntity());
+    } on AuthException catch (e) {
+      return left(.auth(e.message));
+    } on ServerException catch (e) {
+      return left(.server(e.message));
     }
   }
 
@@ -29,7 +40,7 @@ class UserRepositoryImpl implements UserRepository {
       final user = await _remoteDataSource.updateProfile(params);
       return right(user.toEntity());
     } on ServerException catch (e) {
-      return left(Failure.server(e.message));
+      return left(.server(e.message));
     }
   }
 }

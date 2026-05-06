@@ -5,7 +5,6 @@ import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/user/presentation/widgets/account_overview.dart';
 import 'package:petter/features/user/presentation/widgets/account_section.dart';
 import 'package:petter/features/user/presentation/widgets/app_section.dart';
-import 'package:petter/features/user/presentation/widgets/premium_account_badge.dart';
 import 'package:petter/features/user/presentation/widgets/support_section.dart';
 
 class AccountPage extends StatelessWidget {
@@ -22,7 +21,6 @@ class AccountPage extends StatelessWidget {
             spacing: 20,
             children: [
               const AccountOverview(),
-              // const PremiumAccountBadge(),
               const AccountSection(),
               const AppSection(),
               const SupportSection(),

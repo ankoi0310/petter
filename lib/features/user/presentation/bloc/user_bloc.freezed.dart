@@ -55,11 +55,12 @@ extension UserEventPatterns on UserEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetProfile value)?  getProfile,TResult Function( _UpdateProfile value)?  updateProfile,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetUserProfile value)?  getUserProfile,TResult Function( _GetMyProfile value)?  getMyProfile,TResult Function( _UpdateProfile value)?  updateProfile,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _GetProfile() when getProfile != null:
-return getProfile(_that);case _UpdateProfile() when updateProfile != null:
+case _GetUserProfile() when getUserProfile != null:
+return getUserProfile(_that);case _GetMyProfile() when getMyProfile != null:
+return getMyProfile(_that);case _UpdateProfile() when updateProfile != null:
 return updateProfile(_that);case _:
   return orElse();
 
@@ -78,11 +79,12 @@ return updateProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetProfile value)  getProfile,required TResult Function( _UpdateProfile value)  updateProfile,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetUserProfile value)  getUserProfile,required TResult Function( _GetMyProfile value)  getMyProfile,required TResult Function( _UpdateProfile value)  updateProfile,}){
 final _that = this;
 switch (_that) {
-case _GetProfile():
-return getProfile(_that);case _UpdateProfile():
+case _GetUserProfile():
+return getUserProfile(_that);case _GetMyProfile():
+return getMyProfile(_that);case _UpdateProfile():
 return updateProfile(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -100,11 +102,12 @@ return updateProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetProfile value)?  getProfile,TResult? Function( _UpdateProfile value)?  updateProfile,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetUserProfile value)?  getUserProfile,TResult? Function( _GetMyProfile value)?  getMyProfile,TResult? Function( _UpdateProfile value)?  updateProfile,}){
 final _that = this;
 switch (_that) {
-case _GetProfile() when getProfile != null:
-return getProfile(_that);case _UpdateProfile() when updateProfile != null:
+case _GetUserProfile() when getUserProfile != null:
+return getUserProfile(_that);case _GetMyProfile() when getMyProfile != null:
+return getMyProfile(_that);case _UpdateProfile() when updateProfile != null:
 return updateProfile(_that);case _:
   return null;
 
@@ -122,10 +125,11 @@ return updateProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid)?  getProfile,TResult Function( UpdateProfileParams params)?  updateProfile,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid)?  getUserProfile,TResult Function()?  getMyProfile,TResult Function( UpdateProfileParams params)?  updateProfile,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _GetProfile() when getProfile != null:
-return getProfile(_that.uid);case _UpdateProfile() when updateProfile != null:
+case _GetUserProfile() when getUserProfile != null:
+return getUserProfile(_that.uid);case _GetMyProfile() when getMyProfile != null:
+return getMyProfile();case _UpdateProfile() when updateProfile != null:
 return updateProfile(_that.params);case _:
   return orElse();
 
@@ -144,10 +148,11 @@ return updateProfile(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid)  getProfile,required TResult Function( UpdateProfileParams params)  updateProfile,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid)  getUserProfile,required TResult Function()  getMyProfile,required TResult Function( UpdateProfileParams params)  updateProfile,}) {final _that = this;
 switch (_that) {
-case _GetProfile():
-return getProfile(_that.uid);case _UpdateProfile():
+case _GetUserProfile():
+return getUserProfile(_that.uid);case _GetMyProfile():
+return getMyProfile();case _UpdateProfile():
 return updateProfile(_that.params);case _:
   throw StateError('Unexpected subclass');
 
@@ -165,10 +170,11 @@ return updateProfile(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid)?  getProfile,TResult? Function( UpdateProfileParams params)?  updateProfile,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid)?  getUserProfile,TResult? Function()?  getMyProfile,TResult? Function( UpdateProfileParams params)?  updateProfile,}) {final _that = this;
 switch (_that) {
-case _GetProfile() when getProfile != null:
-return getProfile(_that.uid);case _UpdateProfile() when updateProfile != null:
+case _GetUserProfile() when getUserProfile != null:
+return getUserProfile(_that.uid);case _GetMyProfile() when getMyProfile != null:
+return getMyProfile();case _UpdateProfile() when updateProfile != null:
 return updateProfile(_that.params);case _:
   return null;
 
@@ -180,8 +186,8 @@ return updateProfile(_that.params);case _:
 /// @nodoc
 
 
-class _GetProfile implements UserEvent {
-  const _GetProfile(this.uid);
+class _GetUserProfile implements UserEvent {
+  const _GetUserProfile(this.uid);
   
 
  final  String uid;
@@ -190,13 +196,13 @@ class _GetProfile implements UserEvent {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$GetProfileCopyWith<_GetProfile> get copyWith => __$GetProfileCopyWithImpl<_GetProfile>(this, _$identity);
+_$GetUserProfileCopyWith<_GetUserProfile> get copyWith => __$GetUserProfileCopyWithImpl<_GetUserProfile>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetProfile&&(identical(other.uid, uid) || other.uid == uid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetUserProfile&&(identical(other.uid, uid) || other.uid == uid));
 }
 
 
@@ -205,15 +211,15 @@ int get hashCode => Object.hash(runtimeType,uid);
 
 @override
 String toString() {
-  return 'UserEvent.getProfile(uid: $uid)';
+  return 'UserEvent.getUserProfile(uid: $uid)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$GetProfileCopyWith<$Res> implements $UserEventCopyWith<$Res> {
-  factory _$GetProfileCopyWith(_GetProfile value, $Res Function(_GetProfile) _then) = __$GetProfileCopyWithImpl;
+abstract mixin class _$GetUserProfileCopyWith<$Res> implements $UserEventCopyWith<$Res> {
+  factory _$GetUserProfileCopyWith(_GetUserProfile value, $Res Function(_GetUserProfile) _then) = __$GetUserProfileCopyWithImpl;
 @useResult
 $Res call({
  String uid
@@ -224,17 +230,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$GetProfileCopyWithImpl<$Res>
-    implements _$GetProfileCopyWith<$Res> {
-  __$GetProfileCopyWithImpl(this._self, this._then);
+class __$GetUserProfileCopyWithImpl<$Res>
+    implements _$GetUserProfileCopyWith<$Res> {
+  __$GetUserProfileCopyWithImpl(this._self, this._then);
 
-  final _GetProfile _self;
-  final $Res Function(_GetProfile) _then;
+  final _GetUserProfile _self;
+  final $Res Function(_GetUserProfile) _then;
 
 /// Create a copy of UserEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? uid = null,}) {
-  return _then(_GetProfile(
+  return _then(_GetUserProfile(
 null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -242,6 +248,38 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class _GetMyProfile implements UserEvent {
+  const _GetMyProfile();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetMyProfile);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'UserEvent.getMyProfile()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

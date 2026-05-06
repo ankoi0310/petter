@@ -12,20 +12,23 @@ import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class AccountOverview extends StatelessWidget {
+class AccountOverview extends StatefulWidget {
   const AccountOverview({super.key});
 
   @override
+  State<AccountOverview> createState() => _AccountOverviewState();
+}
+
+class _AccountOverviewState extends State<AccountOverview> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<UserBloc>().add(const .getMyProfile());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final uid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (user) => user.id,
-      orElse: () => null,
-    );
-
-    if (uid != null) {
-      context.read<UserBloc>().add(UserEvent.getProfile(uid));
-    }
-
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return state.maybeWhen(

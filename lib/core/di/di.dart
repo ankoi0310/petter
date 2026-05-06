@@ -62,7 +62,8 @@ import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 import 'package:petter/features/user/data/datasources/user_remote_data_source.dart';
 import 'package:petter/features/user/data/repositories/user_repository_impl.dart';
 import 'package:petter/features/user/domain/repositories/user_repository.dart';
-import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/get_my_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/get_user_profile_use_case.dart';
 import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -129,10 +130,15 @@ void _initUser(GetIt sl) {
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(sl()),
     )
-    ..registerLazySingleton(() => GetProfileUseCase(sl()))
+    ..registerLazySingleton(() => GetUserProfileUseCase(sl()))
+    ..registerLazySingleton(() => GetMyProfileUseCase(sl()))
     ..registerLazySingleton(() => UpdateProfileUseCase(sl()))
     ..registerFactory(
-      () => UserBloc(getProfile: sl(), updateProfile: sl()),
+      () => UserBloc(
+        getUserProfile: sl(),
+        getMyProfile: sl(),
+        updateProfile: sl(),
+      ),
     );
 }
 
@@ -231,7 +237,7 @@ void _initChat(GetIt sl) {
       () => ChatRoomBloc(
         watchChatRooms: sl(),
         createChatRoom: sl(),
-        getProfile: sl(),
+        getUserProfile: sl(),
       ),
     )
     ..registerFactoryParam<ChatMessageBloc, String, dynamic>(

@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:petter/core/error/failure.dart';
+import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
-import 'package:petter/features/user/domain/usecases/get_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/get_my_profile_use_case.dart';
+import 'package:petter/features/user/domain/usecases/get_user_profile_use_case.dart';
 import 'package:petter/features/user/domain/usecases/update_profile_use_case.dart';
 
 part 'user_event.dart';
@@ -13,37 +14,45 @@ part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({
-    required GetProfileUseCase getProfile,
+    required GetUserProfileUseCase getUserProfile,
+    required GetMyProfileUseCase getMyProfile,
     required UpdateProfileUseCase updateProfile,
-  }) : _getProfile = getProfile,
+  }) : _getUserProfile = getUserProfile,
+       _getMyProfile = getMyProfile,
        _updateProfile = updateProfile,
-       super(const UserState.initial()) {
-    on<_GetProfile>(_onGetProfile);
+       super(const .initial()) {
+    on<_GetUserProfile>(_onGetUserProfile);
+    on<_GetMyProfile>(_onGetMyProfile);
     on<_UpdateProfile>(_onUpdateProfile);
   }
 
-  final GetProfileUseCase _getProfile;
+  final GetUserProfileUseCase _getUserProfile;
+  final GetMyProfileUseCase _getMyProfile;
   final UpdateProfileUseCase _updateProfile;
 
-  Future<void> _onGetProfile(
-    _GetProfile event,
+  Future<void> _onGetUserProfile(
+    _GetUserProfile event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserState.loading());
+    emit(const .loading());
 
-    final result = await _getProfile(event.uid);
+    final result = await _getUserProfile(event.uid);
     result.fold(
-      (failure) => emit(
-        UserState.error(
-          failure.when(
-            auth: (message) => message,
-            chat: (message) => message,
-            server: (message) => message,
-            unknown: (message) => message,
-          ),
-        ),
-      ),
-      (user) => emit(UserState.loaded(user)),
+      (failure) => emit(.error(failure.message)),
+      (user) => emit(.loaded(user)),
+    );
+  }
+
+  Future<void> _onGetMyProfile(
+    _GetMyProfile event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(const .loading());
+
+    final result = await _getMyProfile(NoParams());
+    result.fold(
+      (failure) => emit(.error(failure.message)),
+      (user) => emit(.loaded(user)),
     );
   }
 
@@ -51,24 +60,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _UpdateProfile event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserState.updating());
+    emit(const .updating());
 
     final result = await _updateProfile(event.params);
-    result.fold(
-      (failure) => emit(
-        UserState.error(
-          failure.when(
-            auth: (message) => message,
-            chat: (message) => message,
-            server: (message) => message,
-            unknown: (message) => message,
-          ),
-        ),
-      ),
-      (user) {
-        emit(UserState.updateSuccess(user));
-        emit(UserState.loaded(user));
-      },
-    );
+    result.fold((failure) => emit(.error(failure.message)), (user) {
+      emit(.updateSuccess(user));
+      emit(.loaded(user));
+    });
   }
 }
