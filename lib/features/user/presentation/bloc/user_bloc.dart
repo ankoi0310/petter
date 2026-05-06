@@ -65,7 +65,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     final result = await _updateProfile(event.params);
     result.fold((failure) => emit(.error(failure.message)), (user) {
       emit(.updateSuccess(user));
-      emit(.loaded(user));
+      add(const .getMyProfile());
     });
   }
 }

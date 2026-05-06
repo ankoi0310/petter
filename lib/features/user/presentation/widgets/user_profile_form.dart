@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/utils/image_util.dart';
@@ -93,66 +92,32 @@ class _UserProfileFormState extends State<UserProfileForm> {
         padding: const .all(16),
         child: Column(
           mainAxisAlignment: .center,
-          spacing: 16,
           children: [
-            Container(
-              padding: .symmetric(vertical: context.width * .1),
-              decoration: BoxDecoration(
-                shape: .circle,
-                border: .all(),
-              ),
-              child: Stack(
-                clipBehavior: .none,
-                children: [
-                  GestureDetector(
-                    onTap: _pickImage,
-                    child: selectedImage != null
-                        ? CircleAvatar(
-                            radius: 64,
-                            backgroundImage: FileImage(
-                              selectedImage!,
-                            ),
-                          )
-                        : CircleAvatar(
-                            radius: 64,
-                            child: ClipRRect(
-                              borderRadius: .circular(64),
-                              child:
-                                  widget.user.avatar == null ||
-                                      widget.user.avatar?.isEmpty ==
-                                          true
-                                  ? pickDefaultAvatar(
-                                      widget.user.id,
-                                    ).image(fit: .cover)
-                                  : CachedNetworkImage(
-                                      cacheKey: widget.user.id,
-                                      imageUrl:
-                                          widget.user.avatar ?? '',
-                                    ),
-                            ),
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                height: 128,
+                width: 128,
+                margin: const .symmetric(vertical: 32),
+                padding: .symmetric(vertical: context.width * .1),
+                decoration: BoxDecoration(
+                  shape: .circle,
+                  border: .all(),
+                  image: DecorationImage(
+                    fit: .cover,
+                    image: selectedImage != null
+                        ? FileImage(selectedImage!)
+                        : widget.user.avatar == null ||
+                              widget.user.avatar?.isEmpty == true
+                        ? pickDefaultAvatar(widget.user.id).provider()
+                        : CachedNetworkImageProvider(
+                            widget.user.avatar!,
+                            cacheKey: widget.user.id,
                           ),
                   ),
-                  Positioned(
-                    right: 8,
-                    bottom: -4,
-                    child: Container(
-                      padding: const .all(8),
-                      decoration: BoxDecoration(
-                        color: context.colors.primary,
-                        border: .all(),
-                        shape: .circle,
-                      ),
-                      child: Icon(
-                        Iconsax.gallery_edit_copy,
-                        size: 20,
-                        color: context.colors.onPrimary,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-            const Divider(),
             Expanded(
               child: Column(
                 crossAxisAlignment: .stretch,

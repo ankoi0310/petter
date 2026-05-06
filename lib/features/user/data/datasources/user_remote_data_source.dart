@@ -112,14 +112,16 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       );
 
       if (uploadedUrl != null) {
-        updateData['avatar'] = uploadedUrl;
-
-        unawaited(
-          CachedNetworkImage.evictFromCache(
-            params.currentImageUrl ?? '',
-            cacheKey: params.id,
-          ),
-        );
+        final freshUrl =
+            '$uploadedUrl?t=${DateTime.now().millisecondsSinceEpoch}';
+        updateData['avatar'] = freshUrl;
+        if (params.currentImageUrl != null) {
+          unawaited(
+            CachedNetworkImage.evictFromCache(
+              params.currentImageUrl!,
+            ),
+          );
+        }
 
         if (params.currentImageUrl?.isNotEmpty == true) {
           try {

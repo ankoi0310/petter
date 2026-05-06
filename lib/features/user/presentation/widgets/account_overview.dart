@@ -36,6 +36,8 @@ class _AccountOverviewState extends State<AccountOverview> {
             return BlocBuilder<UserBloc, UserState>(
               builder: (context, userState) {
                 return userState.maybeWhen(
+                  updateSuccess: (user) =>
+                      buildUserInfo(context, user: user),
                   loaded: (user) =>
                       buildUserInfo(context, user: user),
                   orElse: () => buildUserInfo(context, user: user),
@@ -65,10 +67,7 @@ class _AccountOverviewState extends State<AccountOverview> {
             backgroundImage:
                 user?.avatar == null || user?.avatar?.isEmpty == true
                 ? pickDefaultAvatar(user?.id ?? '').provider()
-                : CachedNetworkImageProvider(
-                    cacheKey: user?.id,
-                    user?.avatar ?? '',
-                  ),
+                : CachedNetworkImageProvider(user?.avatar ?? ''),
           ),
           Expanded(
             child: Column(
