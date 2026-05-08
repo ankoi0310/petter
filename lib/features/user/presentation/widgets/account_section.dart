@@ -5,6 +5,7 @@ import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/user/presentation/bloc/user_bloc.dart';
+import 'package:petter/features/user/presentation/widgets/menu_item_tile.dart';
 
 class AccountSection extends StatelessWidget {
   const AccountSection({super.key});
@@ -18,17 +19,10 @@ class AccountSection extends StatelessWidget {
       spacing: 8,
       children: [
         Text('Tài khoản', style: context.textTheme.titleLarge),
-        ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: .zero,
+        Column(
+          spacing: 4,
           children: [
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
+            MenuItemTile(
               onTap: () async {
                 var user = authState.whenOrNull(
                   authenticated: (user) => user,
@@ -46,23 +40,17 @@ class AccountSection extends StatelessWidget {
                   extra: user,
                 );
               },
-              leading: const Icon(Icons.person_outline),
-              title: const Text('Cập nhật thông tin cá nhân'),
+              title: 'Cập nhật thông tin cá nhân',
+              trailing: const Icon(Icons.person_outline),
             ),
-            const SizedBox(height: 4),
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
+            MenuItemTile(
               onTap: () async {
                 await context.pushNamed(
                   AppRoutes.accountChangePassword.name,
                 );
               },
-              leading: const Icon(Icons.key_outlined),
-              title: const Text('Đổi mật khẩu'),
+              title: 'Đổi mật khẩu',
+              trailing: const Icon(Icons.key_outlined),
             ),
           ],
         ),

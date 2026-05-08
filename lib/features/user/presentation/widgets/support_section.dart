@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/features/user/presentation/widgets/menu_item_tile.dart';
 
 class SupportSection extends StatelessWidget {
   const SupportSection({super.key});
@@ -18,35 +18,20 @@ class SupportSection extends StatelessWidget {
         Column(
           spacing: 4,
           children: [
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
+            MenuItemTile(
               onTap: () {},
-              leading: const Icon(Icons.question_answer_outlined),
-              title: const Text('Câu hỏi thường gặp'),
+              title: 'Câu hỏi thường gặp',
+              trailing: const Icon(Icons.question_answer_outlined),
             ),
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
+            MenuItemTile(
               onTap: () {},
-              leading: const Icon(Icons.report_outlined),
-              title: const Text('Báo lỗi'),
+              title: 'Báo lỗi',
+              trailing: const Icon(Icons.report_outlined),
             ),
-            ListTile(
-              tileColor: context.colors.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: .circular(8),
-                side: BorderSide(color: context.colors.outline),
-              ),
+            MenuItemTile(
               onTap: () {},
-              leading: const Icon(Icons.feedback_outlined),
-              title: const Text('Đánh giá ứng dụng'),
+              title: 'Đánh giá ứng dụng',
+              trailing: const Icon(Icons.feedback_outlined),
             ),
           ],
         ),
