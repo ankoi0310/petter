@@ -30,7 +30,7 @@ class AppSection extends StatelessWidget {
               trailing: const Icon(Icons.policy_outlined),
             ),
             MenuItemTile(
-              onTap: () {},
+              onTap: () => context.pushNamed(AppRoutes.about.name),
               title: 'Giới thiệu',
               trailing: const Icon(Icons.info_outline),
             ),

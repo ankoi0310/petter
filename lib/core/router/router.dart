@@ -25,6 +25,7 @@ import 'package:petter/features/pet/presentation/pages/pet_update_page.dart';
 import 'package:petter/features/search/presentation/pages/search_page.dart';
 import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
+import 'package:petter/features/user/presentation/pages/about_page.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
 import 'package:petter/features/user/presentation/pages/privacy_policy_page.dart';
 import 'package:petter/features/user/presentation/pages/terms_of_service_page.dart';
@@ -222,6 +223,11 @@ final routerConfig = GoRouter(
       path: AppRoutes.privacyPolicy.path,
       builder: (context, state) => const PrivacyPolicyPage(),
     ),
+    GoRoute(
+      name: AppRoutes.about.name,
+      path: AppRoutes.about.path,
+      builder: (context, state) => const AboutPage(),
+    ),
   ],
 );
 
@@ -254,7 +260,8 @@ enum AppRoutes {
     path: '/change-password',
   ),
   termsOfService(name: 'termsOfService', path: '/terms-of-service'),
-  privacyPolicy(name: 'privacyPolicy', path: '/privacy-policy');
+  privacyPolicy(name: 'privacyPolicy', path: '/privacy-policy'),
+  about(name: 'about', path: '/about');
 
   const AppRoutes({required this.name, required this.path});
 
