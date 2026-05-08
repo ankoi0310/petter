@@ -18,7 +18,6 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuộc trò chuyện'),
-        titleSpacing: 0,
         scrolledUnderElevation: 0,
       ),
       body: BlocConsumer<ChatRoomBloc, ChatRoomState>(

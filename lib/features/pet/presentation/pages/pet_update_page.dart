@@ -39,10 +39,7 @@ class PetUpdatePage extends StatelessWidget {
         return Stack(
           children: [
             Scaffold(
-              appBar: AppBar(
-                titleSpacing: 0,
-                title: const Text('Cập nhật thú cưng'),
-              ),
+              appBar: AppBar(title: const Text('Cập nhật thú cưng')),
               body: SafeArea(
                 child: PetUpdateForm(id: id, pet: pet),
               ),

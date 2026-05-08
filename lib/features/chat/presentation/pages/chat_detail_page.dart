@@ -61,7 +61,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: buildRow(context, avatar: avatar, name: name),
-        titleSpacing: 0,
       ),
       body: SafeArea(
         child: Column(

@@ -35,7 +35,6 @@ class _MyPetPageState extends State<MyPetPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thú cưng của tôi'),
-        titleSpacing: 0,
         actionsPadding: const .only(right: 16),
         actions: [
           AppIconButton(

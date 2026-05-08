@@ -37,10 +37,7 @@ class PetCreatePage extends StatelessWidget {
         return Stack(
           children: [
             Scaffold(
-              appBar: AppBar(
-                titleSpacing: 0,
-                title: const Text('Thêm thú cưng'),
-              ),
+              appBar: AppBar(title: const Text('Thêm thú cưng')),
               body: SafeArea(child: PetCreateForm(species: species)),
             ),
             if (state.maybeWhen(

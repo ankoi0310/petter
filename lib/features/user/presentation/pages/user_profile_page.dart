@@ -28,10 +28,7 @@ class UserProfilePage extends StatelessWidget {
         return Stack(
           children: [
             Scaffold(
-              appBar: AppBar(
-                title: const Text('Hồ sơ người dùng'),
-                titleSpacing: 0,
-              ),
+              appBar: AppBar(title: const Text('Hồ sơ người dùng')),
               body: SafeArea(child: UserProfileForm(user: user)),
             ),
             if (state.maybeWhen(

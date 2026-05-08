@@ -54,10 +54,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final petState = context.watch<PetBloc>().state;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tìm kiếm thú cưng'),
-        titleSpacing: 0,
-      ),
+      appBar: AppBar(title: const Text('Tìm kiếm thú cưng')),
       body: SafeArea(
         child: Column(
           children: [

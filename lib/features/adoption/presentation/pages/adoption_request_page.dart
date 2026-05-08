@@ -33,7 +33,6 @@ class _AdoptionRequestPageState extends State<AdoptionRequestPage>
     return Scaffold(
       appBar: AppBar(
         title: const Text('Yêu cầu nhận nuôi'),
-        titleSpacing: 0,
         bottom: TabBar(
           controller: _tabController,
           indicatorSize: TabBarIndicatorSize.tab,

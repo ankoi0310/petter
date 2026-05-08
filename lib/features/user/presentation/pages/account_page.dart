@@ -13,7 +13,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 0, title: const Text('Tài khoản')),
+      appBar: AppBar(title: const Text('Tài khoản')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const .symmetric(horizontal: 16, vertical: 12),

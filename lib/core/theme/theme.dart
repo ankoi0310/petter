@@ -29,6 +29,7 @@ class AppTheme {
         color: colorScheme.onSurface,
         fontWeight: FontWeight.w700,
       ),
+      titleSpacing: 0,
       actionsPadding: const .only(right: 16),
       elevation: 0,
       scrolledUnderElevation: 0,

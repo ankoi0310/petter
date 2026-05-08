@@ -18,10 +18,7 @@ class PetDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pet's Information"),
-        titleSpacing: 0,
-      ),
+      appBar: AppBar(title: const Text("Pet's Information")),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const .only(left: 16, right: 16, bottom: 12),
