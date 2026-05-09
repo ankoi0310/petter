@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Petter'),
+        titleSpacing: 16,
         actionsPadding: const .only(right: 16),
         actionsIconTheme: const IconThemeData(size: 20),
         actions: [

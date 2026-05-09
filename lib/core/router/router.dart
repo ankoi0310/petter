@@ -27,6 +27,7 @@ import 'package:petter/features/splash/presentation/pages/splash_page.dart';
 import 'package:petter/features/user/domain/entities/user.dart';
 import 'package:petter/features/user/presentation/pages/about_page.dart';
 import 'package:petter/features/user/presentation/pages/account_page.dart';
+import 'package:petter/features/user/presentation/pages/faq_page.dart';
 import 'package:petter/features/user/presentation/pages/privacy_policy_page.dart';
 import 'package:petter/features/user/presentation/pages/terms_of_service_page.dart';
 import 'package:petter/features/user/presentation/pages/user_profile_page.dart';
@@ -228,6 +229,11 @@ final routerConfig = GoRouter(
       path: AppRoutes.about.path,
       builder: (context, state) => const AboutPage(),
     ),
+    GoRoute(
+      name: AppRoutes.faq.name,
+      path: AppRoutes.faq.path,
+      builder: (context, state) => const FaqPage(),
+    ),
   ],
 );
 
@@ -261,7 +267,8 @@ enum AppRoutes {
   ),
   termsOfService(name: 'termsOfService', path: '/terms-of-service'),
   privacyPolicy(name: 'privacyPolicy', path: '/privacy-policy'),
-  about(name: 'about', path: '/about');
+  about(name: 'about', path: '/about'),
+  faq(name: 'faq', path: '/faq');
 
   const AppRoutes({required this.name, required this.path});
 

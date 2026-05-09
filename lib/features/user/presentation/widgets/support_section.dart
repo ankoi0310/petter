@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/router/router.dart';
 import 'package:petter/features/user/presentation/widgets/menu_item_tile.dart';
 
 class SupportSection extends StatelessWidget {
@@ -19,7 +21,7 @@ class SupportSection extends StatelessWidget {
           spacing: 4,
           children: [
             MenuItemTile(
-              onTap: () {},
+              onTap: () => context.pushNamed(AppRoutes.faq.name),
               title: 'Câu hỏi thường gặp',
               trailing: const Icon(Icons.question_answer_outlined),
             ),
