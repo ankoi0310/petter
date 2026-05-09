@@ -7,6 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:petter/core/error/exception.dart';
 import 'package:petter/core/services/supabase_storage_service.dart';
 import 'package:petter/core/utils/image_util.dart';
+import 'package:petter/features/pet/data/models/address_model.dart';
 import 'package:petter/features/pet/data/models/pet_model.dart';
 import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
@@ -81,7 +82,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     if (params.favoriteIds != null) {
       if (params.favoriteIds!.isEmpty) return [];
 
-      // Chia nhỏ ids thành từng cụm 30 phần tử (giới hạn của Firestore cho whereIn)
+      // Chia nhỏ ids thành từng cụm 30 phần tử
       final chunks = <List<String>>[];
       for (var i = 0; i < params.favoriteIds!.length; i += 30) {
         chunks.add(
@@ -191,7 +192,14 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
         id: docRef.id,
         uid: currentUser.uid,
         name: params.name,
-        address: params.address,
+        address: AddressModel(
+          detail: params.addressDetail,
+          ward: params.ward.name,
+          province: params.province.name,
+          wardCode: params.ward.code,
+          provinceCode: params.province.code,
+          fullAddress: params.fullAddress,
+        ),
         gender: params.gender,
         speciesId: params.speciesId,
         bleed: params.bleed,

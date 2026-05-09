@@ -1,3 +1,4 @@
+import 'package:petter/features/pet/data/mapper/address_mapper.dart';
 import 'package:petter/features/pet/data/models/pet_model.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 
@@ -6,7 +7,7 @@ extension PetMapper on PetModel {
     return Pet(
       id: id,
       uid: uid,
-      address: address,
+      address: address.toEntity(),
       name: name,
       gender: gender,
       speciesId: speciesId,

@@ -10,7 +10,7 @@ _PetModel _$PetModelFromJson(Map<String, dynamic> json) => _PetModel(
   id: json['id'] as String,
   uid: json['uid'] as String,
   name: json['name'] as String,
-  address: json['address'] as String,
+  address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
   gender: $enumDecode(_$GenderEnumMap, json['gender']),
   age: json['age'] as String,
   weight: json['weight'] as String,

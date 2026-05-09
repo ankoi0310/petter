@@ -13,6 +13,7 @@ import 'package:petter/core/widgets/species_dropdown_field.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/species/domain/entities/species.dart';
+import 'package:vn_provinces/vn_provinces.dart';
 
 class PetCreateForm extends StatefulWidget {
   const PetCreateForm({required this.species, super.key});
@@ -27,19 +28,28 @@ class _PetCreateFormState extends State<PetCreateForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _bleedController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _addressDetailController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _nameFocusNode = FocusNode();
   final _bleedFocusNode = FocusNode();
-  final _addressFocusNode = FocusNode();
+  final _addressDetailFocusNode = FocusNode();
   final _ageFocusNode = FocusNode();
   final _weightFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
 
+  final _client = VnProvincesClient();
+
+  List<Province> _provinces = [];
+  List<Ward> _wards = [];
+
+  final _provinceListenable = ValueNotifier<Province?>(null);
+  final _wardListenable = ValueNotifier<Ward?>(null);
+  String? _addressError;
+
   File? selectedImage;
-  String? imageError;
+  String? _imageError;
   late ValueNotifier<String> speciesListenable = ValueNotifier(
     widget.species.first.id,
   );
@@ -47,17 +57,35 @@ class _PetCreateFormState extends State<PetCreateForm> {
     Gender.values.first,
   );
 
+  String get _fullAddress {
+    final parts = [
+      if (_wardListenable.value != null) _wardListenable.value,
+      if (_provinceListenable.value != null)
+        _provinceListenable.value,
+      if (_addressDetailController.text.trim().isNotEmpty)
+        _addressDetailController.text.trim(),
+    ];
+
+    return parts.join(', ');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProvinces();
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
     _bleedController.dispose();
-    _addressController.dispose();
+    _addressDetailController.dispose();
     _ageController.dispose();
     _weightController.dispose();
     _descriptionController.dispose();
     _nameFocusNode.dispose();
     _bleedFocusNode.dispose();
-    _addressFocusNode.dispose();
+    _addressDetailFocusNode.dispose();
     _ageFocusNode.dispose();
     _weightFocusNode.dispose();
     _descriptionFocusNode.dispose();
@@ -65,30 +93,89 @@ class _PetCreateFormState extends State<PetCreateForm> {
     super.dispose();
   }
 
+  Future<void> _loadProvinces() async {
+    try {
+      final provinces = await _client.getProvinces();
+      setState(() {
+        _provinces = provinces;
+        _addressError = null;
+      });
+    } on VnProvincesException catch (e) {
+      setState(() {
+        _addressError = e.message;
+      });
+    }
+  }
+
+  Future<void> _onProvinceChanged(Province? province) async {
+    if (province == null) return;
+
+    _provinceListenable.value = province;
+    _wardListenable.value = null;
+
+    setState(() {
+      _wards = [];
+    });
+
+    try {
+      // depth 2 for show wards
+      final provinceWithWards = await _client.getProvince(
+        province.code,
+        depth: 2,
+      );
+
+      setState(() {
+        _wards = provinceWithWards.wards ?? [];
+        _addressError = null;
+      });
+    } on VnProvincesException catch (e) {
+      setState(() {
+        _addressError = e.message;
+      });
+    }
+  }
+
   void _submit() {
     FocusScope.of(context).unfocus();
-    if (!_formKey.currentState!.validate() || selectedImage == null) {
+    if (_formKey.currentState!.validate()) {
       if (selectedImage == null) {
         setState(() {
-          imageError = 'Vui lòng chọn ảnh';
+          _imageError = 'Vui lòng chọn ảnh';
         });
+        return;
       }
-      return;
+
+      if (_provinceListenable.value == null) {
+        setState(() {
+          _addressError = 'Vui lòng chọn tỉnh thành';
+        });
+        return;
+      }
+
+      if (_wardListenable.value == null) {
+        setState(() {
+          _addressError = 'Vui lòng chọn phường';
+        });
+        return;
+      }
+
+      final params = CreatePetParams(
+        name: _nameController.text.trim(),
+        speciesId: speciesListenable.value,
+        bleed: _bleedController.text.trim(),
+        addressDetail: _addressDetailController.text.trim(),
+        province: _provinceListenable.value!,
+        ward: _wardListenable.value!,
+        fullAddress: _fullAddress,
+        gender: genderListenable.value,
+        age: _ageController.text.trim(),
+        weight: _weightController.text.trim(),
+        description: _descriptionController.text.trim(),
+        imageFile: selectedImage!,
+      );
+
+      context.read<PetBloc>().add(.createPet(params));
     }
-
-    final params = CreatePetParams(
-      name: _nameController.text.trim(),
-      speciesId: speciesListenable.value,
-      bleed: _bleedController.text.trim(),
-      address: _addressController.text.trim(),
-      gender: genderListenable.value,
-      age: _ageController.text.trim(),
-      weight: _weightController.text.trim(),
-      description: _descriptionController.text.trim(),
-      imageFile: selectedImage!,
-    );
-
-    context.read<PetBloc>().add(.createPet(params));
   }
 
   @override
@@ -112,10 +199,10 @@ class _PetCreateFormState extends State<PetCreateForm> {
                       selectedImage = image;
                     });
                   },
-                  imageError: imageError,
+                  imageError: _imageError,
                   onImageError: (error) {
                     setState(() {
-                      imageError = error;
+                      _imageError = error;
                     });
                   },
                 ),
@@ -194,25 +281,44 @@ class _PetCreateFormState extends State<PetCreateForm> {
                 return null;
               },
               onFieldSubmitted: (value) {
-                _addressFocusNode.requestFocus();
+                _addressDetailFocusNode.requestFocus();
+              },
+            ),
+            AppDropdownFormField<Province>(
+              label: 'Địa chỉ',
+              valueListenable: _provinceListenable,
+              items: _provinces,
+              itemLabel: (p) => p.name,
+              onChanged: _onProvinceChanged,
+            ),
+            AppDropdownFormField<Ward>(
+              showTitle: false,
+              label: 'Phường',
+              valueListenable: _wardListenable,
+              items: _wards,
+              itemLabel: (p) => p.name,
+              onChanged: (ward) {
+                setState(() {
+                  _wardListenable.value = ward;
+                });
               },
             ),
             AppTextFormField(
-              controller: _addressController,
-              focusNode: _addressFocusNode,
-              title: 'Địa chỉ/Khu vực sinh sống',
-              hintText: 'VD: Trường Chinh, Đông Hưng Thuận, TP.HCM',
-              validator: (value) {
-                if (value == null) {
-                  return 'Địa chỉ không được để trống';
-                }
-
-                return null;
-              },
+              showTitle: false,
+              controller: _addressDetailController,
+              focusNode: _addressDetailFocusNode,
+              title: 'Địa chỉ',
+              hintText: 'Nhập địa chỉ chi tiết (nếu có)',
               onFieldSubmitted: (value) {
                 _ageFocusNode.requestFocus();
               },
             ),
+            if (_addressError != null &&
+                _addressError?.isNotEmpty == true)
+              Text(
+                _addressError!,
+                style: TextStyle(color: context.colors.error),
+              ),
             GenderDropdownField(
               focusNode: FocusNode(),
               valueListenable: genderListenable,
@@ -232,7 +338,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
               focusNode: _weightFocusNode,
               title: 'Cân nặng',
               onFieldSubmitted: (value) {
-                _addressFocusNode.requestFocus();
+                _addressDetailFocusNode.requestFocus();
               },
             ),
             AppTextFormField(

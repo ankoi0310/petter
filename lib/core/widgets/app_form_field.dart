@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
@@ -7,6 +8,7 @@ class AppTextFormField extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     required this.title,
+    this.showTitle = true,
     this.enabled = true,
     this.required = true,
     this.hintText,
@@ -16,6 +18,7 @@ class AppTextFormField extends StatelessWidget {
     super.key,
   });
 
+  final bool showTitle;
   final bool enabled;
   final bool required;
   final TextEditingController controller;
@@ -32,18 +35,19 @@ class AppTextFormField extends StatelessWidget {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
-        Row(
-          children: [
-            Text(title, style: context.textTheme.titleMedium),
-            if (required)
-              Text(
-                '*',
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: context.colors.error,
+        if (showTitle)
+          Row(
+            children: [
+              Text(title, style: context.textTheme.titleMedium),
+              if (required)
+                Text(
+                  '*',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.colors.error,
+                  ),
                 ),
-              ),
-          ],
-        ),
+            ],
+          ),
         TextFormField(
           enabled: enabled,
           controller: controller,
@@ -123,6 +127,69 @@ class _AppPasswordFormFieldState extends State<AppPasswordFormField> {
           onTapOutside: (_) {
             widget.focusNode.unfocus();
           },
+        ),
+      ],
+    );
+  }
+}
+
+class AppDropdownFormField<T> extends StatelessWidget {
+  const AppDropdownFormField({
+    required this.label,
+    required this.valueListenable,
+    required this.items,
+    required this.itemLabel,
+    required this.onChanged,
+    this.required = true,
+    this.showTitle = true,
+    this.enabled = true,
+    super.key,
+  });
+
+  final bool required;
+  final bool showTitle;
+  final String label;
+  final ValueNotifier<T?> valueListenable;
+  final List<T> items;
+  final String Function(T) itemLabel;
+  final void Function(T?) onChanged;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: .start,
+      spacing: 8,
+      children: [
+        if (showTitle)
+          Row(
+            children: [
+              Text(label, style: context.textTheme.titleMedium),
+              if (required)
+                Text(
+                  '*',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.colors.error,
+                  ),
+                ),
+            ],
+          ),
+        DropdownButtonFormField2<T?>(
+          valueListenable: valueListenable,
+          onChanged: enabled ? onChanged : null,
+          decoration: InputDecoration(
+            contentPadding: const .symmetric(vertical: 16),
+            filled: true,
+            fillColor: context.colors.primaryContainer,
+            border: OutlineInputBorder(borderRadius: .circular(16)),
+          ),
+          hint: Text('Chọn $label'),
+          items: items.map((item) {
+            return DropdownItem<T?>(
+              value: item,
+              child: Text(itemLabel(item), overflow: .ellipsis),
+            );
+          }).toList(),
         ),
       ],
     );

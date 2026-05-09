@@ -31,14 +31,20 @@ class PetDetailOverviewWidget extends StatelessWidget {
                     spacing: 8,
                     children: [
                       const Icon(Iconsax.pet_copy),
-                      Text(pet.bleed),
+                      Expanded(child: Text(pet.bleed)),
                     ],
                   ),
                   Row(
                     spacing: 8,
                     children: [
                       const Icon(Iconsax.location_copy),
-                      Text(pet.address),
+                      Expanded(
+                        child: Text(
+                          pet.address.fullAddress,
+                          maxLines: 2,
+                          overflow: .ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 ],

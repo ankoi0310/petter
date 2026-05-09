@@ -49,7 +49,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
 
     _nameController.text = widget.pet.name;
     _bleedController.text = widget.pet.bleed;
-    _addressController.text = widget.pet.address;
+    _addressController.text = widget.pet.address.fullAddress;
     _ageController.text = widget.pet.age;
     _weightController.text = widget.pet.weight;
     _descriptionController.text = widget.pet.description;

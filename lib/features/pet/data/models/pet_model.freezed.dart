@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PetModel {
 
- String get id; String get uid; String get name; String get address; Gender get gender; String get age; String get weight; String get speciesId; String get bleed; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
+ String get id; String get uid; String get name; AddressModel get address; Gender get gender; String get age; String get weight; String get speciesId; String get bleed; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $PetModelCopyWith<$Res>  {
   factory $PetModelCopyWith(PetModel value, $Res Function(PetModel) _then) = _$PetModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String uid, String name, String address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+ String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
-
+$AddressModelCopyWith<$Res> get address;
 
 }
 /// @nodoc
@@ -71,7 +71,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as AddressModel,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as Gender,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as String,speciesId: null == speciesId ? _self.speciesId : speciesId // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,16 @@ as bool,isDeleted: null == isDeleted ? _self.isDeleted : isDeleted // ignore: ca
 as bool,
   ));
 }
-
+/// Create a copy of PetModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AddressModelCopyWith<$Res> get address {
+  
+  return $AddressModelCopyWith<$Res>(_self.address, (value) {
+    return _then(_self.copyWith(address: value));
+  });
+}
 }
 
 
@@ -167,7 +176,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -188,7 +197,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
 switch (_that) {
 case _PetModel():
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -208,7 +217,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  String address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -229,7 +238,7 @@ class _PetModel implements PetModel {
 @override final  String id;
 @override final  String uid;
 @override final  String name;
-@override final  String address;
+@override final  AddressModel address;
 @override final  Gender gender;
 @override final  String age;
 @override final  String weight;
@@ -275,11 +284,11 @@ abstract mixin class _$PetModelCopyWith<$Res> implements $PetModelCopyWith<$Res>
   factory _$PetModelCopyWith(_PetModel value, $Res Function(_PetModel) _then) = __$PetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String uid, String name, String address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+ String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
-
+@override $AddressModelCopyWith<$Res> get address;
 
 }
 /// @nodoc
@@ -298,7 +307,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as AddressModel,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as Gender,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as String,speciesId: null == speciesId ? _self.speciesId : speciesId // ignore: cast_nullable_to_non_nullable
@@ -313,7 +322,16 @@ as bool,
   ));
 }
 
-
+/// Create a copy of PetModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AddressModelCopyWith<$Res> get address {
+  
+  return $AddressModelCopyWith<$Res>(_self.address, (value) {
+    return _then(_self.copyWith(address: value));
+  });
+}
 }
 
 // dart format on
