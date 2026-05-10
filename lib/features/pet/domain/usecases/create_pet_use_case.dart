@@ -5,7 +5,8 @@ import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
-import 'package:vn_provinces/vn_provinces.dart';
+import 'package:petter/features/species/domain/entities/species.dart';
+import 'package:vn_provinces_api/vn_provinces_api.dart';
 
 class CreatePetParams {
   const CreatePetParams({
@@ -15,7 +16,7 @@ class CreatePetParams {
     required this.ward,
     required this.fullAddress,
     required this.gender,
-    required this.speciesId,
+    required this.species,
     required this.bleed,
     required this.age,
     required this.weight,
@@ -31,7 +32,7 @@ class CreatePetParams {
   final Gender gender;
   final String age;
   final String weight;
-  final String speciesId;
+  final Species species;
   final String bleed;
   final String description;
   final File imageFile;

@@ -5,7 +5,6 @@ import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/loading_screen.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/pet/presentation/widgets/pet_create_form.dart';
-import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 
 class PetCreatePage extends StatelessWidget {
   const PetCreatePage({super.key});
@@ -29,16 +28,11 @@ class PetCreatePage extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        final species =
-            context.read<SpeciesBloc>().state.whenOrNull(
-              loaded: (species) => species,
-            ) ??
-            [];
         return Stack(
           children: [
             Scaffold(
               appBar: AppBar(title: const Text('Thêm thú cưng')),
-              body: SafeArea(child: PetCreateForm(species: species)),
+              body: const SafeArea(child: PetCreateForm()),
             ),
             if (state.maybeWhen(
               creating: () => true,

@@ -47,12 +47,15 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
     }
   }
 
-  Text? _getRetrieveErrorWidget() {
+  Widget? _getRetrieveErrorWidget() {
     if (widget.imageError != null) {
-      final result = Text(
-        widget.imageError!,
-        style: context.textTheme.bodyMedium?.copyWith(
-          color: context.colors.error,
+      final result = Padding(
+        padding: const .symmetric(horizontal: 16),
+        child: Text(
+          widget.imageError!,
+          style: context.textTheme.bodySmall?.copyWith(
+            color: context.colors.error,
+          ),
         ),
       );
       return result;
@@ -67,6 +70,7 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       crossAxisAlignment: .start,
       spacing: 8,
       children: [
+        Column(children: []),
         Row(
           children: [
             Text('Ảnh', style: context.textTheme.titleMedium),

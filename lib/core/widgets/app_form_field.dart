@@ -143,9 +143,11 @@ class AppDropdownFormField<T> extends StatelessWidget {
     this.required = true,
     this.showTitle = true,
     this.enabled = true,
+    this.validator,
     super.key,
   });
 
+  final bool enabled;
   final bool required;
   final bool showTitle;
   final String label;
@@ -153,7 +155,7 @@ class AppDropdownFormField<T> extends StatelessWidget {
   final List<T> items;
   final String Function(T) itemLabel;
   final void Function(T?) onChanged;
-  final bool enabled;
+  final String? Function(T?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -183,13 +185,25 @@ class AppDropdownFormField<T> extends StatelessWidget {
             fillColor: context.colors.primaryContainer,
             border: OutlineInputBorder(borderRadius: .circular(16)),
           ),
-          hint: Text('Chọn $label'),
-          items: items.map((item) {
-            return DropdownItem<T?>(
-              value: item,
-              child: Text(itemLabel(item), overflow: .ellipsis),
+          errorBuilder: (context, error) {
+            return Padding(
+              padding: const .symmetric(horizontal: 16),
+              child: Text(error),
             );
-          }).toList(),
+          },
+          items: [
+            DropdownItem<T?>(
+              child: Text('Chọn $label', overflow: .ellipsis),
+            ),
+            ...items.map((item) {
+              return DropdownItem<T?>(
+                value: item,
+                child: Text(itemLabel(item), overflow: .ellipsis),
+              );
+            }),
+          ],
+          autovalidateMode: .onUserInteractionIfError,
+          validator: validator,
         ),
       ],
     );

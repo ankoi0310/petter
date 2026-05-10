@@ -28,7 +28,7 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
   'id': instance.id,
   'uid': instance.uid,
   'name': instance.name,
-  'address': instance.address,
+  'address': instance.address.toJson(),
   'gender': _$GenderEnumMap[instance.gender]!,
   'age': instance.age,
   'weight': instance.weight,

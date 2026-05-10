@@ -15,7 +15,7 @@ _UserChatModel _$UserChatModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserChatModelToJson(_UserChatModel instance) =>
     <String, dynamic>{
-      'user': instance.user,
+      'user': instance.user.toJson(),
       'isOnline': instance.isOnline,
       'lastSeen': const TimestampConverterNullable().toJson(instance.lastSeen),
     };

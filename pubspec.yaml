@@ -35,10 +35,7 @@ dependencies:
   cached_network_image: ^3.4.1
   firebase_messaging: ^16.2.0
   package_info_plus: ^10.1.0
-  vn_provinces:
-    git:
-      url: https://github.com/ankoi0310/vn_provinces.git
-      ref: v1.0.1
+  vn_provinces_api: ^1.0.0
 
 dev_dependencies:
   build_runner:

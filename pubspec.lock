@@ -1453,14 +1453,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "15.1.0"
-  vn_provinces:
+  vn_provinces_api:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "v1.0.1"
-      resolved-ref: "79d909d2bd90e37585c6ccbe4456b44b5efe55dd"
-      url: "https://github.com/ankoi0310/vn_provinces.git"
-    source: git
+      name: vn_provinces_api
+      sha256: "2d9fac4bf5e45bb850dfe6b4e7e2ef26ae5992675f2e0f6d45bc53b5bde992ab"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   watcher:
     dependency: transitive

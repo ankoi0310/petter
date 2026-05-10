@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PetModel {
 
- String get id; String get uid; String get name; AddressModel get address; Gender get gender; String get age; String get weight; String get speciesId; String get bleed; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
+@JsonKey(name: 'id') String get id; String get uid; String get name; AddressModel get address; Gender get gender; String get age; String get weight; String get speciesId; String get bleed; String get description; String get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isAdopted; bool get isDeleted;
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $PetModelCopyWith<$Res>  {
   factory $PetModelCopyWith(PetModel value, $Res Function(PetModel) _then) = _$PetModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+@JsonKey(name: 'id') String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
@@ -176,7 +176,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)  $default,) {final _that = this;
 switch (_that) {
 case _PetModel():
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -217,7 +217,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String id,  String uid,  String name,  AddressModel address,  Gender gender,  String age,  String weight,  String speciesId,  String bleed,  String description,  String imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isAdopted,  bool isDeleted)?  $default,) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
 return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.speciesId,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted);case _:
@@ -232,10 +232,10 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 @JsonSerializable()
 @TimestampConverter()
 class _PetModel implements PetModel {
-  const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.speciesId, required this.bleed, required this.description, required this.imageUrl, required this.createdAt, required this.updatedAt, this.isAdopted = false, this.isDeleted = false});
+  const _PetModel({@JsonKey(name: 'id') required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.speciesId, required this.bleed, required this.description, required this.imageUrl, required this.createdAt, required this.updatedAt, this.isAdopted = false, this.isDeleted = false});
   factory _PetModel.fromJson(Map<String, dynamic> json) => _$PetModelFromJson(json);
 
-@override final  String id;
+@override@JsonKey(name: 'id') final  String id;
 @override final  String uid;
 @override final  String name;
 @override final  AddressModel address;
@@ -284,7 +284,7 @@ abstract mixin class _$PetModelCopyWith<$Res> implements $PetModelCopyWith<$Res>
   factory _$PetModelCopyWith(_PetModel value, $Res Function(_PetModel) _then) = __$PetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
+@JsonKey(name: 'id') String id, String uid, String name, AddressModel address, Gender gender, String age, String weight, String speciesId, String bleed, String description, String imageUrl, DateTime createdAt, DateTime updatedAt, bool isAdopted, bool isDeleted
 });
 
 
