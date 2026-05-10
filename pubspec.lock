@@ -1457,10 +1457,10 @@ packages:
     dependency: "direct main"
     description:
       name: vn_provinces_api
-      sha256: "2d9fac4bf5e45bb850dfe6b4e7e2ef26ae5992675f2e0f6d45bc53b5bde992ab"
+      sha256: cf131cc1124332c3ea8ff7fb1439f95d96ee0b4a8f9b01907380ffc0ce530e1f
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.3"
   watcher:
     dependency: transitive
     description:

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
@@ -45,18 +46,16 @@ class _PetCreateFormState extends State<PetCreateForm> {
   List<Province> _provinces = [];
   List<Ward> _wards = [];
 
-  String? _addressError;
-
   File? selectedImage;
   String? _imageError;
 
   String get _fullAddress {
     final parts = [
+      if (_addressDetailController.text.trim().isNotEmpty)
+        _addressDetailController.text.trim(),
       if (_wardListenable.value != null) _wardListenable.value!.name,
       if (_provinceListenable.value != null)
         _provinceListenable.value!.name,
-      if (_addressDetailController.text.trim().isNotEmpty)
-        _addressDetailController.text.trim(),
     ];
 
     return parts.join(', ');
@@ -82,6 +81,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
     _ageFocusNode.dispose();
     _weightFocusNode.dispose();
     _descriptionFocusNode.dispose();
+    _client.dispose();
 
     super.dispose();
   }
@@ -91,16 +91,16 @@ class _PetCreateFormState extends State<PetCreateForm> {
       final provinces = await _client.getProvinces();
       setState(() {
         _provinces = provinces;
-        _addressError = null;
       });
     } on VnProvincesException catch (e) {
-      setState(() {
-        _addressError = e.message;
-      });
+      showSnackBar(context, content: e.message);
     }
   }
 
-  Future<void> _onProvinceChanged(Province? province) async {
+  Future<void> _onProvinceChanged(
+    BuildContext context, {
+    Province? province,
+  }) async {
     _provinceListenable.value = province;
     _wardListenable.value = null;
 
@@ -120,10 +120,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
         });
       }
     } on VnProvincesException catch (e) {
-      print(e.message);
-      setState(() {
-        _addressError = e.message;
-      });
+      showSnackBar(context, content: e.message);
     }
   }
 
@@ -181,7 +178,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
     );
   }
 
-  Column buildPetInfo(BuildContext context) {
+  Widget buildPetInfo(BuildContext context) {
     return Column(
       crossAxisAlignment: .stretch,
       spacing: 16,
@@ -352,7 +349,7 @@ class _PetCreateFormState extends State<PetCreateForm> {
     );
   }
 
-  Column buildAddressFormField(BuildContext context) {
+  Widget buildAddressFormField(BuildContext context) {
     return Column(
       crossAxisAlignment: .stretch,
       spacing: 16,
@@ -366,7 +363,9 @@ class _PetCreateFormState extends State<PetCreateForm> {
           valueListenable: _provinceListenable,
           items: _provinces,
           itemLabel: (p) => p.name,
-          onChanged: _onProvinceChanged,
+          onChanged: (province) async {
+            await _onProvinceChanged(context, province: province);
+          },
           validator: (province) {
             if (province == null) {
               return 'Vui lòng chọn tỉnh thành';

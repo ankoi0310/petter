@@ -43,14 +43,9 @@ class PetCard extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
+              padding: const .symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(16),
-                ),
+                borderRadius: const .vertical(bottom: .circular(16)),
                 gradient: LinearGradient(
                   begin: .bottomCenter,
                   end: .topCenter,
@@ -83,19 +78,18 @@ class PetCard extends StatelessWidget {
             ),
           ),
 
-          Positioned(
-            top: 8,
-            right: 8,
-            child: Skeleton.keep(
-              child: LikeButton(
-                petId: pet.id,
-                iconSize: iconSize,
-                borderRadius: borderRadius,
+          if (editable) ...[
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Skeleton.keep(
+                child: AppIconButton(
+                  icon: Iconsax.trash_copy,
+                  iconSize: iconSize,
+                  borderRadius: borderRadius,
+                ),
               ),
             ),
-          ),
-
-          if (editable)
             Positioned(
               top: 8,
               left: 8,
@@ -107,11 +101,24 @@ class PetCard extends StatelessWidget {
                     extra: pet,
                   ),
                   icon: Iconsax.edit_2_copy,
-                  iconSize: 16,
-                  borderRadius: .circular(12),
+                  iconSize: iconSize,
+                  borderRadius: borderRadius,
                 ),
               ),
             ),
+          ] else ...[
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Skeleton.keep(
+                child: LikeButton(
+                  petId: pet.id,
+                  iconSize: iconSize,
+                  borderRadius: borderRadius,
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );
