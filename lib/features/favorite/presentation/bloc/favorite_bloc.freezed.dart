@@ -55,11 +55,11 @@ extension FavoriteEventPatterns on FavoriteEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _WatchFavorites value)?  watchFavorites,TResult Function( _ToggleFavorite value)?  toggleFavorite,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetFavoritePets value)?  getFavoritePets,TResult Function( _ToggleFavorite value)?  toggleFavorite,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _WatchFavorites() when watchFavorites != null:
-return watchFavorites(_that);case _ToggleFavorite() when toggleFavorite != null:
+case _GetFavoritePets() when getFavoritePets != null:
+return getFavoritePets(_that);case _ToggleFavorite() when toggleFavorite != null:
 return toggleFavorite(_that);case _:
   return orElse();
 
@@ -78,11 +78,11 @@ return toggleFavorite(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _WatchFavorites value)  watchFavorites,required TResult Function( _ToggleFavorite value)  toggleFavorite,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetFavoritePets value)  getFavoritePets,required TResult Function( _ToggleFavorite value)  toggleFavorite,}){
 final _that = this;
 switch (_that) {
-case _WatchFavorites():
-return watchFavorites(_that);case _ToggleFavorite():
+case _GetFavoritePets():
+return getFavoritePets(_that);case _ToggleFavorite():
 return toggleFavorite(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -100,11 +100,11 @@ return toggleFavorite(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _WatchFavorites value)?  watchFavorites,TResult? Function( _ToggleFavorite value)?  toggleFavorite,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetFavoritePets value)?  getFavoritePets,TResult? Function( _ToggleFavorite value)?  toggleFavorite,}){
 final _that = this;
 switch (_that) {
-case _WatchFavorites() when watchFavorites != null:
-return watchFavorites(_that);case _ToggleFavorite() when toggleFavorite != null:
+case _GetFavoritePets() when getFavoritePets != null:
+return getFavoritePets(_that);case _ToggleFavorite() when toggleFavorite != null:
 return toggleFavorite(_that);case _:
   return null;
 
@@ -122,10 +122,10 @@ return toggleFavorite(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid)?  watchFavorites,TResult Function( FavoriteParams params)?  toggleFavorite,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getFavoritePets,TResult Function( FavoriteParams params)?  toggleFavorite,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _WatchFavorites() when watchFavorites != null:
-return watchFavorites(_that.uid);case _ToggleFavorite() when toggleFavorite != null:
+case _GetFavoritePets() when getFavoritePets != null:
+return getFavoritePets();case _ToggleFavorite() when toggleFavorite != null:
 return toggleFavorite(_that.params);case _:
   return orElse();
 
@@ -144,10 +144,10 @@ return toggleFavorite(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid)  watchFavorites,required TResult Function( FavoriteParams params)  toggleFavorite,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getFavoritePets,required TResult Function( FavoriteParams params)  toggleFavorite,}) {final _that = this;
 switch (_that) {
-case _WatchFavorites():
-return watchFavorites(_that.uid);case _ToggleFavorite():
+case _GetFavoritePets():
+return getFavoritePets();case _ToggleFavorite():
 return toggleFavorite(_that.params);case _:
   throw StateError('Unexpected subclass');
 
@@ -165,10 +165,10 @@ return toggleFavorite(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid)?  watchFavorites,TResult? Function( FavoriteParams params)?  toggleFavorite,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getFavoritePets,TResult? Function( FavoriteParams params)?  toggleFavorite,}) {final _that = this;
 switch (_that) {
-case _WatchFavorites() when watchFavorites != null:
-return watchFavorites(_that.uid);case _ToggleFavorite() when toggleFavorite != null:
+case _GetFavoritePets() when getFavoritePets != null:
+return getFavoritePets();case _ToggleFavorite() when toggleFavorite != null:
 return toggleFavorite(_that.params);case _:
   return null;
 
@@ -180,68 +180,34 @@ return toggleFavorite(_that.params);case _:
 /// @nodoc
 
 
-class _WatchFavorites implements FavoriteEvent {
-  const _WatchFavorites(this.uid);
+class _GetFavoritePets implements FavoriteEvent {
+  const _GetFavoritePets();
   
 
- final  String uid;
 
-/// Create a copy of FavoriteEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$WatchFavoritesCopyWith<_WatchFavorites> get copyWith => __$WatchFavoritesCopyWithImpl<_WatchFavorites>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WatchFavorites&&(identical(other.uid, uid) || other.uid == uid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetFavoritePets);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uid);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'FavoriteEvent.watchFavorites(uid: $uid)';
+  return 'FavoriteEvent.getFavoritePets()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$WatchFavoritesCopyWith<$Res> implements $FavoriteEventCopyWith<$Res> {
-  factory _$WatchFavoritesCopyWith(_WatchFavorites value, $Res Function(_WatchFavorites) _then) = __$WatchFavoritesCopyWithImpl;
-@useResult
-$Res call({
- String uid
-});
 
 
-
-
-}
-/// @nodoc
-class __$WatchFavoritesCopyWithImpl<$Res>
-    implements _$WatchFavoritesCopyWith<$Res> {
-  __$WatchFavoritesCopyWithImpl(this._self, this._then);
-
-  final _WatchFavorites _self;
-  final $Res Function(_WatchFavorites) _then;
-
-/// Create a copy of FavoriteEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? uid = null,}) {
-  return _then(_WatchFavorites(
-null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

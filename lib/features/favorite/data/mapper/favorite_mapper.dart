@@ -3,6 +3,11 @@ import 'package:petter/features/favorite/domain/entities/favorite.dart';
 
 extension FavoriteMapper on FavoriteModel {
   Favorite toEntity() {
-    return Favorite(id: id, uid: uid, petId: petId);
+    return Favorite(
+      id: id,
+      uid: uid,
+      petId: petId,
+      createdAt: createdAt,
+    );
   }
 }

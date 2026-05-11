@@ -13,20 +13,13 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   final FavoriteRemoteDataSource _remoteDataSource;
 
   @override
-  ResultStreamList<Favorite> watchFavorites(String uid) {
-    return _remoteDataSource
-        .watchFavorites(uid)
-        .map<Either<Failure, List<Favorite>>>((models) {
-          final entities = models
-              .map((model) => model.toEntity())
-              .toList();
-          return right(entities);
-        })
-        .handleError((dynamic error) {
-          return left<Failure, List<Favorite>>(
-            Failure.server(error.toString()),
-          );
-        });
+  ResultFutureList<Favorite> getFavoritePets() async {
+    try {
+      final models = await _remoteDataSource.getFavorites();
+      return right(models.map((model) => model.toEntity()).toList());
+    } on ServerException catch (e) {
+      return left(Failure.server(e.message));
+    }
   }
 
   @override

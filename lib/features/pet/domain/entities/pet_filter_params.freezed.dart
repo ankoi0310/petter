@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PetFilterParams {
 
- List<String>? get favoriteIds; String? get searchTerm; Species? get species; Gender? get gender; double? get minWeight; double? get maxWeight; int? get limit; int? get minAge; int? get maxAge; bool get showAdopted; String get sortBy; bool get descending;
+ String? get searchTerm; Species? get species; Gender? get gender; double? get minWeight; double? get maxWeight; int? get limit; int? get minAge; int? get maxAge; bool get showAdopted; String get sortBy; bool get descending;
 /// Create a copy of PetFilterParams
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PetFilterParamsCopyWith<PetFilterParams> get copyWith => _$PetFilterParamsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetFilterParams&&const DeepCollectionEquality().equals(other.favoriteIds, favoriteIds)&&(identical(other.searchTerm, searchTerm) || other.searchTerm == searchTerm)&&(identical(other.species, species) || other.species == species)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.minWeight, minWeight) || other.minWeight == minWeight)&&(identical(other.maxWeight, maxWeight) || other.maxWeight == maxWeight)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.minAge, minAge) || other.minAge == minAge)&&(identical(other.maxAge, maxAge) || other.maxAge == maxAge)&&(identical(other.showAdopted, showAdopted) || other.showAdopted == showAdopted)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.descending, descending) || other.descending == descending));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetFilterParams&&(identical(other.searchTerm, searchTerm) || other.searchTerm == searchTerm)&&(identical(other.species, species) || other.species == species)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.minWeight, minWeight) || other.minWeight == minWeight)&&(identical(other.maxWeight, maxWeight) || other.maxWeight == maxWeight)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.minAge, minAge) || other.minAge == minAge)&&(identical(other.maxAge, maxAge) || other.maxAge == maxAge)&&(identical(other.showAdopted, showAdopted) || other.showAdopted == showAdopted)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.descending, descending) || other.descending == descending));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(favoriteIds),searchTerm,species,gender,minWeight,maxWeight,limit,minAge,maxAge,showAdopted,sortBy,descending);
+int get hashCode => Object.hash(runtimeType,searchTerm,species,gender,minWeight,maxWeight,limit,minAge,maxAge,showAdopted,sortBy,descending);
 
 @override
 String toString() {
-  return 'PetFilterParams(favoriteIds: $favoriteIds, searchTerm: $searchTerm, species: $species, gender: $gender, minWeight: $minWeight, maxWeight: $maxWeight, limit: $limit, minAge: $minAge, maxAge: $maxAge, showAdopted: $showAdopted, sortBy: $sortBy, descending: $descending)';
+  return 'PetFilterParams(searchTerm: $searchTerm, species: $species, gender: $gender, minWeight: $minWeight, maxWeight: $maxWeight, limit: $limit, minAge: $minAge, maxAge: $maxAge, showAdopted: $showAdopted, sortBy: $sortBy, descending: $descending)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PetFilterParamsCopyWith<$Res>  {
   factory $PetFilterParamsCopyWith(PetFilterParams value, $Res Function(PetFilterParams) _then) = _$PetFilterParamsCopyWithImpl;
 @useResult
 $Res call({
- List<String>? favoriteIds, String? searchTerm, Species? species, Gender? gender, double? minWeight, double? maxWeight, int? limit, int? minAge, int? maxAge, bool showAdopted, String sortBy, bool descending
+ String? searchTerm, Species? species, Gender? gender, double? minWeight, double? maxWeight, int? limit, int? minAge, int? maxAge, bool showAdopted, String sortBy, bool descending
 });
 
 
@@ -62,10 +62,9 @@ class _$PetFilterParamsCopyWithImpl<$Res>
 
 /// Create a copy of PetFilterParams
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? favoriteIds = freezed,Object? searchTerm = freezed,Object? species = freezed,Object? gender = freezed,Object? minWeight = freezed,Object? maxWeight = freezed,Object? limit = freezed,Object? minAge = freezed,Object? maxAge = freezed,Object? showAdopted = null,Object? sortBy = null,Object? descending = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? searchTerm = freezed,Object? species = freezed,Object? gender = freezed,Object? minWeight = freezed,Object? maxWeight = freezed,Object? limit = freezed,Object? minAge = freezed,Object? maxAge = freezed,Object? showAdopted = null,Object? sortBy = null,Object? descending = null,}) {
   return _then(_self.copyWith(
-favoriteIds: freezed == favoriteIds ? _self.favoriteIds : favoriteIds // ignore: cast_nullable_to_non_nullable
-as List<String>?,searchTerm: freezed == searchTerm ? _self.searchTerm : searchTerm // ignore: cast_nullable_to_non_nullable
+searchTerm: freezed == searchTerm ? _self.searchTerm : searchTerm // ignore: cast_nullable_to_non_nullable
 as String?,species: freezed == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
 as Species?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as Gender?,minWeight: freezed == minWeight ? _self.minWeight : minWeight // ignore: cast_nullable_to_non_nullable
@@ -161,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String>? favoriteIds,  String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PetFilterParams() when $default != null:
-return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
+return $default(_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
   return orElse();
 
 }
@@ -182,10 +181,10 @@ return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String>? favoriteIds,  String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)  $default,) {final _that = this;
 switch (_that) {
 case _PetFilterParams():
-return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
+return $default(_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +201,10 @@ return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String>? favoriteIds,  String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? searchTerm,  Species? species,  Gender? gender,  double? minWeight,  double? maxWeight,  int? limit,  int? minAge,  int? maxAge,  bool showAdopted,  String sortBy,  bool descending)?  $default,) {final _that = this;
 switch (_that) {
 case _PetFilterParams() when $default != null:
-return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
+return $default(_that.searchTerm,_that.species,_that.gender,_that.minWeight,_that.maxWeight,_that.limit,_that.minAge,_that.maxAge,_that.showAdopted,_that.sortBy,_that.descending);case _:
   return null;
 
 }
@@ -217,17 +216,8 @@ return $default(_that.favoriteIds,_that.searchTerm,_that.species,_that.gender,_t
 
 
 class _PetFilterParams implements PetFilterParams {
-  const _PetFilterParams({final  List<String>? favoriteIds, this.searchTerm, this.species, this.gender, this.minWeight, this.maxWeight, this.limit, this.minAge, this.maxAge, this.showAdopted = true, this.sortBy = 'createdAt', this.descending = true}): _favoriteIds = favoriteIds;
+  const _PetFilterParams({this.searchTerm, this.species, this.gender, this.minWeight, this.maxWeight, this.limit, this.minAge, this.maxAge, this.showAdopted = true, this.sortBy = 'createdAt', this.descending = true});
   
-
- final  List<String>? _favoriteIds;
-@override List<String>? get favoriteIds {
-  final value = _favoriteIds;
-  if (value == null) return null;
-  if (_favoriteIds is EqualUnmodifiableListView) return _favoriteIds;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
 
 @override final  String? searchTerm;
 @override final  Species? species;
@@ -251,16 +241,16 @@ _$PetFilterParamsCopyWith<_PetFilterParams> get copyWith => __$PetFilterParamsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetFilterParams&&const DeepCollectionEquality().equals(other._favoriteIds, _favoriteIds)&&(identical(other.searchTerm, searchTerm) || other.searchTerm == searchTerm)&&(identical(other.species, species) || other.species == species)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.minWeight, minWeight) || other.minWeight == minWeight)&&(identical(other.maxWeight, maxWeight) || other.maxWeight == maxWeight)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.minAge, minAge) || other.minAge == minAge)&&(identical(other.maxAge, maxAge) || other.maxAge == maxAge)&&(identical(other.showAdopted, showAdopted) || other.showAdopted == showAdopted)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.descending, descending) || other.descending == descending));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetFilterParams&&(identical(other.searchTerm, searchTerm) || other.searchTerm == searchTerm)&&(identical(other.species, species) || other.species == species)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.minWeight, minWeight) || other.minWeight == minWeight)&&(identical(other.maxWeight, maxWeight) || other.maxWeight == maxWeight)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.minAge, minAge) || other.minAge == minAge)&&(identical(other.maxAge, maxAge) || other.maxAge == maxAge)&&(identical(other.showAdopted, showAdopted) || other.showAdopted == showAdopted)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.descending, descending) || other.descending == descending));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_favoriteIds),searchTerm,species,gender,minWeight,maxWeight,limit,minAge,maxAge,showAdopted,sortBy,descending);
+int get hashCode => Object.hash(runtimeType,searchTerm,species,gender,minWeight,maxWeight,limit,minAge,maxAge,showAdopted,sortBy,descending);
 
 @override
 String toString() {
-  return 'PetFilterParams(favoriteIds: $favoriteIds, searchTerm: $searchTerm, species: $species, gender: $gender, minWeight: $minWeight, maxWeight: $maxWeight, limit: $limit, minAge: $minAge, maxAge: $maxAge, showAdopted: $showAdopted, sortBy: $sortBy, descending: $descending)';
+  return 'PetFilterParams(searchTerm: $searchTerm, species: $species, gender: $gender, minWeight: $minWeight, maxWeight: $maxWeight, limit: $limit, minAge: $minAge, maxAge: $maxAge, showAdopted: $showAdopted, sortBy: $sortBy, descending: $descending)';
 }
 
 
@@ -271,7 +261,7 @@ abstract mixin class _$PetFilterParamsCopyWith<$Res> implements $PetFilterParams
   factory _$PetFilterParamsCopyWith(_PetFilterParams value, $Res Function(_PetFilterParams) _then) = __$PetFilterParamsCopyWithImpl;
 @override @useResult
 $Res call({
- List<String>? favoriteIds, String? searchTerm, Species? species, Gender? gender, double? minWeight, double? maxWeight, int? limit, int? minAge, int? maxAge, bool showAdopted, String sortBy, bool descending
+ String? searchTerm, Species? species, Gender? gender, double? minWeight, double? maxWeight, int? limit, int? minAge, int? maxAge, bool showAdopted, String sortBy, bool descending
 });
 
 
@@ -288,10 +278,9 @@ class __$PetFilterParamsCopyWithImpl<$Res>
 
 /// Create a copy of PetFilterParams
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? favoriteIds = freezed,Object? searchTerm = freezed,Object? species = freezed,Object? gender = freezed,Object? minWeight = freezed,Object? maxWeight = freezed,Object? limit = freezed,Object? minAge = freezed,Object? maxAge = freezed,Object? showAdopted = null,Object? sortBy = null,Object? descending = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? searchTerm = freezed,Object? species = freezed,Object? gender = freezed,Object? minWeight = freezed,Object? maxWeight = freezed,Object? limit = freezed,Object? minAge = freezed,Object? maxAge = freezed,Object? showAdopted = null,Object? sortBy = null,Object? descending = null,}) {
   return _then(_PetFilterParams(
-favoriteIds: freezed == favoriteIds ? _self._favoriteIds : favoriteIds // ignore: cast_nullable_to_non_nullable
-as List<String>?,searchTerm: freezed == searchTerm ? _self.searchTerm : searchTerm // ignore: cast_nullable_to_non_nullable
+searchTerm: freezed == searchTerm ? _self.searchTerm : searchTerm // ignore: cast_nullable_to_non_nullable
 as String?,species: freezed == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
 as Species?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as Gender?,minWeight: freezed == minWeight ? _self.minWeight : minWeight // ignore: cast_nullable_to_non_nullable

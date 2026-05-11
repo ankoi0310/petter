@@ -8,5 +8,6 @@ abstract class Favorite with _$Favorite {
     required String id,
     required String uid,
     required String petId,
+    required DateTime createdAt,
   }) = _Favorite;
 }

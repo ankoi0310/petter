@@ -7,7 +7,6 @@ part 'pet_filter_params.freezed.dart';
 @freezed
 abstract class PetFilterParams with _$PetFilterParams {
   const factory PetFilterParams({
-    List<String>? favoriteIds,
     String? searchTerm,
     Species? species,
     Gender? gender,

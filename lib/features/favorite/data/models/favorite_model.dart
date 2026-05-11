@@ -11,6 +11,7 @@ abstract class FavoriteModel with _$FavoriteModel {
     required String id,
     required String uid,
     required String petId,
+    required DateTime createdAt,
   }) = _FavoriteModel;
 
   factory FavoriteModel.fromJson(JsonData json) =>

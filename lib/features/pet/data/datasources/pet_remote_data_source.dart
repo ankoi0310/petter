@@ -16,6 +16,8 @@ import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 abstract class PetRemoteDataSource {
   Future<List<PetModel>> getPets(PetFilterParams params);
 
+  Future<List<PetModel>> getFavoritePets(List<String> ids);
+
   Future<List<PetModel>> getUserPets(String uid);
 
   Future<PetModel> getPet(String id);
@@ -78,39 +80,6 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
   @override
   Future<List<PetModel>> getPets(PetFilterParams params) async {
-    // 1. Trường hợp đặc biệt: Lấy danh sách thú cưng yêu thích (Favorite)
-    if (params.favoriteIds != null) {
-      if (params.favoriteIds!.isEmpty) return [];
-
-      // Chia nhỏ ids thành từng cụm 30 phần tử
-      final chunks = <List<String>>[];
-      for (var i = 0; i < params.favoriteIds!.length; i += 30) {
-        chunks.add(
-          params.favoriteIds!.sublist(
-            i,
-            i + 30 > params.favoriteIds!.length
-                ? params.favoriteIds!.length
-                : i + 30,
-          ),
-        );
-      }
-
-      // Chạy song song các query để tối ưu hiệu suất
-      final results = await Future.wait(
-        chunks.map(
-          (chunk) => _petsCollection
-              .where(FieldPath.documentId, whereIn: chunk)
-              .get(),
-        ),
-      );
-
-      return results
-          .expand((snap) => snap.docs)
-          .map((doc) => doc.data())
-          .toList();
-    }
-
-    // 2. Trường hợp lọc thông thường (Filter & Search)
     var query = _petsCollection.where('isDeleted', isEqualTo: false);
 
     if (params.species != null) {
@@ -147,6 +116,33 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
     final snapshot = await query.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  @override
+  Future<List<PetModel>> getFavoritePets(List<String> ids) async {
+    if (ids.isEmpty) return [];
+
+    // Chia nhỏ ids thành từng cụm 30 phần tử
+    final chunks = <List<String>>[];
+    for (var i = 0; i < ids.length; i += 30) {
+      chunks.add(
+        ids.sublist(i, i + 30 > ids.length ? ids.length : i + 30),
+      );
+    }
+
+    // Chạy song song các query để tối ưu hiệu suất
+    final results = await Future.wait(
+      chunks.map(
+        (chunk) => _petsCollection
+            .where(FieldPath.documentId, whereIn: chunk)
+            .get(),
+      ),
+    );
+
+    return results
+        .expand((snap) => snap.docs)
+        .map((doc) => doc.data())
+        .toList();
   }
 
   @override

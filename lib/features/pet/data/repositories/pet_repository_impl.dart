@@ -25,6 +25,16 @@ class PetRepositoryImpl implements PetRepository {
   }
 
   @override
+  ResultFuture<List<Pet>> getFavoritePets(List<String> ids) async {
+    try {
+      final pets = await _remoteDataSource.getFavoritePets(ids);
+      return right(pets.map((pet) => pet.toEntity()).toList());
+    } on ServerException catch (e) {
+      return left(.server(e.message));
+    }
+  }
+
+  @override
   ResultFuture<List<Pet>> getUserPets(String uid) async {
     try {
       final pets = await _remoteDataSource.getUserPets(uid);

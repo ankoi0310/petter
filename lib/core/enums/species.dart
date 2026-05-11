@@ -16,7 +16,7 @@ enum Species {
     dog => Assets.images.species.dog,
     bird => Assets.images.species.bird,
     rabbit => Assets.images.species.rabbit,
-    mouse => Assets.images.logo,
+    _ => Assets.images.logo,
   };
 }
 

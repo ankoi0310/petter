@@ -34,8 +34,8 @@ import 'package:petter/features/favorite/data/datasources/favorite_remote_data_s
 import 'package:petter/features/favorite/data/repositories/favorite_repository_impl.dart';
 import 'package:petter/features/favorite/domain/repositories/favorite_repository.dart';
 import 'package:petter/features/favorite/domain/usecases/add_to_favorite_use_case.dart';
+import 'package:petter/features/favorite/domain/usecases/get_favorite_pets_use_case.dart';
 import 'package:petter/features/favorite/domain/usecases/remove_from_favorite_use_case.dart';
-import 'package:petter/features/favorite/domain/usecases/watch_favorites_use_case.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/notification/data/datasources/notification_remote_data_source.dart';
 import 'package:petter/features/notification/data/repositories/notification_repository_impl.dart';
@@ -185,18 +185,17 @@ void _initAdoption(GetIt sl) {
 void _initFavorite(GetIt sl) {
   sl
     ..registerLazySingleton<FavoriteRemoteDataSource>(
-      () => FavoriteRemoteDataSourceImpl(sl()),
+      () => FavoriteRemoteDataSourceImpl(sl(), sl()),
     )
     ..registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositoryImpl(sl()),
     )
-    ..registerLazySingleton(() => WatchFavoritesUseCase(sl(), sl()))
+    ..registerLazySingleton(() => GetFavoritePetsUseCase(sl(), sl()))
     ..registerLazySingleton(() => AddToFavoriteUseCase(sl()))
     ..registerLazySingleton(() => RemoveFromFavoriteUseCase(sl()))
     ..registerFactory(
       () => FavoriteBloc(
-        watchAuthState: sl(),
-        watchFavorites: sl(),
+        getFavoritePets: sl(),
         addToFavorite: sl(),
         removeFromFavorite: sl(),
       ),
