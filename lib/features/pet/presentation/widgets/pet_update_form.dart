@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
@@ -13,8 +14,6 @@ import 'package:petter/core/widgets/image_upload_field.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/usecases/update_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
-import 'package:petter/features/species/domain/entities/species.dart';
-import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 import 'package:vn_provinces_api/vn_provinces_api.dart';
 
 class PetUpdateForm extends StatefulWidget {
@@ -108,11 +107,12 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
   Future<void> _initData() async {
     _nameController.text = widget.pet.name;
     _bleedController.text = widget.pet.bleed;
-    _ageController.text = widget.pet.age;
-    _weightController.text = widget.pet.weight;
+    _ageController.text = '${widget.pet.age}';
+    _weightController.text = '${widget.pet.weight}';
     _descriptionController.text = widget.pet.description;
     _addressDetailController.text = widget.pet.address.detail;
 
+    _speciesListenable.value = widget.pet.species;
     _genderListenable.value = widget.pet.gender;
 
     await _loadProvinces();
@@ -324,33 +324,20 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
             _bleedFocusNode.requestFocus();
           },
         ),
-        BlocBuilder<SpeciesBloc, SpeciesState>(
-          builder: (context, state) {
-            final species = state.maybeWhen(
-              loaded: (species) => species,
-              orElse: () => <Species>[],
-            );
+        AppDropdownFormField<Species>(
+          label: 'Danh mục',
+          valueListenable: _speciesListenable,
+          items: Species.values,
+          itemLabel: (p) => p.label,
+          onChanged: (species) {
+            _speciesListenable.value = species;
+          },
+          validator: (species) {
+            if (species == null) {
+              return 'Vui lòng chọn danh mục';
+            }
 
-            _speciesListenable.value = species.firstWhere(
-              (s) => s.id == widget.pet.speciesId,
-            );
-
-            return AppDropdownFormField<Species>(
-              label: 'Danh mục',
-              valueListenable: _speciesListenable,
-              items: species,
-              itemLabel: (p) => p.name,
-              onChanged: (species) {
-                _speciesListenable.value = species;
-              },
-              validator: (species) {
-                if (species == null) {
-                  return 'Vui lòng chọn danh mục';
-                }
-
-                return null;
-              },
-            );
+            return null;
           },
         ),
         AppTextFormField(

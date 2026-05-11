@@ -10,7 +10,7 @@ extension PetMapper on PetModel {
       address: address.toEntity(),
       name: name,
       gender: gender,
-      speciesId: speciesId,
+      species: species,
       bleed: bleed,
       age: age,
       weight: weight,

@@ -12,9 +12,9 @@ _PetModel _$PetModelFromJson(Map<String, dynamic> json) => _PetModel(
   name: json['name'] as String,
   address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
   gender: $enumDecode(_$GenderEnumMap, json['gender']),
-  age: json['age'] as String,
-  weight: json['weight'] as String,
-  speciesId: json['speciesId'] as String,
+  age: (json['age'] as num?)?.toInt(),
+  weight: (json['weight'] as num?)?.toDouble(),
+  species: $enumDecode(_$SpeciesEnumMap, json['species']),
   bleed: json['bleed'] as String,
   description: json['description'] as String,
   imageUrl: json['imageUrl'] as String,
@@ -32,7 +32,7 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
   'gender': _$GenderEnumMap[instance.gender]!,
   'age': instance.age,
   'weight': instance.weight,
-  'speciesId': instance.speciesId,
+  'species': _$SpeciesEnumMap[instance.species]!,
   'bleed': instance.bleed,
   'description': instance.description,
   'imageUrl': instance.imageUrl,
@@ -43,3 +43,11 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
 };
 
 const _$GenderEnumMap = {Gender.male: 'male', Gender.female: 'female'};
+
+const _$SpeciesEnumMap = {
+  Species.cat: 'cat',
+  Species.dog: 'dog',
+  Species.bird: 'bird',
+  Species.rabbit: 'rabbit',
+  Species.mouse: 'mouse',
+};

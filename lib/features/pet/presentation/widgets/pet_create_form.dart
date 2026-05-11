@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/app_form_field.dart';
@@ -11,8 +13,6 @@ import 'package:petter/core/widgets/button.dart';
 import 'package:petter/core/widgets/image_upload_field.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
-import 'package:petter/features/species/domain/entities/species.dart';
-import 'package:petter/features/species/presentation/bloc/species_bloc.dart';
 import 'package:vn_provinces_api/vn_provinces_api.dart';
 
 class PetCreateForm extends StatefulWidget {
@@ -144,8 +144,12 @@ class _PetCreateFormState extends State<PetCreateForm> {
         ward: _wardListenable.value!,
         fullAddress: _fullAddress,
         gender: _genderListenable.value!,
-        age: _ageController.text.trim(),
-        weight: _weightController.text.trim(),
+        age: _ageController.text.trim().isEmpty
+            ? null
+            : int.tryParse(_ageController.text.trim()),
+        weight: _weightController.text.trim().isEmpty
+            ? null
+            : double.tryParse(_weightController.text.trim()),
         description: _descriptionController.text.trim(),
         imageFile: selectedImage!,
       );
@@ -262,29 +266,20 @@ class _PetCreateFormState extends State<PetCreateForm> {
             _bleedFocusNode.requestFocus();
           },
         ),
-        BlocBuilder<SpeciesBloc, SpeciesState>(
-          builder: (context, state) {
-            final species = state.maybeWhen(
-              loaded: (species) => species,
-              orElse: () => <Species>[],
-            );
+        AppDropdownFormField<Species>(
+          label: 'Danh mục',
+          valueListenable: _speciesListenable,
+          items: Species.values,
+          itemLabel: (p) => p.label,
+          onChanged: (species) {
+            _speciesListenable.value = species;
+          },
+          validator: (species) {
+            if (species == null) {
+              return 'Vui lòng chọn danh mục';
+            }
 
-            return AppDropdownFormField<Species>(
-              label: 'Danh mục',
-              valueListenable: _speciesListenable,
-              items: species,
-              itemLabel: (p) => p.name,
-              onChanged: (species) {
-                _speciesListenable.value = species;
-              },
-              validator: (species) {
-                if (species == null) {
-                  return 'Vui lòng chọn danh mục';
-                }
-
-                return null;
-              },
-            );
+            return null;
           },
         ),
         AppTextFormField(
@@ -323,9 +318,19 @@ class _PetCreateFormState extends State<PetCreateForm> {
           required: false,
           controller: _ageController,
           focusNode: _ageFocusNode,
-          title: 'Tuổi',
+          title: 'Tuổi (theo tháng)',
+          keyboardType: .number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          hintText: 'VD: 5, 12, 18,...',
           onFieldSubmitted: (value) {
             _weightFocusNode.requestFocus();
+          },
+          validator: (age) {
+            if (age == null || age.isEmpty) return null;
+
+            final n = int.tryParse(age);
+            if (n == null) return 'Số không hợp lệ';
+            return null;
           },
         ),
         AppTextFormField(
@@ -333,8 +338,22 @@ class _PetCreateFormState extends State<PetCreateForm> {
           controller: _weightController,
           focusNode: _weightFocusNode,
           title: 'Cân nặng',
+          keyboardType: const .numberWithOptions(decimal: true),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+          ],
+          hintText: 'VD: 2.5, 3.2, 5...',
           onFieldSubmitted: (value) {
             _addressDetailFocusNode.requestFocus();
+          },
+          validator: (weight) {
+            if (weight == null || weight.isEmpty) return null;
+
+            final n = double.tryParse(weight);
+            if (n == null) return 'Định dạng số không hợp lệ';
+            if (n < 0) return 'Số không được âm';
+
+            return null;
           },
         ),
         AppTextFormField(

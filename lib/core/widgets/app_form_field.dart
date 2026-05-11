@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 
@@ -13,6 +14,8 @@ class AppTextFormField extends StatelessWidget {
     this.required = true,
     this.hintText,
     this.maxLines,
+    this.keyboardType,
+    this.inputFormatters,
     this.validator,
     this.onFieldSubmitted,
     super.key,
@@ -26,6 +29,8 @@ class AppTextFormField extends StatelessWidget {
   final String title;
   final String? hintText;
   final int? maxLines;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
 
@@ -53,6 +58,8 @@ class AppTextFormField extends StatelessWidget {
           controller: controller,
           focusNode: focusNode,
           maxLines: maxLines ?? 1,
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(hintText: hintText),
           validator: validator,
           onFieldSubmitted: onFieldSubmitted,

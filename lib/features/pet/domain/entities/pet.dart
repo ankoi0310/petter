@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/features/pet/domain/entities/address.dart';
 
 part 'pet.freezed.dart';
@@ -12,9 +13,9 @@ abstract class Pet with _$Pet {
     required String name,
     required Address address,
     required Gender gender,
-    required String age,
-    required String weight,
-    required String speciesId,
+    required int? age,
+    required double? weight,
+    required Species species,
     required String bleed,
     required String description,
     required String imageUrl,

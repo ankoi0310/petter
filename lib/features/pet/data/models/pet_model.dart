@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/utils/timestamp_converter.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/pet/data/models/address_model.dart';
@@ -17,9 +18,9 @@ abstract class PetModel with _$PetModel {
     required String name,
     required AddressModel address,
     required Gender gender,
-    required String age,
-    required String weight,
-    required String speciesId,
+    required int? age,
+    required double? weight,
+    required Species species,
     required String bleed,
     required String description,
     required String imageUrl,

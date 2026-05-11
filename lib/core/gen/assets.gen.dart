@@ -14,6 +14,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Baloo2.ttf
+  String get baloo2 => 'assets/fonts/Baloo2.ttf';
+
+  /// File path: assets/fonts/NunitoSans.ttf
+  String get nunitoSans => 'assets/fonts/NunitoSans.ttf';
+
+  /// List of all assets
+  List<String> get values => [baloo2, nunitoSans];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -36,10 +49,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/banner.jpg
   AssetGenImage get banner => const AssetGenImage('assets/images/banner.jpg');
 
-  /// Directory path: assets/images/species
-  $AssetsImagesSpeciesGen get species =>
-      const $AssetsImagesSpeciesGen();
-
   /// File path: assets/images/empty_message.svg
   SvgGenImage get emptyMessage =>
       const SvgGenImage('assets/images/empty_message.svg');
@@ -48,8 +57,14 @@ class $AssetsImagesGen {
   SvgGenImage get emptyNotification =>
       const SvgGenImage('assets/images/empty_notification.svg');
 
+  /// File path: assets/images/logo.jpg
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
+
   /// Directory path: assets/images/pets
   $AssetsImagesPetsGen get pets => const $AssetsImagesPetsGen();
+
+  /// Directory path: assets/images/species
+  $AssetsImagesSpeciesGen get species => const $AssetsImagesSpeciesGen();
 
   /// File path: assets/images/welcome_1.svg
   SvgGenImage get welcome1 => const SvgGenImage('assets/images/welcome_1.svg');
@@ -65,33 +80,11 @@ class $AssetsImagesGen {
     banner,
     emptyMessage,
     emptyNotification,
+    logo,
     welcome1,
     welcome2,
     welcome3,
   ];
-}
-
-class $AssetsImagesSpeciesGen {
-  const $AssetsImagesSpeciesGen();
-
-  /// File path: assets/images/species/bird.jpg
-  AssetGenImage get bird =>
-      const AssetGenImage('assets/images/species/bird.jpg');
-
-  /// File path: assets/images/species/cat.jpg
-  AssetGenImage get cat =>
-      const AssetGenImage('assets/images/species/cat.jpg');
-
-  /// File path: assets/images/species/dog.jpg
-  AssetGenImage get dog =>
-      const AssetGenImage('assets/images/species/dog.jpg');
-
-  /// File path: assets/images/species/rabbit.jpg
-  AssetGenImage get rabbit =>
-      const AssetGenImage('assets/images/species/rabbit.jpg');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [bird, cat, dog, rabbit];
 }
 
 class $AssetsImagesPetsGen {
@@ -152,11 +145,37 @@ class $AssetsImagesPetsGen {
   ];
 }
 
+class $AssetsImagesSpeciesGen {
+  const $AssetsImagesSpeciesGen();
+
+  /// File path: assets/images/species/bird.jpg
+  AssetGenImage get bird =>
+      const AssetGenImage('assets/images/species/bird.jpg');
+
+  /// File path: assets/images/species/cat.jpg
+  AssetGenImage get cat => const AssetGenImage('assets/images/species/cat.jpg');
+
+  /// File path: assets/images/species/dog.jpg
+  AssetGenImage get dog => const AssetGenImage('assets/images/species/dog.jpg');
+
+  /// File path: assets/images/species/rabbit.jpg
+  AssetGenImage get rabbit =>
+      const AssetGenImage('assets/images/species/rabbit.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [bird, cat, dog, rabbit];
+}
+
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

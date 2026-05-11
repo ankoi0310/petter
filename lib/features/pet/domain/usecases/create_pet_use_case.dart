@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
-import 'package:petter/features/species/domain/entities/species.dart';
 import 'package:vn_provinces_api/vn_provinces_api.dart';
 
 class CreatePetParams {
@@ -30,8 +30,8 @@ class CreatePetParams {
   final Ward ward;
   final String fullAddress;
   final Gender gender;
-  final String age;
-  final String weight;
+  final int? age;
+  final double? weight;
   final Species species;
   final String bleed;
   final String description;

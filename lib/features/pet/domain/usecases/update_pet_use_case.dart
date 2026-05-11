@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/core/utils/typedefs.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
-import 'package:petter/features/species/domain/entities/species.dart';
 import 'package:vn_provinces_api/vn_provinces_api.dart';
 
 class UpdatePetParams {
@@ -61,7 +61,7 @@ class UpdatePetParams {
     if (gender != null) 'gender': gender?.name,
     if (age != null) 'age': age,
     if (weight != null) 'weight': weight,
-    if (species != null) 'speciesId': species!.id,
+    if (species != null) 'species': species?.name,
     if (bleed != null && bleed!.isNotEmpty) 'species': bleed,
     if (description != null && description!.isNotEmpty)
       'description': description,

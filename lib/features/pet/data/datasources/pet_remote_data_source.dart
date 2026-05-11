@@ -113,8 +113,8 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     // 2. Trường hợp lọc thông thường (Filter & Search)
     var query = _petsCollection.where('isDeleted', isEqualTo: false);
 
-    if (params.speciesId != null) {
-      query = query.where('speciesId', isEqualTo: params.speciesId);
+    if (params.species != null) {
+      query = query.where('species', isEqualTo: params.species?.name);
     }
 
     if (params.gender != null) {
@@ -201,7 +201,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
           fullAddress: params.fullAddress,
         ),
         gender: params.gender,
-        speciesId: params.species.id,
+        species: params.species,
         bleed: params.bleed,
         age: params.age,
         weight: params.weight,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
+import 'package:petter/core/extensions/number_extension.dart';
 import 'package:petter/core/gen/assets.gen.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
@@ -90,7 +91,7 @@ class PetDetailOverviewWidget extends StatelessWidget {
                         'Tuổi',
                         style: context.textTheme.titleMedium,
                       ),
-                      Text(pet.age.isEmpty ? '-' : pet.age),
+                      Text(pet.age.toAgeString()),
                     ],
                   ),
                 ),
@@ -106,7 +107,7 @@ class PetDetailOverviewWidget extends StatelessWidget {
                         'Cân nặng',
                         style: context.textTheme.titleMedium,
                       ),
-                      Text(pet.weight.isEmpty ? '-' : pet.weight),
+                      Text(pet.weight.toWeightString()),
                     ],
                   ),
                 ),
