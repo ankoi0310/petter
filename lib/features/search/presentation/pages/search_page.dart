@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/enums/gender.dart';
+import 'package:petter/core/enums/species.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
-import 'package:petter/core/widgets/gender_dropdown_field.dart';
+import 'package:petter/core/widgets/app_form_field.dart';
 import 'package:petter/core/widgets/pet_card.dart';
-import 'package:petter/core/widgets/species_dropdown_field.dart';
 import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
@@ -24,8 +24,8 @@ class _SearchPageState extends State<SearchPage> {
 
   final _searchController = TextEditingController();
 
-  final speciesListenable = ValueNotifier<String?>(null);
-  final genderListenable = ValueNotifier<Gender?>(null);
+  final _speciesListenable = ValueNotifier<Species?>(null);
+  final _genderListenable = ValueNotifier<Gender?>(null);
 
   @override
   void initState() {
@@ -99,31 +99,35 @@ class _SearchPageState extends State<SearchPage> {
                     spacing: 8,
                     children: [
                       Expanded(
-                        child: SpeciesDropdownField(
-                          focusNode: FocusNode(),
-                          valueListenable: speciesListenable,
+                        child: AppDropdownFormField<Species>(
+                          valueListenable: _speciesListenable,
                           showTitle: false,
-                          onChanged: (speciesId) {
-                            speciesListenable.value = speciesId;
+                          onChanged: (species) {
+                            _speciesListenable.value = species;
                             _params = _params.copyWith(
-                              speciesId: speciesId,
+                              species: species,
                             );
                             _onFilterChanged();
                           },
+                          label: 'Danh mục',
+                          items: Species.values,
+                          itemLabel: (species) => species.label,
                         ),
                       ),
                       Expanded(
-                        child: GenderDropdownField(
-                          focusNode: FocusNode(),
-                          valueListenable: genderListenable,
+                        child: AppDropdownFormField<Gender>(
+                          valueListenable: _genderListenable,
                           showTitle: false,
                           onChanged: (gender) {
-                            genderListenable.value = gender;
+                            _genderListenable.value = gender;
                             _params = _params.copyWith(
                               gender: gender,
                             );
                             _onFilterChanged();
                           },
+                          label: 'Giới tính',
+                          items: Gender.values,
+                          itemLabel: (gender) => gender.label,
                         ),
                       ),
                     ],
