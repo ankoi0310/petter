@@ -42,7 +42,7 @@ class SupabaseStorageServiceImpl implements SupabaseStorageService {
 
       return getPublicUrl(bucket: bucket, path: path);
     } catch (e) {
-      throw ServerException('Upload image failed: $e');
+      throw ServerException('Tải ảnh không thành công: $e');
     }
   }
 
@@ -54,7 +54,7 @@ class SupabaseStorageServiceImpl implements SupabaseStorageService {
     try {
       await client.storage.from(bucket).remove([path]);
     } catch (e) {
-      throw ServerException('Delete file failed: $e');
+      throw ServerException('Xoá ảnh không thành công: $e');
     }
   }
 

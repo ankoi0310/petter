@@ -17,7 +17,9 @@ class AppTextFormField extends StatelessWidget {
     this.keyboardType,
     this.inputFormatters,
     this.validator,
+    this.autovalidateMode,
     this.onFieldSubmitted,
+    this.onChanged,
     super.key,
   });
 
@@ -32,7 +34,9 @@ class AppTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
+  final AutovalidateMode? autovalidateMode;
   final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,9 @@ class AppTextFormField extends StatelessWidget {
           inputFormatters: inputFormatters,
           decoration: InputDecoration(hintText: hintText),
           validator: validator,
+          autovalidateMode: autovalidateMode,
           onFieldSubmitted: onFieldSubmitted,
+          onChanged: onChanged,
           onTapOutside: (_) {
             focusNode.unfocus();
           },

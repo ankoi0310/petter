@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
@@ -48,8 +49,12 @@ class HomeBottomNav extends StatelessWidget {
             child: const Icon(Iconsax.pet_copy),
           ),
           GestureDetector(
-            onTap: () =>
-                context.pushNamed(AppRoutes.adoptionRequest.name),
+            onTap: () async {
+              context.read<AdoptionBloc>()
+                ..add(const .getMyAdoptionRequests())
+                ..add(const .getAdoptionRequests());
+              await context.pushNamed(AppRoutes.adoptionRequest.name);
+            },
             child: const Icon(Iconsax.receipt_edit_copy),
           ),
           GestureDetector(

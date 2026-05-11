@@ -48,17 +48,15 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
       );
 
   Future<String?> _uploadPetImage(String id, File imageFile) async {
+    if (!imageFile.existsSync()) return null;
+
+    final contentType = lookupMimeType(imageFile.path);
+
+    if (contentType == null) {
+      throw const ServerException('Không tìm thấy định dạng của tệp');
+    }
+
     try {
-      if (!imageFile.existsSync()) return null;
-
-      final contentType = lookupMimeType(imageFile.path);
-
-      if (contentType == null) {
-        throw const ServerException(
-          'Không tìm thấy định dạng của tệp',
-        );
-      }
-
       final ext = extensionFromMime(contentType);
       final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -74,7 +72,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     } on ServerException {
       rethrow;
     } catch (e) {
-      throw ServerException('Failed to upload pet image: $e');
+      throw ServerException('Tải ảnh thú cưng không thành công: $e');
     }
   }
 
@@ -92,6 +90,31 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
     if (!params.showAdopted) {
       query = query.where('isAdopted', isEqualTo: false);
+    }
+
+    if (params.minWeight != null) {
+      query = query.where(
+        'weight',
+        isGreaterThanOrEqualTo: params.minWeight,
+      );
+    }
+
+    if (params.maxWeight != null) {
+      query = query.where(
+        'weight',
+        isLessThanOrEqualTo: params.maxWeight,
+      );
+    }
+
+    if (params.minAge != null) {
+      query = query.where(
+        'age',
+        isGreaterThanOrEqualTo: params.minAge,
+      );
+    }
+
+    if (params.maxAge != null) {
+      query = query.where('age', isLessThanOrEqualTo: params.maxAge);
     }
 
     // Prefix Search theo tên
@@ -164,7 +187,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     final snapshot = await _petsCollection.doc(id).get();
 
     if (!snapshot.exists) {
-      throw const ServerException('Pet not found');
+      throw const ServerException('Không tìm thấy thú cưng');
     }
 
     return snapshot.data()!;
