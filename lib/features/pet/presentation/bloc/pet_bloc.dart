@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
@@ -27,7 +28,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
        _getPet = getPet,
        _createPet = createPet,
        _updatePet = updatePet,
-       super(const PetState.initial()) {
+       super(const .initial()) {
     on<_GetPets>(_onGetPets);
     on<_GetUserPets>(_onGetUserPets);
     on<_GetPet>(_onGetPet);
@@ -60,7 +61,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     _GetPets event,
     Emitter<PetState> emit,
   ) async {
-    emit(const PetState.loading());
+    emit(const .loading());
     final result = await _getPets(event.params);
     result.fold((failure) => emit(.error(failure.message)), (pets) {
       if (event.isSearch) {
@@ -77,7 +78,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     Emitter<PetState> emit,
   ) async {
     emit(const .loading());
-    final result = await _getUserPets(event.uid);
+    final result = await _getUserPets(NoParams());
     result.fold((failure) => emit(.error(failure.message)), (pets) {
       _userPets = pets;
       _emitLoaded(emit);
@@ -114,7 +115,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     _UpdatePet event,
     Emitter<PetState> emit,
   ) async {
-    emit(const PetState.updating());
+    emit(const .updating());
     final result = await _updatePet(event.params);
     result.fold((failure) => emit(.error(failure.message)), (
       updatedPet,
@@ -138,7 +139,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   //   Emitter<PetState> emit,
   // ) async {
   //   final result = await _updatePet(event.params);
-  //   result.fold((failure) => emit(PetState.error(failure.message)), (
+  //   result.fold((failure) => emit(.error(failure.message)), (
   //     updatedPet,
   //   ) {
   //     _pets = _pets

@@ -3,20 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petter/core/widgets/pet_card.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
 
-class FavoritePage extends StatefulWidget {
+class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
-
-  @override
-  State<FavoritePage> createState() => _FavoritePageState();
-}
-
-class _FavoritePageState extends State<FavoritePage> {
-  @override
-  void initState() {
-    super.initState();
-
-    context.read<FavoriteBloc>().add(const .getFavoritePets());
-  }
 
   @override
   Widget build(BuildContext context) {

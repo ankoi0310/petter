@@ -134,11 +134,11 @@ return deletePet(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( PetFilterParams params,  bool isSearch)?  getPets,TResult Function( String uid)?  getUserPets,TResult Function( String id)?  getPet,TResult Function( CreatePetParams params)?  createPet,TResult Function( UpdatePetParams params)?  updatePet,TResult Function( String id)?  deletePet,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( PetFilterParams params,  bool isSearch)?  getPets,TResult Function()?  getUserPets,TResult Function( String id)?  getPet,TResult Function( CreatePetParams params)?  createPet,TResult Function( UpdatePetParams params)?  updatePet,TResult Function( String id)?  deletePet,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GetPets() when getPets != null:
 return getPets(_that.params,_that.isSearch);case _GetUserPets() when getUserPets != null:
-return getUserPets(_that.uid);case _GetPet() when getPet != null:
+return getUserPets();case _GetPet() when getPet != null:
 return getPet(_that.id);case _CreatePet() when createPet != null:
 return createPet(_that.params);case _UpdatePet() when updatePet != null:
 return updatePet(_that.params);case _DeletePet() when deletePet != null:
@@ -160,11 +160,11 @@ return deletePet(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( PetFilterParams params,  bool isSearch)  getPets,required TResult Function( String uid)  getUserPets,required TResult Function( String id)  getPet,required TResult Function( CreatePetParams params)  createPet,required TResult Function( UpdatePetParams params)  updatePet,required TResult Function( String id)  deletePet,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( PetFilterParams params,  bool isSearch)  getPets,required TResult Function()  getUserPets,required TResult Function( String id)  getPet,required TResult Function( CreatePetParams params)  createPet,required TResult Function( UpdatePetParams params)  updatePet,required TResult Function( String id)  deletePet,}) {final _that = this;
 switch (_that) {
 case _GetPets():
 return getPets(_that.params,_that.isSearch);case _GetUserPets():
-return getUserPets(_that.uid);case _GetPet():
+return getUserPets();case _GetPet():
 return getPet(_that.id);case _CreatePet():
 return createPet(_that.params);case _UpdatePet():
 return updatePet(_that.params);case _DeletePet():
@@ -185,11 +185,11 @@ return deletePet(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( PetFilterParams params,  bool isSearch)?  getPets,TResult? Function( String uid)?  getUserPets,TResult? Function( String id)?  getPet,TResult? Function( CreatePetParams params)?  createPet,TResult? Function( UpdatePetParams params)?  updatePet,TResult? Function( String id)?  deletePet,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( PetFilterParams params,  bool isSearch)?  getPets,TResult? Function()?  getUserPets,TResult? Function( String id)?  getPet,TResult? Function( CreatePetParams params)?  createPet,TResult? Function( UpdatePetParams params)?  updatePet,TResult? Function( String id)?  deletePet,}) {final _that = this;
 switch (_that) {
 case _GetPets() when getPets != null:
 return getPets(_that.params,_that.isSearch);case _GetUserPets() when getUserPets != null:
-return getUserPets(_that.uid);case _GetPet() when getPet != null:
+return getUserPets();case _GetPet() when getPet != null:
 return getPet(_that.id);case _CreatePet() when createPet != null:
 return createPet(_that.params);case _UpdatePet() when updatePet != null:
 return updatePet(_that.params);case _DeletePet() when deletePet != null:
@@ -282,67 +282,33 @@ $PetFilterParamsCopyWith<$Res> get params {
 
 
 class _GetUserPets implements PetEvent {
-  const _GetUserPets(this.uid);
+  const _GetUserPets();
   
 
- final  String uid;
 
-/// Create a copy of PetEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$GetUserPetsCopyWith<_GetUserPets> get copyWith => __$GetUserPetsCopyWithImpl<_GetUserPets>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetUserPets&&(identical(other.uid, uid) || other.uid == uid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetUserPets);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uid);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PetEvent.getUserPets(uid: $uid)';
+  return 'PetEvent.getUserPets()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$GetUserPetsCopyWith<$Res> implements $PetEventCopyWith<$Res> {
-  factory _$GetUserPetsCopyWith(_GetUserPets value, $Res Function(_GetUserPets) _then) = __$GetUserPetsCopyWithImpl;
-@useResult
-$Res call({
- String uid
-});
 
 
-
-
-}
-/// @nodoc
-class __$GetUserPetsCopyWithImpl<$Res>
-    implements _$GetUserPetsCopyWith<$Res> {
-  __$GetUserPetsCopyWithImpl(this._self, this._then);
-
-  final _GetUserPets _self;
-  final $Res Function(_GetUserPets) _then;
-
-/// Create a copy of PetEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? uid = null,}) {
-  return _then(_GetUserPets(
-null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

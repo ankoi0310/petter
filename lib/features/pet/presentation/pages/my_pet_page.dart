@@ -4,31 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/core/widgets/button.dart';
-import 'package:petter/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/pet/presentation/widgets/my_pet_grid_view.dart';
 
-class MyPetPage extends StatefulWidget {
+class MyPetPage extends StatelessWidget {
   const MyPetPage({super.key});
-
-  @override
-  State<MyPetPage> createState() => _MyPetPageState();
-}
-
-class _MyPetPageState extends State<MyPetPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    final uid = context.read<AuthBloc>().state.maybeWhen(
-      authenticated: (user) => user.id,
-      orElse: () => null,
-    );
-
-    if (uid != null) {
-      context.read<PetBloc>().add(PetEvent.getUserPets(uid));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

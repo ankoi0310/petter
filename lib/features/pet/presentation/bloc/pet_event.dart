@@ -7,7 +7,7 @@ class PetEvent with _$PetEvent {
     @Default(false) bool isSearch,
   }) = _GetPets;
 
-  const factory PetEvent.getUserPets(String uid) = _GetUserPets;
+  const factory PetEvent.getUserPets() = _GetUserPets;
 
   const factory PetEvent.getPet(String id) = _GetPet;
 

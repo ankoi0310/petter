@@ -18,7 +18,7 @@ abstract class PetRemoteDataSource {
 
   Future<List<PetModel>> getFavoritePets(List<String> ids);
 
-  Future<List<PetModel>> getUserPets(String uid);
+  Future<List<PetModel>> getUserPets();
 
   Future<PetModel> getPet(String id);
 
@@ -146,9 +146,15 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
   }
 
   @override
-  Future<List<PetModel>> getUserPets(String uid) async {
+  Future<List<PetModel>> getUserPets() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw const AuthException('Người dùng chưa đăng nhập');
+    }
+
     final snapshot = await _petsCollection
-        .where('uid', isEqualTo: uid)
+        .where('uid', isEqualTo: currentUser.uid)
         .get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }

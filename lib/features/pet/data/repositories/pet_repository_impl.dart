@@ -29,16 +29,20 @@ class PetRepositoryImpl implements PetRepository {
     try {
       final pets = await _remoteDataSource.getFavoritePets(ids);
       return right(pets.map((pet) => pet.toEntity()).toList());
+    } on AuthException catch (e) {
+      return left(.auth(e.message));
     } on ServerException catch (e) {
       return left(.server(e.message));
     }
   }
 
   @override
-  ResultFuture<List<Pet>> getUserPets(String uid) async {
+  ResultFuture<List<Pet>> getUserPets() async {
     try {
-      final pets = await _remoteDataSource.getUserPets(uid);
+      final pets = await _remoteDataSource.getUserPets();
       return right(pets.map((pet) => pet.toEntity()).toList());
+    } on AuthException catch (e) {
+      return left(.auth(e.message));
     } on ServerException catch (e) {
       return left(.server(e.message));
     }
