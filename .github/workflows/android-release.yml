@@ -92,4 +92,4 @@ jobs:
           packageName: dev.hvhan.petter
           releaseFiles: app-release.aab
           tracks: production
-          status: completed
+          status: draft
