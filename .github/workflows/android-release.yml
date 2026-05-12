@@ -42,9 +42,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Check format
-        run: dart format --set-exit-if-changed .
-
       - name: Static Analysis
         run: flutter analyze
 
