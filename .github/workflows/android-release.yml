@@ -14,24 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Decode Android Key
-        run: echo "${{ secrets.APP_KEY_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
-
-      - name: Create key.properties
-        run: |
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=../app/upload-keystore.jks" >> android/key.properties
-
-      - name: Create google-services.json
-        run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
-
-      - name: Create firebase_options.dart
-        run: |
-          mkdir -p lib/
-          echo '${{ secrets.FIREBASE_OPTIONS_CONTENT }}' > lib/firebase_options.dart
-
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
@@ -47,11 +29,29 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-#      - name: Static Analysis
-#        run: flutter analyze
+      #      - name: Static Analysis
+      #        run: flutter analyze
 
-#      - name: Run Tests
-#        run: flutter test
+      #      - name: Run Tests
+      #        run: flutter test
+
+      - name: Decode Android Key
+        run: echo "${{ secrets.APP_KEY_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=../app/upload-keystore.jks" >> android/key.properties
+
+      - name: Create google-services.json
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+
+      - name: Create firebase_options.dart
+        run: |
+          mkdir -p lib/
+          echo "${{ secrets.FIREBASE_OPTIONS_BASE64 }}" | base64 --decode > lib/firebase_options.dart
 
       - name: Build App Bundle (AAB)
         run: |
