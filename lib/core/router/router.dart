@@ -15,6 +15,7 @@ import 'package:petter/features/chat/presentation/pages/chat_detail_page.dart';
 import 'package:petter/features/chat/presentation/pages/chat_page.dart';
 import 'package:petter/features/favorite/presentation/pages/favorite_page.dart';
 import 'package:petter/features/home/presentation/pages/home_page.dart';
+import 'package:petter/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:petter/features/notification/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
@@ -50,6 +51,9 @@ final routerConfig = GoRouter(
     return authState.maybeWhen(
       authenticated: (user) {
         if (location == AppRoutes.splash.path || isPublic) {
+          context.read<NotificationBloc>().add(
+            const .getNotifications(),
+          );
           return AppRoutes.home.path;
         }
 

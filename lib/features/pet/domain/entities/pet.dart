@@ -23,5 +23,6 @@ abstract class Pet with _$Pet {
     required DateTime updatedAt,
     required bool isAdopted,
     required bool isDeleted,
+    required DateTime? deletedAt,
   }) = _Pet;
 }

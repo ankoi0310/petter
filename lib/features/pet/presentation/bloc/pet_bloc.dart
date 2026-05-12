@@ -5,6 +5,7 @@ import 'package:petter/core/usecases/usecase.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
 import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
+import 'package:petter/features/pet/domain/usecases/delete_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_pets_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_user_pets_use_case.dart';
@@ -23,17 +24,20 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     required GetPetUseCase getPet,
     required CreatePetUseCase createPet,
     required UpdatePetUseCase updatePet,
+    required DeletePetUseCase deletePet,
   }) : _getPets = getPets,
        _getUserPets = getUserPets,
        _getPet = getPet,
        _createPet = createPet,
        _updatePet = updatePet,
+       _deletePet = deletePet,
        super(const .initial()) {
     on<_GetPets>(_onGetPets);
     on<_GetUserPets>(_onGetUserPets);
     on<_GetPet>(_onGetPet);
     on<_CreatePet>(_onCreatePet);
     on<_UpdatePet>(_onUpdatePet);
+    on<_DeletePet>(_onDeletePet);
   }
 
   final GetPetsUseCase _getPets;
@@ -41,6 +45,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   final GetPetUseCase _getPet;
   final CreatePetUseCase _createPet;
   final UpdatePetUseCase _updatePet;
+  final DeletePetUseCase _deletePet;
 
   List<Pet> _homePets = [];
   List<Pet> _searchPets = [];
@@ -49,9 +54,9 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   void _emitLoaded(Emitter<PetState> emit, {Pet? selectedPet}) {
     emit(
       .loaded(
-        homePets: _homePets,
-        searchPets: _searchPets,
-        userPets: _userPets,
+        homePets: List.from(_homePets),
+        searchPets: List.from(_searchPets),
+        userPets: List.from(_userPets),
         pet: selectedPet,
       ),
     );
@@ -134,21 +139,18 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     });
   }
 
-  // Future<void> _onDeletePet(
-  //   _DeletePet event,
-  //   Emitter<PetState> emit,
-  // ) async {
-  //   final result = await _updatePet(event.params);
-  //   result.fold((failure) => emit(.error(failure.message)), (
-  //     updatedPet,
-  //   ) {
-  //     _pets = _pets
-  //         .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
-  //         .toList();
-  //     _userPets = _userPets
-  //         .map((pet) => pet.id == updatedPet.id ? updatedPet : pet)
-  //         .toList();
-  //     _emitLoaded(emit);
-  //   });
-  // }
+  Future<void> _onDeletePet(
+    _DeletePet event,
+    Emitter<PetState> emit,
+  ) async {
+    final result = await _deletePet(event.id);
+    result.fold((failure) => emit(.error(failure.message)), (_) {
+      _homePets.removeWhere((pet) => pet.id == event.id);
+      _searchPets.removeWhere((pet) => pet.id == event.id);
+      _userPets.removeWhere((pet) => pet.id == event.id);
+
+      emit(const .deletePetSuccess());
+      _emitLoaded(emit);
+    });
+  }
 }

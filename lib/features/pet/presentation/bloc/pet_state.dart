@@ -18,6 +18,7 @@ class PetState with _$PetState {
 
   const factory PetState.updating() = _Updating;
   const factory PetState.updatePetSuccess() = _UpdatePetSuccess;
+  const factory PetState.deletePetSuccess() = _DeletePetSuccess;
 
   const factory PetState.error(String message) = _Error;
 }

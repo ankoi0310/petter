@@ -20,6 +20,7 @@ extension PetMapper on PetModel {
       updatedAt: updatedAt,
       isAdopted: isAdopted,
       isDeleted: isDeleted,
+      deletedAt: deletedAt,
     );
   }
 }

@@ -84,6 +84,15 @@ class PetCard extends StatelessWidget {
               right: 8,
               child: Skeleton.keep(
                 child: AppIconButton(
+                  onTap: () async {
+                    final shouldDeleted = await buildShowDeleteDialog(
+                      context,
+                    );
+
+                    if (shouldDeleted == true) {
+                      context.read<PetBloc>().add(.deletePet(pet.id));
+                    }
+                  },
                   icon: Iconsax.trash_copy,
                   iconSize: iconSize,
                   borderRadius: borderRadius,
@@ -121,6 +130,31 @@ class PetCard extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+
+  Future<bool?> buildShowDeleteDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Bạn muốn xoá thú cưng này?',
+            style: context.textTheme.titleLarge,
+          ),
+          actions: [
+            AppTextButton.outline(
+              context,
+              onTap: () => context.pop(false),
+              text: 'Huỷ',
+            ),
+            AppTextButton(
+              onTap: () => context.pop(true),
+              text: 'Xác nhận',
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -16,4 +16,6 @@ abstract class PetRepository {
   ResultFuture<Pet> createPet(CreatePetParams params);
 
   ResultFuture<Pet> updatePet(UpdatePetParams params);
+
+  VoidFuture deletePet(String id);
 }

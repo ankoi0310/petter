@@ -22,6 +22,7 @@ _PetModel _$PetModelFromJson(Map<String, dynamic> json) => _PetModel(
   updatedAt: const TimestampConverter().fromJson(json['updatedAt']),
   isAdopted: json['isAdopted'] as bool? ?? false,
   isDeleted: json['isDeleted'] as bool? ?? false,
+  deletedAt: const TimestampConverterNullable().fromJson(json['deletedAt']),
 );
 
 Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
@@ -40,6 +41,7 @@ Map<String, dynamic> _$PetModelToJson(_PetModel instance) => <String, dynamic>{
   'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
   'isAdopted': instance.isAdopted,
   'isDeleted': instance.isDeleted,
+  'deletedAt': const TimestampConverterNullable().toJson(instance.deletedAt),
 };
 
 const _$GenderEnumMap = {Gender.male: 'male', Gender.female: 'female'};

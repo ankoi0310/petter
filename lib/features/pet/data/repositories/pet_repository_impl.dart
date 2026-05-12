@@ -79,4 +79,14 @@ class PetRepositoryImpl implements PetRepository {
       return left(.server(e.message));
     }
   }
+
+  @override
+  VoidFuture deletePet(String id) async {
+    try {
+      await _remoteDataSource.deletePet(id);
+      return right(unit);
+    } on ServerException catch (e) {
+      return left(.server(e.message));
+    }
+  }
 }

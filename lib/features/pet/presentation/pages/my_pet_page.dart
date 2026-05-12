@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:petter/core/router/router.dart';
+import 'package:petter/core/utils/show_snack_bar.dart';
 import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/pet/presentation/widgets/my_pet_grid_view.dart';
@@ -24,7 +25,17 @@ class MyPetPage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: BlocBuilder<PetBloc, PetState>(
+        child: BlocConsumer<PetBloc, PetState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              deletePetSuccess: () {
+                showSnackBar(
+                  context,
+                  content: 'Đã xoá thú cưng thành công',
+                );
+              },
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
               loaded: (homePets, searchPets, userPets, _) {

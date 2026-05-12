@@ -11,7 +11,6 @@ part 'pet_model.g.dart';
 
 @freezed
 abstract class PetModel with _$PetModel {
-  @TimestampConverter()
   const factory PetModel({
     required String id,
     required String uid,
@@ -24,10 +23,11 @@ abstract class PetModel with _$PetModel {
     required String bleed,
     required String description,
     required String imageUrl,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @TimestampConverter() required DateTime createdAt,
+    @TimestampConverter() required DateTime updatedAt,
     @Default(false) bool isAdopted,
     @Default(false) bool isDeleted,
+    @TimestampConverterNullable() DateTime? deletedAt,
   }) = _PetModel;
 
   factory PetModel.fromJson(JsonData json) =>

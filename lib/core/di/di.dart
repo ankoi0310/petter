@@ -49,6 +49,7 @@ import 'package:petter/features/pet/data/datasources/pet_remote_data_source.dart
 import 'package:petter/features/pet/data/repositories/pet_repository_impl.dart';
 import 'package:petter/features/pet/domain/repositories/pet_repository.dart';
 import 'package:petter/features/pet/domain/usecases/create_pet_use_case.dart';
+import 'package:petter/features/pet/domain/usecases/delete_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_pet_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_pets_use_case.dart';
 import 'package:petter/features/pet/domain/usecases/get_user_pets_use_case.dart';
@@ -149,6 +150,7 @@ void _initPet(GetIt sl) {
     ..registerLazySingleton(() => GetPetUseCase(sl()))
     ..registerLazySingleton(() => CreatePetUseCase(sl()))
     ..registerLazySingleton(() => UpdatePetUseCase(sl()))
+    ..registerLazySingleton(() => DeletePetUseCase(sl()))
     ..registerFactory(
       () => PetBloc(
         getPets: sl(),
@@ -156,6 +158,7 @@ void _initPet(GetIt sl) {
         getPet: sl(),
         createPet: sl(),
         updatePet: sl(),
+        deletePet: sl(),
       ),
     );
 }

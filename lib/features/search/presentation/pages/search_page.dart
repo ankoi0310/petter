@@ -66,7 +66,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _onFilterChanged() {
-    print(_params);
     // Debounce 500ms để tránh spam query Firestore
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {

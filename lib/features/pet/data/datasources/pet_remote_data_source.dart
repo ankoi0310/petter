@@ -25,6 +25,8 @@ abstract class PetRemoteDataSource {
   Future<PetModel> createPet(CreatePetParams params);
 
   Future<PetModel> updatePet(UpdatePetParams params);
+
+  Future<void> deletePet(String id);
 }
 
 class PetRemoteDataSourceImpl implements PetRemoteDataSource {
@@ -157,6 +159,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
     final results = await Future.wait(
       chunks.map(
         (chunk) => _petsCollection
+            .where('isDeleted', isEqualTo: false)
             .where(FieldPath.documentId, whereIn: chunk)
             .get(),
       ),
@@ -178,6 +181,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
     final snapshot = await _petsCollection
         .where('uid', isEqualTo: currentUser.uid)
+        .where('isDeleted', isEqualTo: false)
         .get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
@@ -186,7 +190,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
   Future<PetModel> getPet(String id) async {
     final snapshot = await _petsCollection.doc(id).get();
 
-    if (!snapshot.exists) {
+    if (!snapshot.exists || snapshot.data()?.isDeleted == true) {
       throw const ServerException('Không tìm thấy thú cưng');
     }
 
@@ -284,6 +288,18 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
       return doc.data()!;
     } catch (e) {
       throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> deletePet(String id) async {
+    try {
+      await _petsCollection.doc(id).update({
+        'isDeleted': true,
+        'deletedAt': DateTime.now(),
+      });
+    } catch (e) {
+      throw ServerException('Xoá thú cưng không thành công: $e');
     }
   }
 }
