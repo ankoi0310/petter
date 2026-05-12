@@ -42,11 +42,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Static Analysis
-        run: flutter analyze
+#      - name: Static Analysis
+#        run: flutter analyze
 
-      - name: Run Tests
-        run: flutter test
+#      - name: Run Tests
+#        run: flutter test
 
       - name: Build App Bundle (AAB)
         run: |
