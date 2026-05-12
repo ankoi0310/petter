@@ -53,6 +53,11 @@ jobs:
           mkdir -p lib/
           echo "${{ secrets.FIREBASE_OPTIONS_BASE64 }}" | base64 --decode > lib/firebase_options.dart
 
+      - name: Create .env
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env
+          echo "SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}" >> .env
+
       - name: Build App Bundle (AAB)
         run: |
           flutter build appbundle --release \
