@@ -1,0 +1,87 @@
+name: Android Release
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Decode Android Key
+        run: echo "${{ secrets.APP_KEY_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=../app/upload-keystore.jks" >> android/key.properties
+
+      - name: Create google-services.json
+        run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Check format
+        run: dart format --set-exit-if-changed .
+
+      - name: Static Analysis
+        run: flutter analyze
+
+      - name: Run Tests
+        run: flutter test
+
+      - name: Build App Bundle (AAB)
+        run: |
+          flutter build appbundle --release \
+          --build-name=1.0.${{ github.run_number }} \
+          --build-number=${{ github.run_number }}
+
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: petter-bundle-v${{ github.run_number }}
+          path: build/app/outputs/bundle/release/app-release.aab
+
+  deploy:
+    name: Deploy Android Build
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get App Bunble from artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: petter-bundle-v${{ github.run_number }}
+
+      - name: Release Build to internal track
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+          packageName: dev.hvhan.petter
+          releaseFiles: app-release.aab
+          track: alpha
+          status: completed
