@@ -27,6 +27,11 @@ jobs:
       - name: Create google-services.json
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
 
+      - name: Create firebase_options.dart
+        run: |
+          mkdir -p lib/
+          echo '${{ secrets.FIREBASE_OPTIONS_CONTENT }}' > lib/firebase_options.dart
+
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
