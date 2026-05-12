@@ -85,11 +85,11 @@ jobs:
         with:
           name: petter-bundle-v${{ github.run_number }}
 
-      - name: Release Build to internal track
+      - name: Release Build
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
           packageName: dev.hvhan.petter
           releaseFiles: app-release.aab
-          track: alpha
+          tracks: production
           status: completed
