@@ -16,7 +16,7 @@ abstract class Pet with _$Pet {
     required int? age,
     required double? weight,
     required Species species,
-    required String bleed,
+    required String breed,
     required String description,
     required String imageUrl,
     required DateTime createdAt,

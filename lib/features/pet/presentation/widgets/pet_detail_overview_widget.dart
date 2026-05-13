@@ -32,7 +32,7 @@ class PetDetailOverviewWidget extends StatelessWidget {
                     spacing: 8,
                     children: [
                       const Icon(Iconsax.pet_copy),
-                      Expanded(child: Text(pet.bleed)),
+                      Expanded(child: Text(pet.breed)),
                     ],
                   ),
                   Row(

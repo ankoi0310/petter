@@ -20,7 +20,7 @@ abstract class PetModel with _$PetModel {
     required int? age,
     required double? weight,
     required Species species,
-    required String bleed,
+    required String breed,
     required String description,
     required String imageUrl,
     @TimestampConverter() required DateTime createdAt,

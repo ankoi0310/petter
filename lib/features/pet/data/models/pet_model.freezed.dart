@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PetModel {
 
- String get id; String get uid; String get name; AddressModel get address; Gender get gender; int? get age; double? get weight; Species get species; String get bleed; String get description; String get imageUrl;@TimestampConverter() DateTime get createdAt;@TimestampConverter() DateTime get updatedAt; bool get isAdopted; bool get isDeleted;@TimestampConverterNullable() DateTime? get deletedAt;
+ String get id; String get uid; String get name; AddressModel get address; Gender get gender; int? get age; double? get weight; Species get species; String get breed; String get description; String get imageUrl;@TimestampConverter() DateTime get createdAt;@TimestampConverter() DateTime get updatedAt; bool get isAdopted; bool get isDeleted;@TimestampConverterNullable() DateTime? get deletedAt;
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PetModelCopyWith<PetModel> get copyWith => _$PetModelCopyWithImpl<PetModel>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.species, species) || other.species == species)&&(identical(other.bleed, bleed) || other.bleed == bleed)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.deletedAt, deletedAt) || other.deletedAt == deletedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.species, species) || other.species == species)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.deletedAt, deletedAt) || other.deletedAt == deletedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,species,bleed,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted,deletedAt);
+int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,species,breed,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted,deletedAt);
 
 @override
 String toString() {
-  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, species: $species, bleed: $bleed, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted, deletedAt: $deletedAt)';
+  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, species: $species, breed: $breed, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted, deletedAt: $deletedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PetModelCopyWith<$Res>  {
   factory $PetModelCopyWith(PetModel value, $Res Function(PetModel) _then) = _$PetModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String uid, String name, AddressModel address, Gender gender, int? age, double? weight, Species species, String bleed, String description, String imageUrl,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt, bool isAdopted, bool isDeleted,@TimestampConverterNullable() DateTime? deletedAt
+ String id, String uid, String name, AddressModel address, Gender gender, int? age, double? weight, Species species, String breed, String description, String imageUrl,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt, bool isAdopted, bool isDeleted,@TimestampConverterNullable() DateTime? deletedAt
 });
 
 
@@ -65,7 +65,7 @@ class _$PetModelCopyWithImpl<$Res>
 
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? species = null,Object? bleed = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,Object? deletedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? species = null,Object? breed = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,Object? deletedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,7 @@ as AddressModel,gender: null == gender ? _self.gender : gender // ignore: cast_n
 as Gender,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as int?,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double?,species: null == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
-as Species,bleed: null == bleed ? _self.bleed : bleed // ignore: cast_nullable_to_non_nullable
+as Species,breed: null == breed ? _self.breed : breed // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -177,10 +177,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String bleed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String breed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.breed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
   return orElse();
 
 }
@@ -198,10 +198,10 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String bleed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String breed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)  $default,) {final _that = this;
 switch (_that) {
 case _PetModel():
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.breed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -218,10 +218,10 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String bleed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String name,  AddressModel address,  Gender gender,  int? age,  double? weight,  Species species,  String breed,  String description,  String imageUrl, @TimestampConverter()  DateTime createdAt, @TimestampConverter()  DateTime updatedAt,  bool isAdopted,  bool isDeleted, @TimestampConverterNullable()  DateTime? deletedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _PetModel() when $default != null:
-return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.bleed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
+return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.age,_that.weight,_that.species,_that.breed,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isAdopted,_that.isDeleted,_that.deletedAt);case _:
   return null;
 
 }
@@ -233,7 +233,7 @@ return $default(_that.id,_that.uid,_that.name,_that.address,_that.gender,_that.a
 @JsonSerializable()
 
 class _PetModel implements PetModel {
-  const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.species, required this.bleed, required this.description, required this.imageUrl, @TimestampConverter() required this.createdAt, @TimestampConverter() required this.updatedAt, this.isAdopted = false, this.isDeleted = false, @TimestampConverterNullable() this.deletedAt});
+  const _PetModel({required this.id, required this.uid, required this.name, required this.address, required this.gender, required this.age, required this.weight, required this.species, required this.breed, required this.description, required this.imageUrl, @TimestampConverter() required this.createdAt, @TimestampConverter() required this.updatedAt, this.isAdopted = false, this.isDeleted = false, @TimestampConverterNullable() this.deletedAt});
   factory _PetModel.fromJson(Map<String, dynamic> json) => _$PetModelFromJson(json);
 
 @override final  String id;
@@ -244,7 +244,7 @@ class _PetModel implements PetModel {
 @override final  int? age;
 @override final  double? weight;
 @override final  Species species;
-@override final  String bleed;
+@override final  String breed;
 @override final  String description;
 @override final  String imageUrl;
 @override@TimestampConverter() final  DateTime createdAt;
@@ -266,16 +266,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.species, species) || other.species == species)&&(identical(other.bleed, bleed) || other.bleed == bleed)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.deletedAt, deletedAt) || other.deletedAt == deletedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PetModel&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.age, age) || other.age == age)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.species, species) || other.species == species)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isAdopted, isAdopted) || other.isAdopted == isAdopted)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.deletedAt, deletedAt) || other.deletedAt == deletedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,species,bleed,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted,deletedAt);
+int get hashCode => Object.hash(runtimeType,id,uid,name,address,gender,age,weight,species,breed,description,imageUrl,createdAt,updatedAt,isAdopted,isDeleted,deletedAt);
 
 @override
 String toString() {
-  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, species: $species, bleed: $bleed, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted, deletedAt: $deletedAt)';
+  return 'PetModel(id: $id, uid: $uid, name: $name, address: $address, gender: $gender, age: $age, weight: $weight, species: $species, breed: $breed, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isAdopted: $isAdopted, isDeleted: $isDeleted, deletedAt: $deletedAt)';
 }
 
 
@@ -286,7 +286,7 @@ abstract mixin class _$PetModelCopyWith<$Res> implements $PetModelCopyWith<$Res>
   factory _$PetModelCopyWith(_PetModel value, $Res Function(_PetModel) _then) = __$PetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String uid, String name, AddressModel address, Gender gender, int? age, double? weight, Species species, String bleed, String description, String imageUrl,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt, bool isAdopted, bool isDeleted,@TimestampConverterNullable() DateTime? deletedAt
+ String id, String uid, String name, AddressModel address, Gender gender, int? age, double? weight, Species species, String breed, String description, String imageUrl,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt, bool isAdopted, bool isDeleted,@TimestampConverterNullable() DateTime? deletedAt
 });
 
 
@@ -303,7 +303,7 @@ class __$PetModelCopyWithImpl<$Res>
 
 /// Create a copy of PetModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? species = null,Object? bleed = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,Object? deletedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uid = null,Object? name = null,Object? address = null,Object? gender = null,Object? age = freezed,Object? weight = freezed,Object? species = null,Object? breed = null,Object? description = null,Object? imageUrl = null,Object? createdAt = null,Object? updatedAt = null,Object? isAdopted = null,Object? isDeleted = null,Object? deletedAt = freezed,}) {
   return _then(_PetModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
@@ -313,7 +313,7 @@ as AddressModel,gender: null == gender ? _self.gender : gender // ignore: cast_n
 as Gender,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as int?,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double?,species: null == species ? _self.species : species // ignore: cast_nullable_to_non_nullable
-as Species,bleed: null == bleed ? _self.bleed : bleed // ignore: cast_nullable_to_non_nullable
+as Species,breed: null == breed ? _self.breed : breed // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable

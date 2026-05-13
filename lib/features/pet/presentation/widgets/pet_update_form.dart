@@ -33,13 +33,13 @@ class PetUpdateForm extends StatefulWidget {
 class _PetUpdateFormState extends State<PetUpdateForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _bleedController = TextEditingController();
+  final _breedController = TextEditingController();
   final _addressDetailController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _nameFocusNode = FocusNode();
-  final _bleedFocusNode = FocusNode();
+  final _breedFocusNode = FocusNode();
   final _addressDetailFocusNode = FocusNode();
   final _ageFocusNode = FocusNode();
   final _weightFocusNode = FocusNode();
@@ -88,13 +88,13 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
   @override
   void dispose() {
     _nameController.dispose();
-    _bleedController.dispose();
+    _breedController.dispose();
     _addressDetailController.dispose();
     _ageController.dispose();
     _weightController.dispose();
     _descriptionController.dispose();
     _nameFocusNode.dispose();
-    _bleedFocusNode.dispose();
+    _breedFocusNode.dispose();
     _addressDetailFocusNode.dispose();
     _ageFocusNode.dispose();
     _weightFocusNode.dispose();
@@ -106,7 +106,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
 
   Future<void> _initData() async {
     _nameController.text = widget.pet.name;
-    _bleedController.text = widget.pet.bleed;
+    _breedController.text = widget.pet.breed;
     _ageController.text = '${widget.pet.age}';
     _weightController.text = '${widget.pet.weight}';
     _descriptionController.text = widget.pet.description;
@@ -174,7 +174,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
       id: widget.pet.id,
       name: _nameController.text.trim(),
       species: _speciesListenable.value!,
-      bleed: _bleedController.text.trim(),
+      bleed: _breedController.text.trim(),
       addressDetail: _addressDetailController.text.trim(),
       province: _provinceListenable.value,
       ward: _wardListenable.value,
@@ -321,7 +321,7 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
             return null;
           },
           onFieldSubmitted: (value) {
-            _bleedFocusNode.requestFocus();
+            _breedFocusNode.requestFocus();
           },
         ),
         AppDropdownFormField<Species>(
@@ -341,8 +341,8 @@ class _PetUpdateFormState extends State<PetUpdateForm> {
           },
         ),
         AppTextFormField(
-          controller: _bleedController,
-          focusNode: _bleedFocusNode,
+          controller: _breedController,
+          focusNode: _breedFocusNode,
           title: 'Giống loài',
           hintText: 'VD: Golden, Mèo Anh lông ngắn,..',
           validator: (value) {

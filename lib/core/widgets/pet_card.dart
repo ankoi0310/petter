@@ -66,7 +66,7 @@ class PetCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    pet.bleed,
+                    pet.breed,
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colors.surface,
                     ),

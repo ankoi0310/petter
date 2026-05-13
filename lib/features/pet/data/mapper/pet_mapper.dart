@@ -11,7 +11,7 @@ extension PetMapper on PetModel {
       name: name,
       gender: gender,
       species: species,
-      bleed: bleed,
+      breed: breed,
       age: age,
       weight: weight,
       description: description,
