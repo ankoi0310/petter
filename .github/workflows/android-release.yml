@@ -72,24 +72,25 @@ jobs:
           name: petter-bundle-v${{ github.run_number }}
           path: build/app/outputs/bundle/release/app-release.aab
 
-  deploy:
-    name: Deploy Android Build
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Get App Bunble from artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: petter-bundle-v${{ github.run_number }}
-
-      - name: Release Build
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
-          packageName: dev.hvhan.petter
-          releaseFiles: app-release.aab
-          tracks: production
-          status: draft
+#  deploy:
+#    name: Deploy Android Build
+#    needs: build
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+#    steps:
+#      - uses: actions/checkout@v6
+#
+#      - name: Get App Bunble from artifacts
+#        uses: actions/download-artifact@v8
+#        with:
+#          name: petter-bundle-v${{ github.run_number }}
+#
+#      - name: Release Build
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+#          packageName: dev.hvhan.petter
+#          changesNotSentForReview: true
+#          releaseFiles: app-release.aab
+#          tracks: production
+#          status: draft
