@@ -11,7 +11,7 @@ _FavoriteModel _$FavoriteModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       uid: json['uid'] as String,
       petId: json['petId'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: const TimestampConverter().fromJson(json['createdAt']),
     );
 
 Map<String, dynamic> _$FavoriteModelToJson(_FavoriteModel instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$FavoriteModelToJson(_FavoriteModel instance) =>
       'id': instance.id,
       'uid': instance.uid,
       'petId': instance.petId,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

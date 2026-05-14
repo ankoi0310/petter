@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FavoriteModel {
 
- String get id; String get uid; String get petId; DateTime get createdAt;
+ String get id; String get uid; String get petId;@TimestampConverter() DateTime get createdAt;
 /// Create a copy of FavoriteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $FavoriteModelCopyWith<$Res>  {
   factory $FavoriteModelCopyWith(FavoriteModel value, $Res Function(FavoriteModel) _then) = _$FavoriteModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String uid, String petId, DateTime createdAt
+ String id, String uid, String petId,@TimestampConverter() DateTime createdAt
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String petId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String uid,  String petId, @TimestampConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FavoriteModel() when $default != null:
 return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String petId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String uid,  String petId, @TimestampConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _FavoriteModel():
 return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String petId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String uid,  String petId, @TimestampConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _FavoriteModel() when $default != null:
 return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
@@ -212,13 +212,13 @@ return $default(_that.id,_that.uid,_that.petId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _FavoriteModel implements FavoriteModel {
-  const _FavoriteModel({required this.id, required this.uid, required this.petId, required this.createdAt});
+  const _FavoriteModel({required this.id, required this.uid, required this.petId, @TimestampConverter() required this.createdAt});
   factory _FavoriteModel.fromJson(Map<String, dynamic> json) => _$FavoriteModelFromJson(json);
 
 @override final  String id;
 @override final  String uid;
 @override final  String petId;
-@override final  DateTime createdAt;
+@override@TimestampConverter() final  DateTime createdAt;
 
 /// Create a copy of FavoriteModel
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$FavoriteModelCopyWith<$Res> implements $FavoriteModelCopy
   factory _$FavoriteModelCopyWith(_FavoriteModel value, $Res Function(_FavoriteModel) _then) = __$FavoriteModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String uid, String petId, DateTime createdAt
+ String id, String uid, String petId,@TimestampConverter() DateTime createdAt
 });
 
 
