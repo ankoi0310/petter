@@ -36,7 +36,7 @@ class PetCard extends StatelessWidget {
       enabled: isLoading,
       child: Stack(
         children: [
-          PetImageContainer(pet: pet),
+          Positioned.fill(child: PetImageContainer(pet: pet)),
 
           Positioned(
             bottom: 0,

@@ -16,7 +16,10 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Tài khoản')),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const .symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
           child: Column(
             spacing: 20,
             children: [
@@ -27,12 +30,16 @@ class AccountPage extends StatelessWidget {
               ListTile(
                 tileColor: context.colors.errorContainer,
                 shape: RoundedRectangleBorder(
-                  borderRadius: .circular(8),
+                  borderRadius: BorderRadius.circular(8),
                   side: BorderSide(color: context.colors.error),
                 ),
-                contentPadding: const .symmetric(horizontal: 16),
-                onTap: () =>
-                    context.read<AuthBloc>().add(const .signOut()),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                onTap: () => context.read<AuthBloc>().add(
+                  const AuthEvent.signOut(),
+                ),
                 leading: Icon(
                   Icons.logout_outlined,
                   color: context.colors.error,

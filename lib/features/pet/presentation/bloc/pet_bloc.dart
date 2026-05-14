@@ -66,7 +66,10 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     _GetPets event,
     Emitter<PetState> emit,
   ) async {
-    emit(const .loading());
+    if (_homePets.isEmpty) {
+      emit(const .loading());
+    }
+
     final result = await _getPets(event.params);
     result.fold((failure) => emit(.error(failure.message)), (pets) {
       if (event.isSearch) {
@@ -82,7 +85,10 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     _GetUserPets event,
     Emitter<PetState> emit,
   ) async {
-    emit(const .loading());
+    if (_userPets.isEmpty) {
+      emit(const .loading());
+    }
+
     final result = await _getUserPets(NoParams());
     result.fold((failure) => emit(.error(failure.message)), (pets) {
       _userPets = pets;

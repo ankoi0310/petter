@@ -18,41 +18,33 @@ class PetImageContainer extends StatelessWidget {
         pathParameters: {'id': pet.id},
         extra: pet,
       ),
-      child: CachedNetworkImage(
-        cacheKey: pet.imageUrl,
-        imageUrl: pet.imageUrl,
-        memCacheHeight: 300,
-        memCacheWidth: 300,
-        fit: .cover,
-        imageBuilder: (context, imageProvider) {
-          return Container(
-            decoration: BoxDecoration(
-              color: context.colors.primaryContainer,
-              image: DecorationImage(
-                image: imageProvider,
-                fit: .cover,
-              ),
-              border: Border.all(
-                color: context.colors.primary,
-                width: 2,
-              ),
-              borderRadius: .circular(16),
-            ),
-          );
-        },
-        placeholder: (context, url) {
-          return Container(
-            decoration: BoxDecoration(
-              color: context.colors.primaryContainer,
-              border: Border.all(
-                color: context.colors.primary,
-                width: 2,
-              ),
-              borderRadius: .circular(16),
-            ),
-          );
-        },
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.colors.primaryContainer,
+          border: Border.all(color: context.colors.primary, width: 2),
+          borderRadius: .circular(16),
+        ),
+        child: ClipRRect(
+          borderRadius: .circular(16),
+          child: CachedNetworkImage(
+            imageUrl: pet.imageUrl,
+            fadeOutDuration: Duration.zero,
+            fadeInDuration: Duration.zero,
+            fit: .cover,
+            placeholder: (context, url) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: context.colors.primaryContainer,
+                  border: .all(
+                    color: context.colors.primary,
+                    width: 2,
+                  ),
+                  borderRadius: .circular(16),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

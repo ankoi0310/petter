@@ -19,6 +19,8 @@ import 'package:petter/features/notification/presentation/bloc/notification_bloc
 import 'package:petter/features/notification/presentation/pages/notification_page.dart';
 import 'package:petter/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:petter/features/pet/domain/entities/pet.dart';
+import 'package:petter/features/pet/domain/entities/pet_filter_params.dart';
+import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/pet/presentation/pages/my_pet_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_create_page.dart';
 import 'package:petter/features/pet/presentation/pages/pet_detail_page.dart';
@@ -51,6 +53,9 @@ final routerConfig = GoRouter(
     return authState.maybeWhen(
       authenticated: (user) {
         if (location == AppRoutes.splash.path || isPublic) {
+          context.read<PetBloc>().add(
+            const .getPets(params: PetFilterParams(limit: 10)),
+          );
           context.read<NotificationBloc>().add(
             const .getNotifications(),
           );

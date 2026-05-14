@@ -6,7 +6,6 @@ import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/features/adoption/presentation/bloc/adoption_bloc.dart';
 import 'package:petter/features/favorite/presentation/bloc/favorite_bloc.dart';
-import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 
 class HomeBottomNav extends StatelessWidget {
   const HomeBottomNav({super.key});
@@ -43,7 +42,6 @@ class HomeBottomNav extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              context.read<PetBloc>().add(.getUserPets());
               await context.pushNamed(AppRoutes.myPet.name);
             },
             child: const Icon(Iconsax.pet_copy),

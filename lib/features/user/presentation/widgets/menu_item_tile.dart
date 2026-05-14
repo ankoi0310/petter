@@ -20,8 +20,12 @@ class MenuItemTile extends StatelessWidget {
       title: Text(title),
       tileColor: context.colors.primaryContainer,
       shape: RoundedRectangleBorder(
-        borderRadius: .circular(8),
+        borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: context.colors.outline),
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
       ),
       trailing: trailing,
     );

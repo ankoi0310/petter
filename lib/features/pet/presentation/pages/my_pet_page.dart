@@ -8,8 +8,30 @@ import 'package:petter/core/widgets/button.dart';
 import 'package:petter/features/pet/presentation/bloc/pet_bloc.dart';
 import 'package:petter/features/pet/presentation/widgets/my_pet_grid_view.dart';
 
-class MyPetPage extends StatelessWidget {
+class MyPetPage extends StatefulWidget {
   const MyPetPage({super.key});
+
+  @override
+  State<MyPetPage> createState() => _MyPetPageState();
+}
+
+class _MyPetPageState extends State<MyPetPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    final petBloc = context.read<PetBloc>();
+
+    final state = petBloc.state;
+    final shouldFetch = state.maybeWhen(
+      loaded: (_, _, userPets, _) => userPets.isEmpty,
+      orElse: () => true,
+    );
+
+    if (shouldFetch) {
+      petBloc.add(const .getUserPets());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,36 +46,41 @@ class MyPetPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: BlocConsumer<PetBloc, PetState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              deletePetSuccess: () {
-                showSnackBar(
-                  context,
-                  content: 'Đã xoá thú cưng thành công',
-                );
-              },
-            );
-          },
-          builder: (context, state) {
-            return state.maybeWhen(
-              loaded: (homePets, searchPets, userPets, _) {
-                if (userPets.isEmpty) {
-                  return const Center(
-                    child: Text('Bạn chưa đăng tải thú cưng nào'),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<PetBloc>().add(const .getUserPets());
+        },
+        child: SafeArea(
+          child: BlocConsumer<PetBloc, PetState>(
+            listener: (context, state) {
+              state.whenOrNull(
+                deletePetSuccess: () {
+                  showSnackBar(
+                    context,
+                    content: 'Đã xoá thú cưng thành công',
                   );
-                }
+                },
+              );
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (_, _, userPets, _) {
+                  if (userPets.isEmpty) {
+                    return const Center(
+                      child: Text('Bạn chưa đăng tải thú cưng nào'),
+                    );
+                  }
 
-                return MyPetGridView(pets: userPets);
-              },
-              orElse: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            );
-          },
+                  return MyPetGridView(pets: userPets);
+                },
+                orElse: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
