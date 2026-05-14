@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:petter/core/extensions/build_context_extension.dart';
 import 'package:petter/core/router/router.dart';
 import 'package:petter/features/user/presentation/widgets/menu_item_tile.dart';
 
-class AppSection extends StatelessWidget {
+class AppSection extends StatefulWidget {
   const AppSection({super.key});
+
+  @override
+  State<AppSection> createState() => _AppSectionState();
+}
+
+class _AppSectionState extends State<AppSection> {
+  late Future<PackageInfo> _packageInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _packageInfo = PackageInfo.fromPlatform();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +50,21 @@ class AppSection extends StatelessWidget {
             ),
             MenuItemTile(
               title: 'Phiên bản',
-              trailing: Text(
-                '1.0.0',
-                style: context.textTheme.bodySmall,
+              trailing: FutureBuilder<PackageInfo>(
+                future: _packageInfo,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final version = snapshot.data!.version;
+                    return Text(
+                      version,
+                      style: context.textTheme.bodySmall,
+                    );
+                  }
+                  return Text(
+                    'Loading...',
+                    style: context.textTheme.bodySmall,
+                  );
+                },
               ),
             ),
           ],
